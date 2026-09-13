@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Deck</title>
+<title>Demystifying LLMs: From Foundation Models to Autonomous Agents</title>
 <!--
   ==========================================================================
-  DECK.HTML — the slide deck. One deck per cloned repo.
+  DECK.HTML — Demystifying LLMs: From Foundation Models to Autonomous Agents.
 
   Assembled from:
     styles/base.css            structure + print rules (always linked)
@@ -20,6 +20,8 @@
     - Figures are standalone .svg files in assets/, embedded with <img>.
       Never inline SVG markup here.
     - One .slide per printed page; print via Chromium → PDF.
+    - Slide text is verbatim from Demystifying_LLMs_Slide_Deck.md.
+      Illustration slots are .figure-ph placeholders until the SVGs exist.
   ==========================================================================
 -->
 <link rel="stylesheet" href="styles/base.css">
@@ -27,139 +29,811 @@
 </head>
 <body>
 
-<!-- ── 1 · COVER (layouts/cover.html) ─────────────────────────────────── -->
-<section class="slide layout-cover">
+<!-- ── 1 · COVER (layouts/cover.html) ───────────────────────────────────── -->
+<section class="slide layout-cover inverse">
   <div class="slide-content">
-    <p class="kicker">Slide-Agent Deck · 2026</p>
-    <h1>Your Presentation Title</h1>
-    <p class="lead">Replace this seed content with your own story. This deck demonstrates the harness: layouts, tokens and the kujaku theme.</p>
+    <p class="kicker">Workshop · [Date]</p>
+    <h1>Demystifying LLMs</h1>
+    <p class="lead">From Foundation Models to Autonomous Agents</p>
     <div class="meta">
-      <span>Author Name · Affiliation</span>
-      <span>2026-08-14</span>
+      <span>[Author Name] · [Affiliation]</span>
+      <span>[Date]</span>
     </div>
   </div>
 </section>
 
-<!-- ── 2 · AGENDA (layouts/agenda.html) ───────────────────────────────── -->
-<section class="slide layout-agenda">
+<!-- ── 2 · DIAGRAM (layouts/diagram-focus.html) ─────────────────────────── -->
+<section class="slide layout-diagram">
   <div class="slide-content">
-    <p class="kicker">Agenda</p>
-    <h2>What we will cover</h2>
-    <ol class="agenda-list">
-      <li class="agenda-item">
-        <span class="agenda-num">01</span>
-        <span class="agenda-title">How this deck system works</span>
-      </li>
-      <li class="agenda-item">
-        <span class="agenda-num">02</span>
-        <span class="agenda-title">Content slides &amp; figures</span>
-      </li>
-      <li class="agenda-item">
-        <span class="agenda-num">03</span>
-        <span class="agenda-title">Results &amp; numbers</span>
-      </li>
-      <li class="agenda-item">
-        <span class="agenda-num">04</span>
-        <span class="agenda-title">Wrap-up</span>
-      </li>
-    </ol>
+    <p class="kicker">Introduction</p>
+    <h2>The Three Pillars</h2>
+    <div class="diagram-wrap">
+      <figure class="figure figure-contain">
+        <div class="figure-ph">illustration placeholder · three stacked layers (foundation model / post-training / agentic layer)</div>
+      </figure>
+      <div class="notes">
+        <div class="note">
+          <h3>The Foundation Model</h3>
+          <p>Core architecture and baseline pre-training</p>
+        </div>
+        <div class="note">
+          <h3>Post-Training</h3>
+          <p>Transforming completion engines into assistants</p>
+        </div>
+        <div class="note">
+          <h3>The Agentic Layer</h3>
+          <p>Tools, feedback loops, and dynamic context</p>
+        </div>
+      </div>
+    </div>
   </div>
   <footer class="slide-footer">
-    <span>Your Presentation Title</span>
+    <span>Demystifying LLMs</span>
     <span>2</span>
   </footer>
 </section>
 
-<!-- ── 3 · BULLETS (layouts/title-bullets.html) ───────────────────────── -->
-<section class="slide layout-bullets">
+<!-- ── 3 · SECTION DIVIDER (layouts/section-divider.html) ───────────────── -->
+<section class="slide layout-section inverse">
   <div class="slide-content">
-    <p class="kicker">Section 01</p>
-    <h2>Every slide is a layout filled with your content</h2>
-    <ul>
-      <li>Pick one of the <strong>16 layouts</strong> in <code>layouts/</code>.</li>
-      <li>All styling comes from <code>base.css</code> + the active <em>theme</em>.</li>
-      <li>Colors and fonts only ever come from design tokens.</li>
-      <li>Print to PDF: each slide is exactly one page, identical to screen.</li>
-    </ul>
+    <p class="section-num">01</p>
+    <h2>The Foundation Model (The LLM)</h2>
   </div>
-  <footer class="slide-footer">
-    <span>Your Presentation Title</span>
-    <span>3</span>
-  </footer>
 </section>
 
-<!-- ── 4 · DIAGRAM (layouts/diagram-focus.html) ───────────────────────── -->
-<section class="slide layout-diagram">
+<!-- ── 4 · IMAGE-LEFT (layouts/image-left.html) ────────────────────────── -->
+<section class="slide layout-image-split">
   <div class="slide-content">
-    <p class="kicker">Section 02</p>
-    <h2>Figures are self-contained SVGs in theme colors</h2>
-    <div class="diagram-wrap">
-      <figure class="figure figure-contain">
-        <img src="assets/pipeline.svg" alt="Pipeline: data flows into a model, then to a decision, with a feedback loop">
-      </figure>
-      <div class="notes">
-        <div class="note">
-          <h3>Portable</h3>
-          <p>Each figure file embeds its theme as a style block — opens in any tool.</p>
-        </div>
-        <div class="note">
-          <h3>Re-themeable</h3>
-          <p>Swap the figure's style block for another theme's. Nothing else changes.</p>
-        </div>
-      </div>
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · training corpus vs. model file funnel (brutal ratio)</div>
+    </figure>
+    <div class="body">
+      <p class="kicker">Part 1 · The Foundation Model</p>
+      <h2>Compression &amp; Intelligence</h2>
+      <ul>
+        <li>The LLM functions like a <strong>lossy compressed archive</strong> of public internet data</li>
+        <li>The zip file analogy: everything is in there, but nothing is stored exactly</li>
+      </ul>
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Your Presentation Title</span>
+    <span>Demystifying LLMs</span>
     <span>4</span>
   </footer>
 </section>
 
-<!-- ── 5 · STATS (layouts/stat-grid.html) ─────────────────────────────── -->
-<section class="slide layout-stats">
+<!-- ── 5 · IMAGE-RIGHT (layouts/image-right.html) ──────────────────────── -->
+<section class="slide layout-image-split">
   <div class="slide-content">
-    <p class="kicker">Section 03</p>
-    <h2>Headline numbers, styled by tokens</h2>
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-num">16</div>
-        <div class="stat-label">Ready layouts</div>
-        <div class="stat-note">in layouts/</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">3</div>
-        <div class="stat-label">Wada-inspired themes</div>
-        <div class="stat-note">in styles/themes/</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">1</div>
-        <div class="stat-label">File to edit</div>
-        <div class="stat-note">deck.html</div>
-      </div>
+    <div class="body">
+      <p class="kicker">Part 1 · The Foundation Model</p>
+      <h2>Tokens: How Models Read</h2>
+      <ul>
+        <li>Training datasets are split into discrete <strong>sub-word units (tokens)</strong></li>
+        <li>Tokens are how models ingest, index, and represent any textual input</li>
+        <li>A token is not a word, not a syllable, not a character — it is whatever the tokenizer learned was frequent</li>
+        <li>The same sentence costs a different number of tokens depending on the language it is written in</li>
+      </ul>
     </div>
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · token chips in several languages + long-word splits</div>
+    </figure>
   </div>
   <footer class="slide-footer">
-    <span>Your Presentation Title</span>
+    <span>Demystifying LLMs</span>
     <span>5</span>
   </footer>
 </section>
 
-<!-- ── 6 · CLOSING (layouts/closing.html) ─────────────────────────────── -->
-<section class="slide layout-closing inverse">
+<!-- ── 6 · IMAGE-LEFT (layouts/image-left.html) ────────────────────────── -->
+<section class="slide layout-image-split">
   <div class="slide-content">
-    <p class="kicker">Thank you</p>
-    <h2>Questions &amp; discussion</h2>
-    <div class="contact">
-      <div>
-        <strong>Email</strong>
-        name@example.org
-      </div>
-      <div>
-        <strong>Code</strong>
-        github.com/org/repo
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · generation loop: current text → distribution → sample → append</div>
+    </figure>
+    <div class="body">
+      <p class="kicker">Part 1 · The Foundation Model</p>
+      <h2>Autoregressive Generation</h2>
+      <ul>
+        <li>At each step, the model produces a <strong>probability distribution over its entire vocabulary</strong> — a score for every possible next token</li>
+        <li>The next token is then <strong>sampled</strong> from that distribution</li>
+        <li>The chosen token is appended to the text, and the whole process starts again for the following token</li>
+        <li>Sampling — not the model — is what makes the same prompt produce different answers</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>6</span>
+  </footer>
+</section>
+
+<!-- ── 7 · IMAGE-TOP (layouts/image-top.html) ───────────────────────────── -->
+<section class="slide layout-image-top">
+  <div class="slide-content">
+    <div class="header">
+      <p class="kicker">Part 1 · The Foundation Model</p>
+      <h2>I drank a delicious cup of...</h2>
+    </div>
+    <figure class="figure figure-contain">
+      <div class="figure-ph">illustration placeholder · bar chart: coffee, tea, matcha, cacao, …thousands more + sampling marker</div>
+    </figure>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>7</span>
+  </footer>
+</section>
+
+<!-- ── 8 · IMAGE-RIGHT (layouts/image-right.html) ──────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <div class="body">
+      <p class="kicker">Part 1 · The Foundation Model</p>
+      <h2>Reflexive Writing, Not a Knowledge Base</h2>
+      <ul>
+        <li>The model is <strong>not a structured query engine</strong> — there is no lookup, no record being retrieved</li>
+        <li>It performs “reflexive writing”, conditioned entirely by the input prompt</li>
+        <li>When the continuation is obvious, the result looks like knowledge — but the mechanism is the same one that continues any other sentence</li>
+      </ul>
+    </div>
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · forced continuation vs. open fan-out — identical mechanism</div>
+    </figure>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>8</span>
+  </footer>
+</section>
+
+<!-- ── 9 · BULLETS (layouts/title-bullets.html) ─────────────────────────── -->
+<section class="slide layout-bullets">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · The Foundation Model</p>
+    <h2>Language Disparity in the Data</h2>
+    <ul>
+      <li>Massive imbalance in pre-training sets — roughly <strong>80% English dominance</strong></li>
+      <li>Consequences for everyone not working in English:
+        <ul>
+          <li><strong>Quality gap</strong> — prose, vocabulary and factual coverage are visibly richer in English</li>
+          <li><strong>Cost and context</strong> — the same text costs more tokens in most other languages, so it eats more of the context window</li>
+          <li><strong>Cultural default</strong> — norms, references and examples skew towards English-language sources</li>
+          <li><strong>Local knowledge</strong> — national regulations, administrative procedures and domain jargon are thinner in the data</li>
+        </ul>
+      </li>
+      <li>Practical consequence: working in English and translating afterwards often beats working directly in another language — and the gap widens as the language gets smaller</li>
+    </ul>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>9</span>
+  </footer>
+</section>
+
+<!-- ── 10 · DIAGRAM (layouts/diagram-focus.html) ────────────────────────── -->
+<section class="slide layout-diagram">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · The Foundation Model</p>
+    <h2>Structural Boundaries</h2>
+    <div class="diagram-wrap">
+      <figure class="figure figure-contain">
+        <div class="figure-ph">illustration placeholder · three icons: bounded frame, cutoff calendar, flagged fabrication</div>
+      </figure>
+      <div class="notes">
+        <div class="note">
+          <h3>Context window</h3>
+          <p>Operational limit on active token processing</p>
+        </div>
+        <div class="note">
+          <h3>Knowledge cutoff</h3>
+          <p>Fixed temporal boundary of the pre-training data</p>
+        </div>
+        <div class="note">
+          <h3>Hallucinations</h3>
+          <p>Confident generation of plausible but factually inaccurate outputs</p>
+        </div>
       </div>
     </div>
   </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>10</span>
+  </footer>
+</section>
+
+<!-- ── 11 · STATEMENT (layouts/big-statement.html) ──────────────────────── -->
+<section class="slide layout-statement">
+  <div class="slide-content">
+    <p class="kicker">Transition</p>
+    <p>We have compressed human knowledge into a model — but it only completes text. How do we turn a raw completion engine into a helpful assistant?</p>
+  </div>
+</section>
+
+<!-- ── 12 · SECTION DIVIDER (layouts/section-divider.html) ──────────────── -->
+<section class="slide layout-section inverse">
+  <div class="slide-content">
+    <p class="section-num">02</p>
+    <h2>Post-Training (The Chatbot)</h2>
+  </div>
+</section>
+
+<!-- ── 13 · IMAGE-LEFT (layouts/image-left.html) ───────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · chat → cat, maison → house, arbre → tree (accent reveal)</div>
+    </figure>
+    <div class="body">
+      <p class="kicker">Part 2 · Post-Training</p>
+      <h2>In-Context Pattern Matching</h2>
+      <ul>
+        <li>Emergent capability to recognise and reproduce <strong>structural patterns</strong> found in the prompt itself</li>
+        <li>Nobody trained the model for this specific task, and nobody gave it an instruction — it continues the pattern because continuing is all it does</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>13</span>
+  </footer>
+</section>
+
+<!-- ── 14 · IMAGE-RIGHT (layouts/image-right.html) ─────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <div class="body">
+      <p class="kicker">Part 2 · Post-Training</p>
+      <h2>Instruction Tuning &amp; Assistant Alignment</h2>
+      <ul>
+        <li><strong>Instruction tuning</strong> — fine-tuning the base model on conversational datasets: instructions paired with the responses an assistant should give</li>
+        <li>Pattern reproduction again, this time at training scale — the pattern being learned is the assistant role itself</li>
+        <li>The result answers the instruction instead of continuing the text, with a stable persona and tone across turns</li>
+        <li>The base model was not refusing to help — it had no notion of being asked</li>
+      </ul>
+    </div>
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · same prompt: base model completes vs. tuned model responds</div>
+    </figure>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>14</span>
+  </footer>
+</section>
+
+<!-- ── 15 · IMAGE-LEFT (layouts/image-left.html) ────────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · grading splits into factual check (knows) vs. preference pick (behaves), grades looping back with iteration counter</div>
+    </figure>
+    <div class="body">
+      <p class="kicker">Part 2 · Post-Training</p>
+      <h2>Reinforcement Learning Horizons</h2>
+      <ul>
+        <li><strong>Reinforcement learning</strong> — the model answers, the answer is graded, and training reinforces whatever scores well</li>
+        <li><strong>RL on verifiable answers</strong> — automatic grading against known-correct results, over encyclopedic and factual datasets: this is what buys accuracy and factual consistency</li>
+        <li><strong>RLHF</strong> — humans compare two candidate answers and keep the better one: this is what shapes tone, helpfulness and safety</li>
+        <li>Two distinct targets: what the model <strong>knows</strong>, and how it <strong>behaves</strong></li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>15</span>
+  </footer>
+</section>
+
+<!-- ── 16 · IMAGE-RIGHT (layouts/image-right.html) ──────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <div class="body">
+      <p class="kicker">Part 2 · Post-Training</p>
+      <h2>System 2 Thinking: Reasoning RL</h2>
+      <ul>
+        <li>Models are trained to generate <strong>internal scratchpad reasoning</strong> before emitting a response</li>
+        <li>The model learns to rephrase, explore strategies, notice mistakes, and self-correct internally</li>
+        <li>The visible answer is the tip of a much longer hidden process</li>
+      </ul>
+    </div>
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · tidy answer above the line, dense messy reasoning below</div>
+    </figure>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>16</span>
+  </footer>
+</section>
+
+<!-- ── 17 · IMAGE-LEFT (layouts/image-left.html) ────────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · three growing conversation bars, re-sent portion marked cached</div>
+    </figure>
+    <div class="body">
+      <p class="kicker">Part 2 · Post-Training</p>
+      <h2>Chat Is Stateless</h2>
+      <ul>
+        <li>There is no ongoing conversation on the model side — the model remembers nothing between two messages</li>
+        <li>Every new message <strong>re-submits the full history</strong> alongside it, on every API call</li>
+        <li>Direct consequence: <strong>KV cache</strong> — key-value caching stores the attention states already computed for the history, so the same text is not re-processed from scratch at every turn</li>
+        <li>Without it, every additional turn would be slower and more expensive than the last</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>17</span>
+  </footer>
+</section>
+
+<!-- ── 18 · IMAGE-RIGHT (layouts/image-right.html) ──────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <div class="body">
+      <p class="kicker">Part 2 · Post-Training</p>
+      <h2>Context Rot: The Long Conversation Trade-off</h2>
+      <ul>
+        <li>The KV cache makes long conversations cheap and fast — so nothing pushes you to ever start a new one</li>
+        <li>But reasoning performance <strong>degrades gradually as context size scales up</strong>: instructions given early get diluted, contradictions accumulate, attention spreads thin</li>
+        <li>The failure is silent — the model does not warn you that it is doing worse</li>
+        <li>Practical rule for daily use: a new topic deserves a new conversation; restate the goal when a thread gets long; keep only the documents that are still relevant</li>
+      </ul>
+    </div>
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · quality-vs-length slope: still-fine zone, start-a-new-chat zone (no numbers)</div>
+    </figure>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>18</span>
+  </footer>
+</section>
+
+<!-- ── 19 · IMAGE-LEFT (layouts/image-left.html) ────────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · from memory (average of everything) vs. grounded in sources (a position)</div>
+    </figure>
+    <div class="body">
+      <p class="kicker">Part 2 · Post-Training</p>
+      <h2>Grounding via Context Injection</h2>
+      <ul>
+        <li><strong>Parametric memory</strong> — writing from what the model absorbed during training</li>
+        <li><strong>Context grounding</strong> — composing a grounded analysis directly from user-provided documents inside the active prompt</li>
+        <li>Same model, same question: what changes is what is in the prompt</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>19</span>
+  </footer>
+</section>
+
+<!-- ── 20 · STATEMENT (layouts/big-statement.html) ──────────────────────── -->
+<section class="slide layout-statement">
+  <div class="slide-content">
+    <p class="kicker">Transition</p>
+    <p>We turned the model into a reasoning assistant — but it still waits for us to manually fix its mistakes. What happens when we let it act on its own?</p>
+  </div>
+</section>
+
+<!-- ── 21 · SECTION DIVIDER (layouts/section-divider.html) ──────────────── -->
+<section class="slide layout-section inverse">
+  <div class="slide-content">
+    <p class="section-num">03</p>
+    <h2>Tools and Agentic Loops</h2>
+  </div>
+</section>
+
+<!-- ── 22 · IMAGE-RIGHT (layouts/image-right.html) ──────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <div class="body">
+      <p class="kicker">Part 3 · Tools and Agentic Loops</p>
+      <h2>What Is an “Agent”? Nobody Quite Agrees</h2>
+      <ul>
+        <li>The word has no settled definition, which is why conversations about agents go in circles</li>
+        <li>Is the agent the <strong>model</strong>? The <strong>software around it</strong>? The <strong>combination</strong>? Vendors use the term for all three</li>
+        <li>What we <em>can</em> define precisely:
+          <ul>
+            <li>The <strong>LLM</strong> is the text and reasoning engine</li>
+            <li>The <strong>harness</strong> is the software built around it: the tools, the loop, the state, the interface</li>
+            <li>“Agent” is best treated as a <strong>degree, not a category</strong> — how much initiative the harness lets the model take between two human interventions</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · chatbot-to-multi-agent spectrum with fuzzy “agent” band</div>
+    </figure>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>22</span>
+  </footer>
+</section>
+
+<!-- ── 23 · IMAGE-LEFT (layouts/image-left.html) ────────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · three lanes: user → agent call → system response → answer</div>
+    </figure>
+    <div class="body">
+      <p class="kicker">Part 3 · Tools and Agentic Loops</p>
+      <h2>Tool Calling Foundations</h2>
+      <ul>
+        <li>If a language model can write text, it can write <strong>executable structured instructions</strong> for external API tools</li>
+        <li>The model does not run anything itself — it <em>writes a request</em>, and the surrounding software executes it and writes the result back</li>
+        <li>Which makes the conversation a <strong>three-party exchange</strong>: the user, the agent, and the system that answers the agent’s requests</li>
+        <li>Two of those three parties are usually invisible to the user</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>23</span>
+  </footer>
+</section>
+
+<!-- ── 24 · IMAGE-RIGHT (layouts/image-right.html) ──────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <div class="body">
+      <p class="kicker">Part 3 · Tools and Agentic Loops</p>
+      <h2>The Self-Referential Execution Flow</h2>
+      <ul>
+        <li><code>Instruction Message</code> → <code>Tool Response Message</code></li>
+        <li>The system interacts with itself, in an automated loop</li>
+        <li>Each tool response becomes new context, which conditions the next instruction, which triggers the next tool call</li>
+        <li>One question rarely means one tool call: the exchange repeats until the agent has what it needs</li>
+      </ul>
+    </div>
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · closed model↔tools circuit, human at entry and exit only</div>
+    </figure>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>24</span>
+  </footer>
+</section>
+
+<!-- ── 25 · IMAGE-LEFT (layouts/image-left.html) ────────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · request fanning into weather / places / routing, converging to itinerary</div>
+    </figure>
+    <div class="body">
+      <p class="kicker">Part 3 · Tools and Agentic Loops</p>
+      <h2>A Weekend in Paris</h2>
+      <ul>
+        <li>One request in plain language: <em>“Plan me a weekend in Paris in two weeks, I like museums and I don’t want to walk more than twenty minutes between stops.”</em></li>
+        <li>What the agent has to go and fetch before it can answer anything:
+          <ul>
+            <li><strong>Weather</strong> — the forecast for those specific dates, to decide what is indoors and what is outdoors</li>
+            <li><strong>Places</strong> — museums and restaurants, with opening hours and closing days</li>
+            <li><strong>Routing</strong> — actual walking times between candidate stops, to respect the constraint</li>
+          </ul>
+        </li>
+        <li>None of it is in the model. All of it is fetched, then reasoned over.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>25</span>
+  </footer>
+</section>
+
+<!-- ── 26 · IMAGE-RIGHT (layouts/image-right.html) ──────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <div class="body">
+      <p class="kicker">Part 3 · Tools and Agentic Loops</p>
+      <h2>Retrieval: Bringing Data In</h2>
+      <ul>
+        <li><strong>RAG</strong> (retrieval-augmented generation), database querying, document and email search</li>
+        <li>The agent searches for what it needs, when it needs it, instead of being handed everything up front</li>
+        <li>Goal: automatically fetch <strong>dynamic context</strong> into the active prompt window</li>
+        <li>This is Slide 19’s grounding, made automatic — the agent attaches the document to itself</li>
+      </ul>
+    </div>
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · funnel: sources searched, ranked, selected into the context window</div>
+    </figure>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>26</span>
+  </footer>
+</section>
+
+<!-- ── 27 · IMAGE-LEFT (layouts/image-left.html) ────────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · tool tiles (send, schedule, update…) with irreversible badges</div>
+    </figure>
+    <div class="body">
+      <p class="kicker">Part 3 · Tools and Agentic Loops</p>
+      <h2>Acting Through APIs</h2>
+      <ul>
+        <li>Retrieval reads; <strong>APIs act</strong></li>
+        <li>Anything with an API is reachable: send the email, create the calendar event, update the CRM record, open the ticket, publish the post, drive a 3D or CAD application to build a model</li>
+        <li>The same mechanism as Slide 23 — the model writes a structured request — only now the request <em>changes something</em></li>
+        <li>Which makes the distinction that matters in practice: <strong>reversible actions vs. irreversible ones</strong>, and which ones you are willing to leave unsupervised</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>27</span>
+  </footer>
+</section>
+
+<!-- ── 28 · IMAGE-RIGHT (layouts/image-right.html) ──────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <div class="body">
+      <p class="kicker">Part 3 · Tools and Agentic Loops</p>
+      <h2>Computer Use: When There Is No API</h2>
+      <ul>
+        <li>When there is <strong>no API</strong>, the agent can use the software the way a person does: read the screen, move the pointer, click, type</li>
+        <li>Unlocks the long tail — legacy internal applications, unstructured web interfaces, anything nobody ever built an integration for</li>
+        <li>Slower, more fragile and more expensive than an API call: the interface can change, and the agent has to re-find its footing</li>
+        <li>The right mental model: not a new superpower, but a fallback for everything that was never made machine-readable</li>
+      </ul>
+    </div>
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · dated app with cursor path vs. one-step API badge</div>
+    </figure>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>28</span>
+  </footer>
+</section>
+
+<!-- ── 29 · IMAGE-LEFT (layouts/image-left.html) ────────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · estimated total vs. computed total (auditable script)</div>
+    </figure>
+    <div class="body">
+      <p class="kicker">Part 3 · Tools and Agentic Loops</p>
+      <h2>Code Execution</h2>
+      <ul>
+        <li>The agent writes code and runs it in a sandbox, then uses the result</li>
+        <li>“Why would I need code?” — because some things a language model is bad at, code is exact at:
+          <ul>
+            <li><strong>Volume</strong> — apply the same treatment to 5,000 rows of a spreadsheet: the rows may well fit in the context window, but the model will not reason identically on row 4,000 and on row 12</li>
+            <li><strong>Arithmetic</strong> — computing totals, deltas and rates exactly, rather than predicting plausible-looking numbers</li>
+            <li><strong>Repeatability</strong> — the same script on next month’s file gives the same treatment, and can be audited line by line</li>
+            <li><strong>Orchestration</strong> — looping over tool calls, chaining them, handling the failures</li>
+          </ul>
+        </li>
+        <li>Structured data parsing and precise programmatic tool execution inside code environments</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>29</span>
+  </footer>
+</section>
+
+<!-- ── 30 · IMAGE-RIGHT (layouts/image-right.html) ──────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <div class="body">
+      <p class="kicker">Part 3 · Tools and Agentic Loops</p>
+      <h2>Dynamic Instructions (Skills)</h2>
+      <ul>
+        <li>Loading specific behavioural procedures, domain rules, and action templates <strong>on the fly</strong>, as needed</li>
+        <li>The key distinction from Slide 26: retrieval injects <strong>data</strong>; skills inject <strong>instructions</strong> — how to do the thing, not what the thing is</li>
+        <li>Typical contents: the house format for a client report, the validation checklist before anything is published, naming and filing conventions, the steps of the monthly close, the tone rules for external communication</li>
+        <li>Loaded only when relevant, which keeps the standing instructions short — and Slide 18 explains why that matters</li>
+      </ul>
+    </div>
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · shelf of closed folders, one open folder flowing into context</div>
+    </figure>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>30</span>
+  </footer>
+</section>
+
+<!-- ── 31 · IMAGE-LEFT (layouts/image-left.html) ────────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · Think → Act → Inspect → Adjust loop, exit gated by criteria met</div>
+    </figure>
+    <div class="body">
+      <p class="kicker">Part 3 · Tools and Agentic Loops</p>
+      <h2>The ReAct Loop</h2>
+      <ul>
+        <li>Iterative cycle: <strong>Think → Act → Inspect → Adjust</strong>, until task validation criteria are met</li>
+        <li>The combination is what works: <strong>reasoning</strong> to plan, <strong>tools</strong> to act on the real world, <strong>verification</strong> to check the result against the goal</li>
+        <li>Reasoning alone produces plausible plans; tools alone produce unchecked actions; only the loop produces a result that has been tested</li>
+        <li>The agent stops when the criteria are satisfied — not after a fixed number of steps</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>31</span>
+  </footer>
+</section>
+
+<!-- ── 32 · IMAGE-RIGHT (layouts/image-right.html) ──────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <div class="body">
+      <p class="kicker">Part 3 · Tools and Agentic Loops</p>
+      <h2>Software Engineering: The Ideal Sandbox</h2>
+      <ul>
+        <li>Code execution offers <strong>deterministic feedback loops</strong>: compilation outputs, unit tests, linters</li>
+        <li>The verification step of the loop is free, instant, and unambiguous — the test passes or it does not</li>
+        <li>This is why coding agents matured first, and why the same reliability is harder to reach on fuzzier tasks</li>
+      </ul>
+    </div>
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · write code → run tests → read failures → fix, red-to-green</div>
+    </figure>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>32</span>
+  </footer>
+</section>
+
+<!-- ── 33 · BULLETS (layouts/title-bullets.html) ────────────────────────── -->
+<section class="slide layout-bullets">
+  <div class="slide-content">
+    <p class="kicker">Part 3 · Tools and Agentic Loops</p>
+    <h2>Creating This Presentation</h2>
+    <ul>
+      <li><strong>Context provided up front:</strong> the theme, the visual style, the available slide layouts, and this outline</li>
+      <li><strong>Generating slide content</strong> — structure and text produced as code, against those layouts</li>
+      <li><strong>Triggering image generation tools</strong> for the illustrations specified on each slide</li>
+      <li><strong>Inspecting the visual output</strong> — rendering the result and looking at it, not just at the source</li>
+      <li><strong>Iteratively adjusting parameters</strong> until optimal</li>
+    </ul>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>33</span>
+  </footer>
+</section>
+
+<!-- ── 34 · IMAGE-LEFT (layouts/image-left.html) ────────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · centrepiece: small model box wrapped in UI / skills / tools / loop</div>
+    </figure>
+    <div class="body">
+      <p class="kicker">Part 3 · Tools and Agentic Loops</p>
+      <h2>The Full Agentic Harness Stack</h2>
+      <ul>
+        <li>Chatbot UI</li>
+        <li>Dynamic skills repository</li>
+        <li>External tools</li>
+        <li>ReAct loop framework</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>34</span>
+  </footer>
+</section>
+
+<!-- ── 35 · IMAGE-RIGHT (layouts/image-right.html) ──────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <div class="body">
+      <p class="kicker">Part 3 · Tools and Agentic Loops</p>
+      <h2>Perspective: Multi-Agent Systems</h2>
+      <ul>
+        <li>Networks of specialised agents in <strong>orchestrator / worker</strong> topologies: planners, coders, reviewers</li>
+        <li>Each worker gets its own clean context and its own narrow job — which is also a direct answer to context rot</li>
+        <li>Unlocking complex multi-domain breakthroughs — e.g. recent AI systems tackling Navier-Stokes turbulence challenges</li>
+      </ul>
+    </div>
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · orchestrator delegating to workers, one worker mid-ReAct-cycle</div>
+    </figure>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>35</span>
+  </footer>
+</section>
+
+<!-- ── 36 · STATEMENT (layouts/big-statement.html) ──────────────────────── -->
+<section class="slide layout-statement">
+  <div class="slide-content">
+    <p class="kicker">Transition</p>
+    <p>We’ve built systems that can reason, run tools, and self-correct across networks of agents. How does this fundamentally change the way you work with AI?</p>
+  </div>
+</section>
+
+<!-- ── 37 · SECTION DIVIDER (layouts/section-divider.html) ─────────────── -->
+<section class="slide layout-section inverse">
+  <div class="slide-content">
+    <p class="section-num">04</p>
+    <h2>Conclusion</h2>
+  </div>
+</section>
+
+<!-- ── 38 · STEPS (layouts/process-steps.html) ──────────────────────────── -->
+<section class="slide layout-steps">
+  <div class="slide-content">
+    <p class="kicker">Conclusion</p>
+    <h2>Four Levels</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">1</span>
+        <h3>Level 1 — The Foundation Model</h3>
+        <p>Raw parametric completion engine, susceptible to hallucinations and prompt sensitivity</p>
+      </div>
+      <div class="step">
+        <span class="step-num">2</span>
+        <h3>Level 2 — The Interactive Chatbot</h3>
+        <p>Human-in-the-loop, the current standard usage</p>
+      </div>
+      <div class="step">
+        <span class="step-num">3</span>
+        <h3>Level 3 — Agentic Execution</h3>
+        <p>Machine-in-the-loop</p>
+      </div>
+      <div class="step">
+        <span class="step-num">4</span>
+        <h3>Level 4 — Multi-Agent Collaboration</h3>
+        <p>Ecosystems of specialised agents solving complex, non-deterministic scientific and engineering challenges</p>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>38</span>
+  </footer>
+</section>
+
+<!-- ── 39 · IMAGE-LEFT (layouts/image-left.html) ────────────────────────── -->
+<section class="slide layout-image-split">
+  <div class="slide-content">
+    <figure class="figure">
+      <div class="figure-ph">illustration placeholder · context + instructions + expected result → opaque loop → deliverable</div>
+    </figure>
+    <div class="body">
+      <p class="kicker">Conclusion</p>
+      <h2>The Operational Mindset Shift</h2>
+      <ul>
+        <li><strong>Level 2, today:</strong> Prompt → Read answer → Spot error → Manually prompt a correction</li>
+        <li><strong>Level 3, the shift:</strong> Define the target goal and validation criteria → the agent executes, inspects its own output, and self-corrects autonomously until the criteria are satisfied</li>
+        <li>What you supply: <strong>context</strong>, <strong>instructions</strong>, and the <strong>expected result</strong></li>
+        <li>What you no longer supply: the exact instructions on how to do it</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>39</span>
+  </footer>
 </section>
 
 </body>
