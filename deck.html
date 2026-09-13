@@ -20,7 +20,7 @@
     - Figures are standalone .svg files in assets/, embedded with <img>.
       Never inline SVG markup here.
     - One .slide per printed page; print via Chromium → PDF.
-    - Slide text is verbatim from Demystifying_LLMs_Slide_Deck.md.
+    - Slide text is adapted from Demystifying_LLMs_Slide_Deck.md.
       Illustration slots are .figure-ph placeholders until the SVGs exist.
   ==========================================================================
 -->
@@ -54,15 +54,15 @@
       <div class="notes">
         <div class="note">
           <h3>The Foundation Model</h3>
-          <p>Core architecture and baseline pre-training</p>
+          <p>Core architecture and pre-training</p>
         </div>
         <div class="note">
           <h3>Post-Training</h3>
-          <p>Transforming completion engines into assistants</p>
+          <p>From completion engine to assistant</p>
         </div>
         <div class="note">
           <h3>The Agentic Layer</h3>
-          <p>Tools, feedback loops, and dynamic context</p>
+          <p>Tools, feedback loops, dynamic context</p>
         </div>
       </div>
     </div>
@@ -91,8 +91,8 @@
       <p class="kicker">Part 1 · The Foundation Model</p>
       <h2>Compression &amp; Intelligence</h2>
       <ul>
-        <li>The LLM functions like a <strong>lossy compressed archive</strong> of public internet data</li>
-        <li>The zip file analogy: everything is in there, but nothing is stored exactly</li>
+        <li>An LLM is a <strong>lossy compressed archive</strong> of public internet data</li>
+        <li>Like a zip file — everything is in there, nothing is stored exactly</li>
       </ul>
     </div>
   </div>
@@ -109,10 +109,10 @@
       <p class="kicker">Part 1 · The Foundation Model</p>
       <h2>Tokens: How Models Read</h2>
       <ul>
-        <li>Training datasets are split into discrete <strong>sub-word units (tokens)</strong></li>
-        <li>Tokens are how models ingest, index, and represent any textual input</li>
-        <li>A token is not a word, not a syllable, not a character — it is whatever the tokenizer learned was frequent</li>
-        <li>The same sentence costs a different number of tokens depending on the language it is written in</li>
+        <li>Text is split into <strong>tokens</strong> — sub-word units</li>
+        <li>Tokens are how a model reads and represents any input</li>
+        <li>Not words, syllables or characters — whatever fragments the tokeniser found frequent</li>
+        <li>The same sentence costs a different token count in each language</li>
       </ul>
     </div>
     <figure class="figure">
@@ -135,10 +135,10 @@
       <p class="kicker">Part 1 · The Foundation Model</p>
       <h2>Autoregressive Generation</h2>
       <ul>
-        <li>At each step, the model produces a <strong>probability distribution over its entire vocabulary</strong> — a score for every possible next token</li>
-        <li>The next token is then <strong>sampled</strong> from that distribution</li>
-        <li>The chosen token is appended to the text, and the whole process starts again for the following token</li>
-        <li>Sampling — not the model — is what makes the same prompt produce different answers</li>
+        <li>Each step yields a <strong>probability distribution</strong> — a score for every token in the vocabulary</li>
+        <li>The next token is <strong>sampled</strong> from that distribution</li>
+        <li>The token is appended, and the loop starts again</li>
+        <li>Sampling, not the model, is why one prompt gives different answers</li>
       </ul>
     </div>
   </div>
@@ -172,9 +172,9 @@
       <p class="kicker">Part 1 · The Foundation Model</p>
       <h2>Reflexive Writing, Not a Knowledge Base</h2>
       <ul>
-        <li>The model is <strong>not a structured query engine</strong> — there is no lookup, no record being retrieved</li>
-        <li>It performs “reflexive writing”, conditioned entirely by the input prompt</li>
-        <li>When the continuation is obvious, the result looks like knowledge — but the mechanism is the same one that continues any other sentence</li>
+        <li><strong>Not a query engine</strong> — no lookup, no record retrieved</li>
+        <li>“Reflexive writing”, conditioned entirely by the prompt</li>
+        <li>An obvious continuation looks like knowledge — same mechanism as any other sentence</li>
       </ul>
     </div>
     <figure class="figure">
@@ -193,16 +193,16 @@
     <p class="kicker">Part 1 · The Foundation Model</p>
     <h2>Language Disparity in the Data</h2>
     <ul>
-      <li>Massive imbalance in pre-training sets — roughly <strong>80% English dominance</strong></li>
-      <li>Consequences for everyone not working in English:
+      <li>Pre-training data is massively imbalanced — roughly <strong>80% English</strong></li>
+      <li>Consequences for every other language:
         <ul>
-          <li><strong>Quality gap</strong> — prose, vocabulary and factual coverage are visibly richer in English</li>
-          <li><strong>Cost and context</strong> — the same text costs more tokens in most other languages, so it eats more of the context window</li>
-          <li><strong>Cultural default</strong> — norms, references and examples skew towards English-language sources</li>
-          <li><strong>Local knowledge</strong> — national regulations, administrative procedures and domain jargon are thinner in the data</li>
+          <li><strong>Quality gap</strong> — richer prose, vocabulary and facts in English</li>
+          <li><strong>Cost and context</strong> — more tokens for the same text, less room in the window</li>
+          <li><strong>Cultural default</strong> — norms, references and examples skew English-speaking</li>
+          <li><strong>Local knowledge</strong> — national rules, procedures and jargon are thinner</li>
         </ul>
       </li>
-      <li>Practical consequence: working in English and translating afterwards often beats working directly in another language — and the gap widens as the language gets smaller</li>
+      <li>In practice: work in English, then translate — the smaller the language, the bigger the gain</li>
     </ul>
   </div>
   <footer class="slide-footer">
@@ -223,15 +223,15 @@
       <div class="notes">
         <div class="note">
           <h3>Context window</h3>
-          <p>Operational limit on active token processing</p>
+          <p>How many tokens the model can process at once</p>
         </div>
         <div class="note">
           <h3>Knowledge cutoff</h3>
-          <p>Fixed temporal boundary of the pre-training data</p>
+          <p>Training data stops at a fixed date</p>
         </div>
         <div class="note">
           <h3>Hallucinations</h3>
-          <p>Confident generation of plausible but factually inaccurate outputs</p>
+          <p>Plausible, confident, and factually wrong</p>
         </div>
       </div>
     </div>
@@ -245,8 +245,8 @@
 <!-- ── 11 · STATEMENT (layouts/big-statement.html) ──────────────────────── -->
 <section class="slide layout-statement">
   <div class="slide-content">
-    <p class="kicker">Transition</p>
-    <p>We have compressed human knowledge into a model — but it only completes text. How do we turn a raw completion engine into a helpful assistant?</p>
+    <p class="kicker">Beyond Completion</p>
+    <p>We compressed human knowledge into a model that only completes text. How do we make it an assistant?</p>
   </div>
 </section>
 
@@ -268,8 +268,8 @@
       <p class="kicker">Part 2 · Post-Training</p>
       <h2>In-Context Pattern Matching</h2>
       <ul>
-        <li>Emergent capability to recognise and reproduce <strong>structural patterns</strong> found in the prompt itself</li>
-        <li>Nobody trained the model for this specific task, and nobody gave it an instruction — it continues the pattern because continuing is all it does</li>
+        <li>Emergent ability to spot and reproduce <strong>patterns</strong> in the prompt itself</li>
+        <li>No task-specific training, no instruction — continuing is all it does</li>
       </ul>
     </div>
   </div>
@@ -286,10 +286,10 @@
       <p class="kicker">Part 2 · Post-Training</p>
       <h2>Instruction Tuning &amp; Assistant Alignment</h2>
       <ul>
-        <li><strong>Instruction tuning</strong> — fine-tuning the base model on conversational datasets: instructions paired with the responses an assistant should give</li>
-        <li>Pattern reproduction again, this time at training scale — the pattern being learned is the assistant role itself</li>
-        <li>The result answers the instruction instead of continuing the text, with a stable persona and tone across turns</li>
-        <li>The base model was not refusing to help — it had no notion of being asked</li>
+        <li><strong>Instruction tuning</strong> — fine-tuning on instructions paired with ideal assistant responses</li>
+        <li>Pattern reproduction again, at training scale — the pattern is the assistant role</li>
+        <li>It answers instead of continuing, with a stable persona and tone</li>
+        <li>The base model never refused to help — it had no notion of being asked</li>
       </ul>
     </div>
     <figure class="figure">
@@ -312,10 +312,10 @@
       <p class="kicker">Part 2 · Post-Training</p>
       <h2>Reinforcement Learning Horizons</h2>
       <ul>
-        <li><strong>Reinforcement learning</strong> — the model answers, the answer is graded, and training reinforces whatever scores well</li>
-        <li><strong>RL on verifiable answers</strong> — automatic grading against known-correct results, over encyclopedic and factual datasets: this is what buys accuracy and factual consistency</li>
-        <li><strong>RLHF</strong> — humans compare two candidate answers and keep the better one: this is what shapes tone, helpfulness and safety</li>
-        <li>Two distinct targets: what the model <strong>knows</strong>, and how it <strong>behaves</strong></li>
+        <li><strong>Reinforcement learning</strong> — answer, get graded, reinforce what scores well</li>
+        <li><strong>RL on verifiable answers</strong> — automatic grading on factual data, for accuracy</li>
+        <li><strong>RLHF</strong> — humans pick the better of two answers, for tone, helpfulness, safety</li>
+        <li>Two targets: what the model <strong>knows</strong>, how it <strong>behaves</strong></li>
       </ul>
     </div>
   </div>
@@ -332,8 +332,8 @@
       <p class="kicker">Part 2 · Post-Training</p>
       <h2>System 2 Thinking: Reasoning RL</h2>
       <ul>
-        <li>Models are trained to generate <strong>internal scratchpad reasoning</strong> before emitting a response</li>
-        <li>The model learns to rephrase, explore strategies, notice mistakes, and self-correct internally</li>
+        <li>Models learn to write <strong>scratchpad reasoning</strong> before answering</li>
+        <li>Rephrase, explore strategies, catch mistakes, self-correct</li>
         <li>The visible answer is the tip of a much longer hidden process</li>
       </ul>
     </div>
@@ -357,10 +357,10 @@
       <p class="kicker">Part 2 · Post-Training</p>
       <h2>Chat Is Stateless</h2>
       <ul>
-        <li>There is no ongoing conversation on the model side — the model remembers nothing between two messages</li>
-        <li>Every new message <strong>re-submits the full history</strong> alongside it, on every API call</li>
-        <li>Direct consequence: <strong>KV cache</strong> — key-value caching stores the attention states already computed for the history, so the same text is not re-processed from scratch at every turn</li>
-        <li>Without it, every additional turn would be slower and more expensive than the last</li>
+        <li>The model remembers nothing between two messages</li>
+        <li>Every API call <strong>re-sends the full history</strong></li>
+        <li><strong>KV cache</strong> — stores computed attention states, so history is not re-processed</li>
+        <li>Without it, each turn would be slower and costlier than the last</li>
       </ul>
     </div>
   </div>
@@ -377,10 +377,16 @@
       <p class="kicker">Part 2 · Post-Training</p>
       <h2>Context Rot: The Long Conversation Trade-off</h2>
       <ul>
-        <li>The KV cache makes long conversations cheap and fast — so nothing pushes you to ever start a new one</li>
-        <li>But reasoning performance <strong>degrades gradually as context size scales up</strong>: instructions given early get diluted, contradictions accumulate, attention spreads thin</li>
-        <li>The failure is silent — the model does not warn you that it is doing worse</li>
-        <li>Practical rule for daily use: a new topic deserves a new conversation; restate the goal when a thread gets long; keep only the documents that are still relevant</li>
+        <li>The KV cache makes long chats cheap — nothing pushes you to start over</li>
+        <li>But reasoning <strong>degrades as context grows</strong>: early instructions fade, contradictions pile up</li>
+        <li>The failure is silent — the model never warns you</li>
+        <li>Daily rules:
+          <ul>
+            <li><strong>New topic</strong> — new conversation</li>
+            <li><strong>Long thread</strong> — restate the goal</li>
+            <li><strong>Documents</strong> — keep only what is still relevant</li>
+          </ul>
+        </li>
       </ul>
     </div>
     <figure class="figure">
@@ -403,9 +409,9 @@
       <p class="kicker">Part 2 · Post-Training</p>
       <h2>Grounding via Context Injection</h2>
       <ul>
-        <li><strong>Parametric memory</strong> — writing from what the model absorbed during training</li>
-        <li><strong>Context grounding</strong> — composing a grounded analysis directly from user-provided documents inside the active prompt</li>
-        <li>Same model, same question: what changes is what is in the prompt</li>
+        <li><strong>Parametric memory</strong> — writing from what was absorbed in training</li>
+        <li><strong>Context grounding</strong> — writing from documents you put in the prompt</li>
+        <li>Same model, same question — only the prompt changes</li>
       </ul>
     </div>
   </div>
@@ -418,8 +424,8 @@
 <!-- ── 20 · STATEMENT (layouts/big-statement.html) ──────────────────────── -->
 <section class="slide layout-statement">
   <div class="slide-content">
-    <p class="kicker">Transition</p>
-    <p>We turned the model into a reasoning assistant — but it still waits for us to manually fix its mistakes. What happens when we let it act on its own?</p>
+    <p class="kicker">Beyond the Chatbot</p>
+    <p>Our reasoning assistant still waits for us to fix its mistakes. What if it could act on its own?</p>
   </div>
 </section>
 
@@ -438,13 +444,13 @@
       <p class="kicker">Part 3 · Tools and Agentic Loops</p>
       <h2>What Is an “Agent”? Nobody Quite Agrees</h2>
       <ul>
-        <li>The word has no settled definition, which is why conversations about agents go in circles</li>
-        <li>Is the agent the <strong>model</strong>? The <strong>software around it</strong>? The <strong>combination</strong>? Vendors use the term for all three</li>
-        <li>What we <em>can</em> define precisely:
+        <li>No settled definition — so agent debates go in circles</li>
+        <li>The <strong>model</strong>? The <strong>software around it</strong>? <strong>Both</strong>? Vendors mean all three</li>
+        <li>What we <em>can</em> define:
           <ul>
-            <li>The <strong>LLM</strong> is the text and reasoning engine</li>
-            <li>The <strong>harness</strong> is the software built around it: the tools, the loop, the state, the interface</li>
-            <li>“Agent” is best treated as a <strong>degree, not a category</strong> — how much initiative the harness lets the model take between two human interventions</li>
+            <li><strong>LLM</strong> — the text and reasoning engine</li>
+            <li><strong>Harness</strong> — the software around it: tools, loop, state, interface</li>
+            <li><strong>Agent</strong> — a degree, not a category: initiative between human interventions</li>
           </ul>
         </li>
       </ul>
@@ -469,10 +475,10 @@
       <p class="kicker">Part 3 · Tools and Agentic Loops</p>
       <h2>Tool Calling Foundations</h2>
       <ul>
-        <li>If a language model can write text, it can write <strong>executable structured instructions</strong> for external API tools</li>
-        <li>The model does not run anything itself — it <em>writes a request</em>, and the surrounding software executes it and writes the result back</li>
-        <li>Which makes the conversation a <strong>three-party exchange</strong>: the user, the agent, and the system that answers the agent’s requests</li>
-        <li>Two of those three parties are usually invisible to the user</li>
+        <li>A model that writes text can write <strong>structured tool requests</strong></li>
+        <li>It runs nothing — it <em>writes a request</em>; the software executes and returns the result</li>
+        <li>A <strong>three-party exchange</strong>: user, agent, and the system answering the agent</li>
+        <li>Two of the three parties are usually invisible to the user</li>
       </ul>
     </div>
   </div>
@@ -490,9 +496,9 @@
       <h2>The Self-Referential Execution Flow</h2>
       <ul>
         <li><code>Instruction Message</code> → <code>Tool Response Message</code></li>
-        <li>The system interacts with itself, in an automated loop</li>
-        <li>Each tool response becomes new context, which conditions the next instruction, which triggers the next tool call</li>
-        <li>One question rarely means one tool call: the exchange repeats until the agent has what it needs</li>
+        <li>The system talks to itself, in an automated loop</li>
+        <li>Each tool response becomes context for the next instruction</li>
+        <li>One question, many tool calls — until the agent has what it needs</li>
       </ul>
     </div>
     <figure class="figure">
@@ -515,15 +521,15 @@
       <p class="kicker">Part 3 · Tools and Agentic Loops</p>
       <h2>A Weekend in Paris</h2>
       <ul>
-        <li>One request in plain language: <em>“Plan me a weekend in Paris in two weeks, I like museums and I don’t want to walk more than twenty minutes between stops.”</em></li>
-        <li>What the agent has to go and fetch before it can answer anything:
+        <li><em>“Plan me a weekend in Paris in two weeks. I like museums; max twenty minutes’ walk between stops.”</em></li>
+        <li>What the agent must fetch first:
           <ul>
-            <li><strong>Weather</strong> — the forecast for those specific dates, to decide what is indoors and what is outdoors</li>
-            <li><strong>Places</strong> — museums and restaurants, with opening hours and closing days</li>
-            <li><strong>Routing</strong> — actual walking times between candidate stops, to respect the constraint</li>
+            <li><strong>Weather</strong> — forecast for those dates: indoors or outdoors</li>
+            <li><strong>Places</strong> — museums, restaurants, opening hours</li>
+            <li><strong>Routing</strong> — real walking times between stops</li>
           </ul>
         </li>
-        <li>None of it is in the model. All of it is fetched, then reasoned over.</li>
+        <li>None of it is in the model — all of it is fetched, then reasoned over</li>
       </ul>
     </div>
   </div>
@@ -540,10 +546,10 @@
       <p class="kicker">Part 3 · Tools and Agentic Loops</p>
       <h2>Retrieval: Bringing Data In</h2>
       <ul>
-        <li><strong>RAG</strong> (retrieval-augmented generation), database querying, document and email search</li>
-        <li>The agent searches for what it needs, when it needs it, instead of being handed everything up front</li>
-        <li>Goal: automatically fetch <strong>dynamic context</strong> into the active prompt window</li>
-        <li>This is Slide 19’s grounding, made automatic — the agent attaches the document to itself</li>
+        <li><strong>RAG</strong> (retrieval-augmented generation), database queries, document and email search</li>
+        <li>The agent fetches what it needs, when it needs it</li>
+        <li>Goal: pull <strong>dynamic context</strong> into the prompt</li>
+        <li>Context grounding, made automatic — the agent attaches the documents itself</li>
       </ul>
     </div>
     <figure class="figure">
@@ -567,9 +573,9 @@
       <h2>Acting Through APIs</h2>
       <ul>
         <li>Retrieval reads; <strong>APIs act</strong></li>
-        <li>Anything with an API is reachable: send the email, create the calendar event, update the CRM record, open the ticket, publish the post, drive a 3D or CAD application to build a model</li>
-        <li>The same mechanism as Slide 23 — the model writes a structured request — only now the request <em>changes something</em></li>
-        <li>Which makes the distinction that matters in practice: <strong>reversible actions vs. irreversible ones</strong>, and which ones you are willing to leave unsupervised</li>
+        <li>Anything with an API: email, calendar, CRM, tickets, publishing, even 3D and CAD</li>
+        <li>Same tool-calling mechanism — but now the request <em>changes something</em></li>
+        <li>What matters: <strong>reversible vs. irreversible</strong> — and what you leave unsupervised</li>
       </ul>
     </div>
   </div>
@@ -586,10 +592,10 @@
       <p class="kicker">Part 3 · Tools and Agentic Loops</p>
       <h2>Computer Use: When There Is No API</h2>
       <ul>
-        <li>When there is <strong>no API</strong>, the agent can use the software the way a person does: read the screen, move the pointer, click, type</li>
-        <li>Unlocks the long tail — legacy internal applications, unstructured web interfaces, anything nobody ever built an integration for</li>
-        <li>Slower, more fragile and more expensive than an API call: the interface can change, and the agent has to re-find its footing</li>
-        <li>The right mental model: not a new superpower, but a fallback for everything that was never made machine-readable</li>
+        <li><strong>No API?</strong> The agent uses software like a person: read, point, click, type</li>
+        <li>Unlocks the long tail — legacy apps, web interfaces, anything never integrated</li>
+        <li>Slower, more fragile, costlier — interfaces change, the agent must re-orient</li>
+        <li>Not a superpower: a fallback for what was never machine-readable</li>
       </ul>
     </div>
     <figure class="figure">
@@ -612,16 +618,16 @@
       <p class="kicker">Part 3 · Tools and Agentic Loops</p>
       <h2>Code Execution</h2>
       <ul>
-        <li>The agent writes code and runs it in a sandbox, then uses the result</li>
-        <li>“Why would I need code?” — because some things a language model is bad at, code is exact at:
+        <li>The agent writes code, runs it in a sandbox, uses the result</li>
+        <li>Why code? Where a model is weak, code is exact:
           <ul>
-            <li><strong>Volume</strong> — apply the same treatment to 5,000 rows of a spreadsheet: the rows may well fit in the context window, but the model will not reason identically on row 4,000 and on row 12</li>
-            <li><strong>Arithmetic</strong> — computing totals, deltas and rates exactly, rather than predicting plausible-looking numbers</li>
-            <li><strong>Repeatability</strong> — the same script on next month’s file gives the same treatment, and can be audited line by line</li>
-            <li><strong>Orchestration</strong> — looping over tool calls, chaining them, handling the failures</li>
+            <li><strong>Volume</strong> — 5,000 rows fit in context, but row 4,000 won’t get row 12’s care</li>
+            <li><strong>Arithmetic</strong> — exact totals and rates, not plausible-looking numbers</li>
+            <li><strong>Repeatability</strong> — same script, next month’s file, auditable line by line</li>
+            <li><strong>Orchestration</strong> — looping, chaining and recovering tool calls</li>
           </ul>
         </li>
-        <li>Structured data parsing and precise programmatic tool execution inside code environments</li>
+        <li>Plus structured data parsing and precise tool execution</li>
       </ul>
     </div>
   </div>
@@ -638,10 +644,10 @@
       <p class="kicker">Part 3 · Tools and Agentic Loops</p>
       <h2>Dynamic Instructions (Skills)</h2>
       <ul>
-        <li>Loading specific behavioural procedures, domain rules, and action templates <strong>on the fly</strong>, as needed</li>
-        <li>The key distinction from Slide 26: retrieval injects <strong>data</strong>; skills inject <strong>instructions</strong> — how to do the thing, not what the thing is</li>
-        <li>Typical contents: the house format for a client report, the validation checklist before anything is published, naming and filing conventions, the steps of the monthly close, the tone rules for external communication</li>
-        <li>Loaded only when relevant, which keeps the standing instructions short — and Slide 18 explains why that matters</li>
+        <li>Procedures, domain rules and templates, loaded <strong>on the fly</strong></li>
+        <li>Retrieval injects <strong>data</strong>; skills inject <strong>instructions</strong> — the how, not the what</li>
+        <li>E.g. report format, pre-publication checklist, filing conventions, monthly close, tone rules</li>
+        <li>Loaded only when relevant — short standing instructions, less context rot</li>
       </ul>
     </div>
     <figure class="figure">
@@ -664,10 +670,10 @@
       <p class="kicker">Part 3 · Tools and Agentic Loops</p>
       <h2>The ReAct Loop</h2>
       <ul>
-        <li>Iterative cycle: <strong>Think → Act → Inspect → Adjust</strong>, until task validation criteria are met</li>
-        <li>The combination is what works: <strong>reasoning</strong> to plan, <strong>tools</strong> to act on the real world, <strong>verification</strong> to check the result against the goal</li>
-        <li>Reasoning alone produces plausible plans; tools alone produce unchecked actions; only the loop produces a result that has been tested</li>
-        <li>The agent stops when the criteria are satisfied — not after a fixed number of steps</li>
+        <li><strong>Think → Act → Inspect → Adjust</strong>, until validation criteria are met</li>
+        <li><strong>Reasoning</strong> to plan, <strong>tools</strong> to act, <strong>verification</strong> to check against the goal</li>
+        <li>Reasoning alone: plausible plans. Tools alone: unchecked actions. The loop: tested results</li>
+        <li>Stops when the criteria are met — not after a fixed number of steps</li>
       </ul>
     </div>
   </div>
@@ -684,9 +690,9 @@
       <p class="kicker">Part 3 · Tools and Agentic Loops</p>
       <h2>Software Engineering: The Ideal Sandbox</h2>
       <ul>
-        <li>Code execution offers <strong>deterministic feedback loops</strong>: compilation outputs, unit tests, linters</li>
-        <li>The verification step of the loop is free, instant, and unambiguous — the test passes or it does not</li>
-        <li>This is why coding agents matured first, and why the same reliability is harder to reach on fuzzier tasks</li>
+        <li>Code gives <strong>deterministic feedback</strong>: compilers, unit tests, linters</li>
+        <li>Verification is free, instant, unambiguous — the test passes or fails</li>
+        <li>Why coding agents matured first — and fuzzier tasks lag behind</li>
       </ul>
     </div>
     <figure class="figure">
@@ -699,26 +705,7 @@
   </footer>
 </section>
 
-<!-- ── 33 · BULLETS (layouts/title-bullets.html) ────────────────────────── -->
-<section class="slide layout-bullets">
-  <div class="slide-content">
-    <p class="kicker">Part 3 · Tools and Agentic Loops</p>
-    <h2>Creating This Presentation</h2>
-    <ul>
-      <li><strong>Context provided up front:</strong> the theme, the visual style, the available slide layouts, and this outline</li>
-      <li><strong>Generating slide content</strong> — structure and text produced as code, against those layouts</li>
-      <li><strong>Triggering image generation tools</strong> for the illustrations specified on each slide</li>
-      <li><strong>Inspecting the visual output</strong> — rendering the result and looking at it, not just at the source</li>
-      <li><strong>Iteratively adjusting parameters</strong> until optimal</li>
-    </ul>
-  </div>
-  <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>33</span>
-  </footer>
-</section>
-
-<!-- ── 34 · IMAGE-LEFT (layouts/image-left.html) ────────────────────────── -->
+<!-- ── 33 · IMAGE-LEFT (layouts/image-left.html) ────────────────────────── -->
 <section class="slide layout-image-split">
   <div class="slide-content">
     <figure class="figure">
@@ -729,28 +716,28 @@
       <h2>The Full Agentic Harness Stack</h2>
       <ul>
         <li>Chatbot UI</li>
-        <li>Dynamic skills repository</li>
+        <li>Dynamic skills</li>
         <li>External tools</li>
-        <li>ReAct loop framework</li>
+        <li>ReAct loop</li>
       </ul>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>34</span>
+    <span>33</span>
   </footer>
 </section>
 
-<!-- ── 35 · IMAGE-RIGHT (layouts/image-right.html) ──────────────────────── -->
+<!-- ── 34 · IMAGE-RIGHT (layouts/image-right.html) ──────────────────────── -->
 <section class="slide layout-image-split">
   <div class="slide-content">
     <div class="body">
       <p class="kicker">Part 3 · Tools and Agentic Loops</p>
       <h2>Perspective: Multi-Agent Systems</h2>
       <ul>
-        <li>Networks of specialised agents in <strong>orchestrator / worker</strong> topologies: planners, coders, reviewers</li>
-        <li>Each worker gets its own clean context and its own narrow job — which is also a direct answer to context rot</li>
-        <li>Unlocking complex multi-domain breakthroughs — e.g. recent AI systems tackling Navier-Stokes turbulence challenges</li>
+        <li>Specialised agents in <strong>orchestrator / worker</strong> setups: planners, coders, reviewers</li>
+        <li>Each worker: a clean context, a narrow job — a direct answer to context rot</li>
+        <li>Multi-domain breakthroughs — e.g. AI systems tackling Navier-Stokes turbulence</li>
       </ul>
     </div>
     <figure class="figure">
@@ -759,19 +746,19 @@
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>35</span>
+    <span>34</span>
   </footer>
 </section>
 
-<!-- ── 36 · STATEMENT (layouts/big-statement.html) ──────────────────────── -->
+<!-- ── 35 · STATEMENT (layouts/big-statement.html) ──────────────────────── -->
 <section class="slide layout-statement">
   <div class="slide-content">
-    <p class="kicker">Transition</p>
-    <p>We’ve built systems that can reason, run tools, and self-correct across networks of agents. How does this fundamentally change the way you work with AI?</p>
+    <p class="kicker">Back to You</p>
+    <p>Our systems now reason, use tools and self-correct across agents. How does that change the way you work?</p>
   </div>
 </section>
 
-<!-- ── 37 · SECTION DIVIDER (layouts/section-divider.html) ─────────────── -->
+<!-- ── 36 · SECTION DIVIDER (layouts/section-divider.html) ─────────────── -->
 <section class="slide layout-section inverse">
   <div class="slide-content">
     <p class="section-num">04</p>
@@ -779,7 +766,7 @@
   </div>
 </section>
 
-<!-- ── 38 · STEPS (layouts/process-steps.html) ──────────────────────────── -->
+<!-- ── 37 · STEPS (layouts/process-steps.html) ──────────────────────────── -->
 <section class="slide layout-steps">
   <div class="slide-content">
     <p class="kicker">Conclusion</p>
@@ -787,33 +774,33 @@
     <div class="steps">
       <div class="step">
         <span class="step-num">1</span>
-        <h3>Level 1 — The Foundation Model</h3>
-        <p>Raw parametric completion engine, susceptible to hallucinations and prompt sensitivity</p>
+        <h3>The Foundation Model</h3>
+        <p>Raw completion engine — prone to hallucinations and prompt sensitivity</p>
       </div>
       <div class="step">
         <span class="step-num">2</span>
-        <h3>Level 2 — The Interactive Chatbot</h3>
-        <p>Human-in-the-loop, the current standard usage</p>
+        <h3>The Interactive Chatbot</h3>
+        <p>Human in the loop — today’s standard usage</p>
       </div>
       <div class="step">
         <span class="step-num">3</span>
-        <h3>Level 3 — Agentic Execution</h3>
-        <p>Machine-in-the-loop</p>
+        <h3>Agentic Execution</h3>
+        <p>Machine in the loop — the agent checks its own work</p>
       </div>
       <div class="step">
         <span class="step-num">4</span>
-        <h3>Level 4 — Multi-Agent Collaboration</h3>
-        <p>Ecosystems of specialised agents solving complex, non-deterministic scientific and engineering challenges</p>
+        <h3>Multi-Agent Collaboration</h3>
+        <p>Specialised agents on open-ended science and engineering problems</p>
       </div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>38</span>
+    <span>37</span>
   </footer>
 </section>
 
-<!-- ── 39 · IMAGE-LEFT (layouts/image-left.html) ────────────────────────── -->
+<!-- ── 38 · IMAGE-LEFT (layouts/image-left.html) ────────────────────────── -->
 <section class="slide layout-image-split">
   <div class="slide-content">
     <figure class="figure">
@@ -823,17 +810,36 @@
       <p class="kicker">Conclusion</p>
       <h2>The Operational Mindset Shift</h2>
       <ul>
-        <li><strong>Level 2, today:</strong> Prompt → Read answer → Spot error → Manually prompt a correction</li>
-        <li><strong>Level 3, the shift:</strong> Define the target goal and validation criteria → the agent executes, inspects its own output, and self-corrects autonomously until the criteria are satisfied</li>
-        <li>What you supply: <strong>context</strong>, <strong>instructions</strong>, and the <strong>expected result</strong></li>
-        <li>What you no longer supply: the exact instructions on how to do it</li>
+        <li><strong>Level 2, today</strong> — prompt, read, spot the error, correct by hand</li>
+        <li><strong>Level 3, the shift</strong> — set goal and criteria; the agent executes, checks, self-corrects</li>
+        <li>You supply: <strong>context</strong>, <strong>instructions</strong>, <strong>expected result</strong></li>
+        <li>You no longer supply: the step-by-step method</li>
       </ul>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>39</span>
+    <span>38</span>
   </footer>
+</section>
+
+<!-- ── 39 · CLOSING (layouts/closing.html) ─────────────────────────────── -->
+<section class="slide layout-closing inverse">
+  <div class="slide-content">
+    <p class="kicker">Thank you</p>
+    <h2>Questions &amp; discussion</h2>
+    <p class="lead">Supply the context, the instructions and the expected result — let the loop do the rest.</p>
+    <div class="contact">
+      <div>
+        <strong>Contact</strong>
+        [Author Name] · [Email]
+      </div>
+      <div>
+        <strong>Affiliation</strong>
+        [Affiliation]
+      </div>
+    </div>
+  </div>
 </section>
 
 </body>
