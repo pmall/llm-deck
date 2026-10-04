@@ -73,6 +73,8 @@ Each file in `layouts/` is a copy-paste `<section>` snippet, standalone-previewa
 
 The 19 layouts cover the common cases and should be used as-is ~99% of the time. They are a starting point — when a slide genuinely needs a small deviation to serve the user's instruction, deviate. The styling vocabulary (`.kicker`, `.lead`, `.cards-*`, `.figure`, the `inverse` modifier) is composable. Consecutive slides on the same layout read as a rut — vary them.
 
+**Custom content slides.** When the content has its own shape (a formula, a dialogue, a flow, nested boxes, a timeline), build a `.slide.layout-custom` from the components in `base.css` §7 — `.split`, `.panel`, `.code`, `.chips`, `.bars`, `.chat`/`.msg`, `.flow`/`.node`, `.box`, `.layers`, `.timeline`, `.lore`… — with the usual kicker + `h2`, the footer, and nothing past the footer. Diagrams that are really structured text stay in HTML/CSS; reserve `.figure-ph` → SVG for genuine illustrations.
+
 Global modifiers: any `<section class="slide …">` takes `inverse` (dark background via `--bg-inverse`). Optional `.slide-footer` shows deck title + page number — keep page numbers in sync.
 
 ## 6. SVG figures
