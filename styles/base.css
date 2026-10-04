@@ -883,8 +883,7 @@ a {
   background: var(--bg-muted);
   color: var(--text-primary);
 }
-.chip:nth-child(3n+1) { background: var(--accent-primary);   color: var(--text-on-accent); }
-.chip:nth-child(3n+2) { background: var(--accent-secondary); color: var(--text-on-accent); }
+.chip:nth-child(odd) { background: var(--accent-primary); color: var(--text-on-accent); }
 
 /* Distribution bars (width via --w on .fill). */
 .bars { display: flex; flex-direction: column; gap: var(--space-2); }
@@ -1110,7 +1109,7 @@ a {
   font-weight: var(--weight-bold);
   font-size: var(--text-sm);
 }
-.spectrum-labels { display: flex; justify-content: space-between; font-size: var(--text-xs); font-family: var(--font-mono); color: var(--text-secondary); }
+.spectrum-labels { display: flex; justify-content: space-between; font-size: var(--text-sm); font-family: var(--font-mono); color: var(--text-secondary); }
 
 /* Tool tiles with a reversibility badge. */
 .tile {
@@ -1168,3 +1167,61 @@ a {
 /* Larger text for the stock three-cards layout. */
 .layout-three-cards .cards-lg .card p { font-size: var(--text-base); }
 .layout-three-cards .cards-lg .card .card-kicker { font-size: var(--text-sm); }
+
+/* --- Text wrapping (custom slides): natural wrapping for body text,
+       balancing only for titles and statements. --- */
+.slide p, .slide li, .slide dd { text-wrap: pretty; }
+.layout-statement p { text-wrap: balance; }
+.stage .lead { max-width: none; text-wrap: pretty; }
+.takeaway { text-wrap: pretty; }
+
+.code-sm { font-size: var(--text-sm); }
+.chips-sm .chip { font-size: var(--text-lg); }
+
+/* Definition rows with a wide term column (scales, ladders). */
+.def-wide { grid-template-columns: 14em 1fr; }
+.def-wide dt { white-space: nowrap; }
+
+/* Bars with a wide label and value column (size comparisons). */
+.bars-wide .bar { grid-template-columns: 14ch 1fr 16ch; }
+.bars-wide .bar .val { text-align: left; color: var(--text-primary); font-weight: var(--weight-bold); }
+
+.chat-line { font-size: var(--text-xl); font-weight: var(--weight-medium); }
+
+/* Taller bars for size comparisons. */
+.bars-big { gap: var(--space-3); }
+.bars-big .bar { font-size: var(--text-lg); }
+.bars-big .bar .track { height: 40px; }
+
+/* Flat chips: neutral by default, highlight with .pull / .target (attention). */
+.chips-flat .chip:nth-child(n) { background: var(--bg-muted); color: var(--text-primary); }
+.chips-flat .chip.pull:nth-child(n)   { background: var(--accent-primary);   color: var(--text-on-accent); }
+.chips-flat .chip.target:nth-child(n) { background: var(--accent-secondary); color: var(--text-on-accent); }
+
+.chips-flat .chip.mask:nth-child(n) { background: transparent; border: 2px dashed var(--border-strong); color: var(--text-secondary); }
+.chips-xs .chip { font-size: var(--text-base); padding: var(--space-1) var(--space-2); }
+
+.chips-grid .chip { width: 5ch; text-align: center; padding-left: 0; padding-right: 0; }
+.chips-grid .chip.mask:nth-child(n) { min-height: 1.3em; }
+
+.panel-center > :not(.panel-label):nth-child(2) { margin-block: auto; }
+
+.code-wrap { white-space: pre-wrap; }
+
+/* The question closing a statement slide. */
+.layout-statement .ask { display: block; margin-top: var(--space-4); color: var(--accent-primary); }
+.inverse.layout-statement .ask { color: var(--accent-inverse); }
+.node .note-sm { color: inherit; opacity: 0.75; font-size: var(--text-sm); }
+
+.panel .answer { font-size: var(--text-lg); line-height: 1.35; }
+
+.panels-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-3); }
+.panel.option { align-items: center; justify-content: center; text-align: center; padding: var(--space-3); }
+.panel.option p { font-size: var(--text-base); font-weight: var(--weight-medium); }
+.box-model .formula-sub { font-size: var(--text-sm); opacity: 0.8; }
+
+/* Larger text for sparse panel slides. */
+.panels-lg .panel p { font-size: var(--text-lg); }
+
+/* Taller segmented bar. */
+.seg-lg span { padding: var(--space-4); font-size: var(--text-base); }

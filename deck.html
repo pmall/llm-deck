@@ -6,7 +6,7 @@
 <title>Demystifying LLMs: From Zero to Chatbots, then Agents</title>
 <!--
   ==========================================================================
-  DECK.HTML — Demystifying LLMs: From Zero to Chatbots, then Agents.
+  DECK.HTML: Demystifying LLMs: From Zero to Chatbots, then Agents.
 
   Two parts:
     1. From zero to chatbots  (tokens, f(x) = y, post-training, context)
@@ -22,7 +22,7 @@
 
   HARD RULES (see AGENTS.md):
     - No JavaScript.
-    - No raw hex colors in this file — use var(--tokens) only.
+    - No raw hex colors in this file; use var(--tokens) only.
     - Figures are standalone .svg files in assets/, embedded with <img>.
       Never inline SVG markup here.
     - One .slide per printed page; print via Chromium → PDF.
@@ -40,7 +40,7 @@
   <div class="slide-content">
     <p class="kicker">Workshop · [Date]</p>
     <h1>Demystifying LLMs</h1>
-    <p class="lead">From zero to chatbots — and then to agents</p>
+    <p class="lead">From zero to chatbots, and then to agents</p>
     <div class="meta">
       <span>[Author Name] · [Affiliation]</span>
       <span>[Date]</span>
@@ -85,25 +85,29 @@
   </div>
 </section>
 
-<!-- Lossy archive -->
+<!-- Zip -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · The foundation model</p>
-    <h2>A lossy zip of the internet</h2>
+    <p class="kicker">Part 1 · What it is</p>
+    <h2>A model is a zip file of human knowledge</h2>
     <div class="stage">
-      <div class="flow">
-        <div class="node"><strong>Public internet text</strong><span>trillions of tokens</span></div>
-        <span class="arrow">→</span>
-        <div class="node node-accent"><strong>Training</strong><span>adjust billions of numbers to predict what comes next</span></div>
-        <span class="arrow">→</span>
-        <div class="node node-dark"><strong>The model</strong><span>a fixed file of numbers — not a copy of the text</span></div>
+      <div class="bars bars-wide bars-big">
+        <div class="bar"><span>Human text</span><span class="track"><span class="fill" style="--w:100%"></span></span><span class="val">≈ 60–150 TB</span></div>
+        <div class="bar pick"><span>The model file</span><span class="track"><span class="fill" style="--w:1.5%"></span></span><span class="val">≈ 0.1–1 TB</span></div>
       </div>
-      <ul class="points">
-        <li>An LLM is a <strong>lossy compressed archive</strong> of public internet data</li>
-        <li>Like a zip file — everything is in there, nothing is stored exactly</li>
-        <li>Training is where the knowledge goes in; after it, the file never changes</li>
-      </ul>
-      <div class="lore"><span class="tag">Lore</span><p>Ted Chiang, 2023: “ChatGPT is a blurry JPEG of the web” — the same intuition.</p></div>
+      <div class="panels-2 panels-lg">
+        <div class="panel">
+          <span class="panel-label">Like a zip file</span>
+          <h3>Everything is in there</h3>
+          <p>An LLM is a compressed archive of public internet data: one file, hundreds of times smaller than what went in. Training is the compression.</p>
+        </div>
+        <div class="panel panel-featured">
+          <span class="panel-label">But lossy</span>
+          <h3>Nothing is stored exactly</h3>
+          <p>You get the gist of the page, not the page. Patterns and facts survive; exact wording mostly does not.</p>
+        </div>
+      </div>
+      <div class="lore"><span class="tag">Lore</span><p>Karpathy opens his LLM talks with this “zip file of the internet”. Ted Chiang: “a blurry JPEG of the web”.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -112,28 +116,26 @@
   </footer>
 </section>
 
-<!-- Tokens -->
+<!-- Training data -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · The foundation model</p>
-    <h2>Models read tokens, not words</h2>
+    <p class="kicker">Part 1 · What it is</p>
+    <h2>Human knowledge: the training data</h2>
     <div class="stage">
-      <div class="panels-2">
-        <div class="panel">
-          <span class="panel-label">Frequent words · one token each</span>
-          <div class="chips"><span class="chip">The</span><span class="chip"> cat</span><span class="chip"> sat</span><span class="chip"> on</span><span class="chip"> the</span><span class="chip"> mat</span><span class="chip">.</span></div>
-        </div>
-        <div class="panel">
-          <span class="panel-label">Rare or long words · split into fragments</span>
-          <div class="chips"><span class="chip">Anti</span><span class="chip">dis</span><span class="chip">establish</span><span class="chip">ment</span><span class="chip">arian</span><span class="chip">ism</span></div>
-        </div>
+      <div class="flow">
+        <div class="node"><strong>Crawl</strong><span>billions of web pages</span></div>
+        <span class="arrow">→</span>
+        <div class="node"><strong>Filter</strong><span>keep good text, drop the junk</span></div>
+        <span class="arrow">→</span>
+        <div class="node"><strong>Deduplicate</strong><span>the same text only once</span></div>
+        <span class="arrow">→</span>
+        <div class="node node-accent"><strong>Corpus</strong><span>one giant pile of clean text</span></div>
       </div>
-      <ul class="points">
-        <li>Text is split into <strong>tokens</strong> — sub-word units; how a model reads and represents any input</li>
-        <li>Not words, syllables or characters — whatever fragments the tokeniser found frequent</li>
-        <li>The same sentence costs a different token count in each language</li>
-      </ul>
-      <p class="note-sm">Illustrative splits — every model family has its own tokeniser.</p>
+      <div class="panels-3 panels-lg">
+        <div class="panel"><span class="panel-label">What is in it</span><p>Web pages (Common Crawl), books, code, papers, Wikipedia, mostly public text</p></div>
+        <div class="panel"><span class="panel-label">Open example</span><p>FineWeb (Hugging Face): about 44 TB of clean text filtered from Common Crawl, free to download</p></div>
+        <div class="panel panel-featured"><span class="panel-label">Scale</span><p>Frontier models train on roughly 60 to 150 TB of text: tens of thousands of years of non-stop human reading</p></div>
+      </div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -142,30 +144,34 @@
   </footer>
 </section>
 
-<!-- Strawberry -->
+<!-- Tokens -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · The foundation model</p>
-    <h2>How many r’s in “strawberry”?</h2>
+    <p class="kicker">Part 1 · What it is</p>
+    <h2>Knowledge reaches the model as tokens</h2>
     <div class="stage">
-      <div class="split split-top">
-        <div class="stack">
-          <div class="panel">
-            <span class="panel-label">What the model sees</span>
-            <div class="chips"><span class="chip">str</span><span class="chip">aw</span><span class="chip">berry</span></div>
-          </div>
-          <div class="chat">
-            <div class="msg"><span class="role">User</span>How many r’s are in “strawberry”?</div>
-            <div class="msg msg-assistant msg-wrong"><span class="role">Assistant</span>There are 2 r’s in “strawberry”. <span class="note-sm">(There are 3.)</span></div>
-          </div>
+      <div class="panels-3">
+        <div class="panel">
+          <span class="panel-label">Frequent words · one token each</span>
+          <div class="chips chips-sm"><span class="chip">The</span><span class="chip"> cat</span><span class="chip"> sat</span><span class="chip"> on</span><span class="chip"> the</span><span class="chip"> mat</span></div>
         </div>
-        <ul class="points">
-          <li>The model sees <strong>tokens</strong>, never letters — it cannot count what it cannot see</li>
-          <li>Yet it writes a message that <strong>looks plausible</strong> and sounds sure</li>
-          <li>Today’s fixes: spell it out step by step, <strong>run code</strong> (a tool), or the answer was simply memorised</li>
-        </ul>
+        <div class="panel">
+          <span class="panel-label">Longer words · split in pieces</span>
+          <div class="chips chips-sm"><span class="chip">Token</span><span class="chip">isation</span></div>
+          <div class="chips chips-sm"><span class="chip">un</span><span class="chip">believ</span><span class="chip">able</span></div>
+        </div>
+        <div class="panel panel-featured">
+          <span class="panel-label">Every script, same vocabulary</span>
+          <div class="chips chips-sm"><span class="chip">你好</span><span class="chip">，</span><span class="chip">世界</span></div>
+          <div class="chips chips-sm"><span class="chip">При</span><span class="chip">вет</span><span class="chip">,</span><span class="chip"> мир</span></div>
+          <div class="chips chips-sm"><span class="chip">こんにちは</span></div>
+        </div>
       </div>
-      <div class="lore"><span class="tag">Lore</span><p>The 2024 meme every new model gets tested on — OpenAI’s reasoning project was reportedly code-named “Strawberry”.</p></div>
+      <ul class="points">
+        <li>Text is split into <strong>tokens</strong> (sub-word units), the only way a model reads any input</li>
+        <li><strong>One single vocabulary</strong> of about 100,000 tokens covers every language and script: Latin, Chinese, Cyrillic, Japanese… even emoji and code</li>
+        <li>Not words, syllables or characters: whatever fragments the tokeniser found frequent</li>
+      </ul>
     </div>
   </div>
   <footer class="slide-footer">
@@ -174,27 +180,33 @@
   </footer>
 </section>
 
-<!-- Tokens as unit -->
-<section class="slide layout-stats">
+<!-- Training -->
+<section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · The foundation model</p>
-    <h2>Tokens are the unit of everything</h2>
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-num">1M</div>
-        <div class="stat-label">tokens ≈ 4 Harry Potter books</div>
-        <div class="stat-note">The size of a model’s working memory is counted in tokens</div>
+    <p class="kicker">Part 1 · What it is</p>
+    <h2>Training: predict the next token</h2>
+    <div class="stage">
+      <div class="panels-2">
+        <div class="panel panel-center">
+          <span class="panel-label">A slice of the training text</span>
+          <div class="chips chips-sm chips-flat"><span class="chip">…</span><span class="chip">of</span><span class="chip">town</span><span class="chip">.</span><span class="chip pull">The</span><span class="chip pull">cat</span><span class="chip pull">sat</span><span class="chip pull">on</span><span class="chip pull">the</span><span class="chip pull">mat</span><span class="chip">while</span><span class="chip">the</span><span class="chip">rain</span></div>
+        </div>
+        <div class="panel panel-center">
+          <span class="panel-label">Predict each next token</span>
+          <div class="stack" style="gap: var(--space-2); align-items: center">
+            <div class="chips chips-xs chips-flat chips-grid"><span class="chip">The</span><span class="chip target">cat</span><span class="chip mask"></span><span class="chip mask"></span><span class="chip mask"></span><span class="chip mask"></span></div>
+            <div class="chips chips-xs chips-flat chips-grid"><span class="chip">The</span><span class="chip">cat</span><span class="chip target">sat</span><span class="chip mask"></span><span class="chip mask"></span><span class="chip mask"></span></div>
+            <div class="chips chips-xs chips-flat chips-grid"><span class="chip">The</span><span class="chip">cat</span><span class="chip">sat</span><span class="chip target">on</span><span class="chip mask"></span><span class="chip mask"></span></div>
+            <div class="chips chips-xs chips-flat chips-grid"><span class="chip">The</span><span class="chip">cat</span><span class="chip">sat</span><span class="chip">on</span><span class="chip target">the</span><span class="chip mask"></span></div>
+            <div class="chips chips-xs chips-flat chips-grid"><span class="chip">The</span><span class="chip">cat</span><span class="chip">sat</span><span class="chip">on</span><span class="chip">the</span><span class="chip target">mat</span></div>
+          </div>
+        </div>
       </div>
-      <div class="stat">
-        <div class="stat-num">¾</div>
-        <div class="stat-label">of an English word per token</div>
-        <div class="stat-note">Rule of thumb — other languages need more tokens per word</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">$ / M</div>
-        <div class="stat-label">tokens, input and output priced separately</div>
-        <div class="stat-note">Tokens measure context size, cost and speed alike</div>
-      </div>
+      <ul class="points">
+        <li>Take <strong>slices</strong> from the big blob of human text</li>
+        <li>Show the tokens so far: the model predicts the next one (purple), the rest is hidden</li>
+        <li>Repeat trillions of times. <strong>No labels needed</strong>: the answer is in the text</li>
+      </ul>
     </div>
   </div>
   <footer class="slide-footer">
@@ -203,26 +215,30 @@
   </footer>
 </section>
 
-<!-- Language disparity -->
+<!-- Attention -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · The foundation model</p>
-    <h2>Language disparity in the data</h2>
+    <p class="kicker">Part 1 · What it is</p>
+    <h2>Attention: every token looks at the others</h2>
     <div class="stage">
-      <div class="split split-wide-right split-top">
-        <div class="stack">
-          <div class="stat-big">80%</div>
-          <p class="takeaway">of pre-training data is English — roughly</p>
-          <p class="note-sm">Massively imbalanced. Consequences for every other language:</p>
+      <div class="panels-2">
+        <div class="panel">
+          <span class="panel-label">Same word, first meaning</span>
+          <div class="chips chips-sm chips-flat"><span class="chip">I</span><span class="chip pull">ate</span><span class="chip">an</span><span class="chip target">apple</span><span class="chip">for</span><span class="chip pull">lunch</span></div>
+          <p><strong>→ the fruit</strong></p>
         </div>
-        <div class="panels-grid-2">
-          <div class="panel"><h3>Quality gap</h3><p>Richer prose, vocabulary and facts in English</p></div>
-          <div class="panel"><h3>Cost and context</h3><p>More tokens for the same text, less room in the window</p></div>
-          <div class="panel"><h3>Cultural default</h3><p>Norms, references and examples skew English-speaking</p></div>
-          <div class="panel"><h3>Local knowledge</h3><p>National rules, procedures and jargon are thinner</p></div>
+        <div class="panel">
+          <span class="panel-label">Same word, second meaning</span>
+          <div class="chips chips-sm chips-flat"><span class="chip target">Apple</span><span class="chip pull">released</span><span class="chip">a</span><span class="chip">new</span><span class="chip pull">phone</span></div>
+          <p><strong>→ the company</strong></p>
         </div>
       </div>
-      <p class="takeaway">In practice: work in English, then translate — <em>the smaller the language, the bigger the gain</em></p>
+      <ul class="points">
+        <li>The token “apple” is the same in both; <strong>the context decides</strong> what it means</li>
+        <li>Attention: each token weighs all the others: “ate” and “lunch” pull toward the fruit, “released” and “phone” toward the company</li>
+        <li>That is how the model reads the whole context at once, to make its prediction</li>
+      </ul>
+      <div class="lore"><span class="tag">Lore</span><p>“Attention Is All You Need” (2017) introduced the Transformer, the “T” in GPT.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -234,18 +250,16 @@
 <!-- f(x) = y -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · The foundation model</p>
-    <h2>The model is a function: f(x) = y</h2>
+    <p class="kicker">Part 1 · What it is</p>
+    <h2>Inference: predicting with f(x) = y</h2>
     <div class="stage">
-      <div class="split split-wide-left">
-        <div class="stack">
-          <div class="code code-lg">f(<span class="hl">token1 . token2</span>) = <span class="dim">distribution</span> → token3</div>
-          <ul class="points">
-            <li><strong>x</strong> — the input: a sequence of tokens, the text so far</li>
-            <li><strong>y</strong> — the output: a <strong>probability distribution</strong>, one score for every token in the vocabulary</li>
-            <li>That is the whole interface. Nothing else goes in.</li>
-          </ul>
-        </div>
+      <div class="code code-lg">f(token1 . token2) = <span class="dim">distribution</span> → <span class="hl">token3</span></div>
+      <div class="split split-top">
+        <ul class="points">
+          <li>Once trained, the model is used for <strong>inference</strong>: given the text so far, it predicts the next token</li>
+          <li><strong>x</strong>, the input: the tokens so far, called the <strong>context</strong>. It is all the model knows</li>
+          <li><strong>y</strong>, the output: a <strong>probability distribution</strong>, a score for each token of the vocabulary (about 100,000)</li>
+        </ul>
         <div class="panel">
           <span class="panel-label">f(“I drank a delicious cup of”) =</span>
           <div class="bars">
@@ -253,9 +267,8 @@
             <div class="bar"><span>tea</span><span class="track"><span class="fill" style="--w:56%"></span></span><span class="val">28%</span></div>
             <div class="bar"><span>matcha</span><span class="track"><span class="fill" style="--w:18%"></span></span><span class="val">9%</span></div>
             <div class="bar"><span>cacao</span><span class="track"><span class="fill" style="--w:12%"></span></span><span class="val">6%</span></div>
-            <div class="bar"><span>… thousands</span><span class="track"><span class="fill" style="--w:30%"></span></span><span class="val">15%</span></div>
+            <div class="bar"><span>99,996 more</span><span class="track"><span class="fill" style="--w:30%"></span></span><span class="val">15%</span></div>
           </div>
-          <p class="note-sm">Illustrative numbers.</p>
         </div>
       </div>
     </div>
@@ -269,23 +282,24 @@
 <!-- Generation -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · The foundation model</p>
-    <h2>Generating text is calling f again</h2>
+    <p class="kicker">Part 1 · What it is</p>
+    <h2>Generation: predict, append, repeat</h2>
     <div class="stage">
-      <div class="split split-wide-left">
-        <div class="code">f(token1 . token2)
-    = distribution → <span class="hl">token3</span>
-f(token1 . token2 . <span class="hl">token3</span>)
-    = distribution → <span class="hl">token4</span>
-f(token1 . token2 . token3 . <span class="hl">token4</span>)
-    = …</div>
-        <ul class="points">
-          <li>The next token is <strong>sampled</strong> from the distribution</li>
-          <li>The token is appended to x, and the loop starts again</li>
-          <li>Sampling, not the model, is why one prompt gives different answers</li>
-        </ul>
+      <div class="code code-lg">f(token1 . token2)           = distribution → <span class="hl">token3</span>
+f(token1 . token2 . <span class="hl">token3</span>)  = distribution → <span class="hl">token4</span>
+<span class="dim">…</span></div>
+      <div class="flow">
+        <div class="node"><strong>Predict</strong><span>a distribution over the tokens</span></div>
+        <span class="arrow">→</span>
+        <div class="node node-accent"><strong>Sample</strong><span>pick one token, weighted by it</span></div>
+        <span class="arrow">→</span>
+        <div class="node"><strong>Append</strong><span>add it to x</span></div>
+        <span class="arrow">↺</span>
       </div>
-      <div class="lore"><span class="tag">Lore</span><p>GPT = Generative Pre-trained Transformer — the architecture comes from “Attention Is All You Need” (2017).</p></div>
+      <ul class="points">
+        <li>Sampling, not the model, is why one prompt gives different answers</li>
+        <li>The loop stops when the model writes a special end-of-text token</li>
+      </ul>
     </div>
   </div>
   <footer class="slide-footer">
@@ -294,26 +308,26 @@ f(token1 . token2 . token3 . <span class="hl">token4</span>)
   </footer>
 </section>
 
-<!-- Judge the document -->
+<!-- Autocomplete -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · The foundation model</p>
-    <h2>Judge the document, not the mechanism</h2>
+    <p class="kicker">Part 1 · What it is</p>
+    <h2>At this point: a machine that dreams documents</h2>
     <div class="stage">
-      <div class="panels-2">
-        <div class="panel panel-muted">
-          <span class="panel-label">The worry</span>
-          <h3>“It only predicts the next word.”</h3>
-          <p>True — and it makes people freak out. It tells you nothing about the quality of what comes out.</p>
+      <div class="split">
+        <div class="panel">
+          <span class="panel-label">Dim: what you write · gold: what the model dreams</span>
+          <div class="code code-sm code-wrap"><span class="dim">Zebra - Wikipedia
+
+The zebra is</span><span class="hl"> an African equine with a distinctive black-and-white striped coat. There are three living species: the plains zebra, the mountain zebra and Grévy’s zebra. Zebras live in …</span></div>
         </div>
-        <div class="panel panel-featured">
-          <span class="panel-label">The question that matters</span>
-          <h3>Is the produced document <em>good</em>?</h3>
-          <p>Useful, correct, fit for the task — that is what we evaluate, and what the rest of this talk builds on.</p>
-        </div>
+        <ul class="points">
+          <li>Give it the start of a document: it <strong>dreams the rest</strong></li>
+          <li>A whole page, never looked up, written token by token</li>
+          <li>It does not answer you: it <strong>continues</strong> what you wrote</li>
+          <li>Everything that follows (chat, tools, agents) is built on this</li>
+        </ul>
       </div>
-      <p class="takeaway">How the document gets written can change — other architectures exist, such as diffusion text models. <em>Nothing that follows would change.</em></p>
-      <div class="lore"><span class="tag">Lore</span><p>“Stochastic parrots” (Bender et al., 2021) is the best-known version of the worry.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -322,13 +336,191 @@ f(token1 . token2 . token3 . <span class="hl">token4</span>)
   </footer>
 </section>
 
-<!-- Reflexive writing -->
+<!-- Judge the document -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · The foundation model</p>
+    <p class="kicker">Part 1 · What it is</p>
+    <h2>Judge the document, not the mechanism</h2>
+    <div class="stage">
+      <div class="panels-2 panels-lg">
+        <div class="panel panel-muted">
+          <span class="panel-label">The worry</span>
+          <h3>“It only predicts the next word.”</h3>
+          <p>True, and it makes people freak out. It tells you nothing about the quality of what comes out.</p>
+        </div>
+        <div class="panel panel-featured">
+          <span class="panel-label">The question that matters</span>
+          <h3>Is the produced document <em>good</em>?</h3>
+          <p>Useful, correct, fit for the task: that is what we evaluate, and what the rest of this talk builds on.</p>
+        </div>
+      </div>
+      <p class="takeaway">How the document gets written can change: other architectures exist, such as diffusion text models. <em>Nothing that follows would change.</em></p>
+      <div class="lore"><span class="tag">Lore</span><p>“Stochastic parrots” (Bender et al., 2021) is the best-known version of the worry.</p></div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>12</span>
+  </footer>
+</section>
+
+<!-- Statement: keep in mind -->
+<section class="slide layout-statement">
+  <div class="slide-content">
+    <p class="kicker">Keep in mind</p>
+    <p>A machine that dreams tokens, trained on a frozen snapshot of the internet. <span class="ask">What follows from that?</span></p>
+  </div>
+</section>
+
+<!-- Language disparity -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Keep in mind</p>
+    <h2>Language disparity in the data</h2>
+    <div class="stage">
+      <div class="split split-wide-right split-top">
+        <div class="stack">
+          <div class="stat-big">80%</div>
+          <p class="takeaway">of pre-training data is English, roughly</p>
+          <p class="note-sm">The web is mostly English, and the data inherits it.</p>
+        </div>
+        <div class="stack">
+          <div class="panel"><h3>Quality gap</h3><p>Richer prose, vocabulary and facts in English</p></div>
+          <div class="panel"><h3>Cultural default</h3><p>Norms, references and examples skew English-speaking</p></div>
+          <div class="panel"><h3>Local knowledge</h3><p>National rules, procedures and jargon are thinner</p></div>
+        </div>
+      </div>
+      <p class="takeaway">In practice: work in English, then translate: <em>the smaller the language, the bigger the gain</em>.</p>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>14</span>
+  </footer>
+</section>
+
+<!-- Tokens as a unit -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Keep in mind</p>
+    <h2>Tokens are the unit of everything</h2>
+    <div class="stage">
+      <dl class="defs">
+        <div class="def def-wide"><dt>1 token</dt><dd>≈ ¾ of an English word, about four characters</dd></div>
+        <div class="def def-wide"><dt>1,000 tokens</dt><dd>≈ 750 words, a page and a half</dd></div>
+        <div class="def def-wide"><dt>100,000 tokens</dt><dd>≈ a short novel</dd></div>
+        <div class="def def-wide"><dt>1,000,000 tokens</dt><dd><strong>≈ 4 Harry Potter books</strong></dd></div>
+      </dl>
+      <p class="takeaway">Tokens measure a text’s size, its cost and the time to produce it. <em>APIs bill per million tokens</em>, input and output separately.</p>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>15</span>
+  </footer>
+</section>
+
+<!-- Strawberry -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Keep in mind</p>
+    <h2>How many r’s in “strawberry”?</h2>
+    <div class="stage">
+      <div class="split">
+        <div class="stack">
+          <div class="panel">
+            <span class="panel-label">What the model sees</span>
+            <div class="chips"><span class="chip">str</span><span class="chip">aw</span><span class="chip">berry</span></div>
+          </div>
+          <div class="chat">
+            <div class="msg"><span class="role">User</span>How many r’s are in “strawberry”?</div>
+            <div class="msg msg-assistant msg-wrong"><span class="role">Assistant</span>There are 2 r’s in “strawberry”. <span class="note-sm">(There are 3.)</span></div>
+          </div>
+        </div>
+        <ul class="points">
+          <li>The model sees <strong>tokens</strong>, never letters: it cannot count what it cannot see</li>
+          <li>Yet it writes a message that <strong>looks plausible</strong> and sounds sure</li>
+          <li>Today’s fixes: spell it out step by step, <strong>run code</strong> (a tool), or the answer was simply memorised</li>
+        </ul>
+      </div>
+      <div class="lore"><span class="tag">Lore</span><p>The 2024 meme every new model gets tested on. OpenAI’s reasoning project was reportedly code-named “Strawberry”.</p></div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>16</span>
+  </footer>
+</section>
+
+<!-- Context window -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Keep in mind</p>
+    <h2>The context window: a hard limit on x</h2>
+    <div class="stage">
+      <div class="seg seg-lg">
+        <span class="s-a" style="--f:5">Your prompt</span>
+        <span class="s-b" style="--f:3">What it has written so far</span>
+        <span class="s-free" style="--f:3">Room left</span>
+      </div>
+      <div class="split" style="align-items: stretch">
+        <ul class="points" style="justify-content: center">
+          <li>The most tokens the model can process at once, input <strong>and</strong> output together</li>
+          <li>What does not fit does not exist for the model</li>
+        </ul>
+        <div class="panel panel-featured" style="justify-content: center">
+          <span class="panel-label">Windows keep growing</span>
+          <h3>A few thousand tokens in 2022, a million today</h3>
+        </div>
+      </div>
+      <div class="panel">
+        <span class="panel-label">Context rot</span>
+        <p>The longer the prompt, the more models used to <strong>lose track of what was in it</strong>, silently. Recent models handle long contexts far better, but a big window is still not a perfect memory.</p>
+      </div>
+      <div class="lore"><span class="tag">Lore</span><p>Claude Opus 4.6 was asked to list every spell in the first four Harry Potter books (about 733K tokens): it found 49 of the 50.</p></div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>17</span>
+  </footer>
+</section>
+
+<!-- Knowledge cutoff -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Keep in mind</p>
+    <h2>Knowledge cutoff: the model stops at a date</h2>
+    <div class="stage">
+      <div class="stack">
+        <div class="seg seg-lg">
+          <span class="s-a" style="--f:5">Training data, up to the cutoff</span>
+          <span class="s-c" style="--f:1.6">Release</span>
+          <span style="--f:3.4">In use, a year or more</span>
+        </div>
+        <div class="spectrum-labels"><span>the model knows</span><span>the model knows nothing new</span></div>
+      </div>
+      <ul class="points">
+        <li>Training data stops at a <strong>fixed date</strong>: the model is frozen there</li>
+        <li>It does not know what happened since, not even today’s date</li>
+        <li>Ask anyway, and it admits it, or guesses with the same fluency</li>
+        <li>Anything newer must be put in x: by you, or by a tool (Part 2)</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>18</span>
+  </footer>
+</section>
+
+<!-- Reflexive writing + hallucination -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Keep in mind</p>
     <h2>Reflexive writing, not a knowledge base</h2>
     <div class="stage">
-      <p class="lead"><strong>Not a query engine</strong> — no lookup, no record retrieved. “Reflexive writing”, conditioned entirely by the prompt.</p>
+      <p class="lead"><strong>Not a query engine</strong>: no lookup, no record retrieved. “Reflexive writing”, driven by the prompt.</p>
       <div class="panels-2">
         <div class="panel">
           <span class="panel-label">Obvious continuation → looks like knowledge</span>
@@ -343,210 +535,14 @@ f(token1 . token2 . token3 . <span class="hl">token4</span>)
           <div class="bars">
             <div class="bar"><span>coffee</span><span class="track"><span class="fill" style="--w:42%"></span></span><span class="val"></span></div>
             <div class="bar"><span>tea</span><span class="track"><span class="fill" style="--w:28%"></span></span><span class="val"></span></div>
-            <div class="bar"><span>matcha…</span><span class="track"><span class="fill" style="--w:15%"></span></span><span class="val"></span></div>
           </div>
         </div>
       </div>
-      <p class="takeaway">Same mechanism for both: <em>an obvious continuation looks like knowledge</em>.</p>
-    </div>
-  </div>
-  <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>12</span>
-  </footer>
-</section>
-
-<!-- Hallucinations & cutoff -->
-<section class="slide layout-custom">
-  <div class="slide-content">
-    <p class="kicker">Part 1 · The foundation model</p>
-    <h2>Plausible is not true</h2>
-    <div class="stage">
-      <div class="panels-2">
-        <div class="panel panel-featured">
-          <span class="panel-label">Hallucinations</span>
-          <h3>Plausible, confident, and factually wrong</h3>
-          <p>The model writes what fits. Nothing in the function checks that it is true — the strawberry answer was one.</p>
-        </div>
-        <div class="panel">
-          <span class="panel-label">Knowledge cutoff</span>
-          <h3>Training data stops at a fixed date</h3>
-          <p>Anything after it is unknown to the model — or guessed with the same fluency.</p>
-        </div>
+      <div class="panel panel-featured">
+        <span class="panel-label">Hallucination</span>
+        <p>When there is no obvious continuation, it still writes one: <strong>plausible, confident, and factually wrong</strong>. Nothing in the function checks that it is true.</p>
       </div>
-      <div class="lore"><span class="tag">Lore</span><p>2023: lawyers filed a brief citing court cases invented by ChatGPT (<em>Mata v. Avianca</em>). Karpathy calls LLMs “dream machines”: hallucination is what they always do — we like the dreams that are right.</p></div>
-    </div>
-  </div>
-  <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>13</span>
-  </footer>
-</section>
-
-<!-- Statement -->
-<section class="slide layout-statement">
-  <div class="slide-content">
-    <p class="kicker">Beyond Completion</p>
-    <p>We compressed human knowledge into a model that only completes text. How do we make it an assistant?</p>
-  </div>
-</section>
-
-<!-- In-context pattern matching -->
-<section class="slide layout-custom">
-  <div class="slide-content">
-    <p class="kicker">Part 1 · Post-training</p>
-    <h2>In-context pattern matching</h2>
-    <div class="stage">
-      <div class="split">
-        <div class="code code-lg">chat   → cat
-maison → house
-arbre  → tree
-fleur  → <span class="hl">flower</span></div>
-        <ul class="points">
-          <li>Emergent ability to spot and reproduce <strong>patterns</strong> in the prompt itself</li>
-          <li>No task-specific training, no instruction — continuing is all it does</li>
-          <li>Show the pattern, and the continuation <em>is</em> the task</li>
-        </ul>
-      </div>
-      <div class="lore"><span class="tag">Lore</span><p>GPT-3 (2020), “Language Models are Few-Shot Learners” — the paper that made this the headline.</p></div>
-    </div>
-  </div>
-  <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>15</span>
-  </footer>
-</section>
-
-<!-- Instruction tuning -->
-<section class="slide layout-custom">
-  <div class="slide-content">
-    <p class="kicker">Part 1 · Post-training</p>
-    <h2>Instruction tuning: the pattern is the assistant</h2>
-    <div class="stage">
-      <div class="split split-wide-right">
-        <div class="stack">
-          <div class="panel panel-muted">
-            <span class="panel-label">Base model</span>
-            <p><code>What is the capital of France?</code></p>
-            <p class="note-sm">→ “What is the capital of Germany? What is the capital of Italy? …”</p>
-          </div>
-          <div class="panel">
-            <span class="panel-label">Instruction-tuned model</span>
-            <p><code>What is the capital of France?</code></p>
-            <p class="note-sm">→ “The capital of France is Paris.”</p>
-          </div>
-        </div>
-        <ul class="points">
-          <li><strong>Instruction tuning</strong> — fine-tuning on instructions paired with ideal assistant responses</li>
-          <li>Pattern reproduction again, at training scale — the pattern is the assistant role</li>
-          <li>It answers instead of continuing, with a stable persona and tone</li>
-          <li>The base model never refused to help — it had no notion of being asked</li>
-        </ul>
-      </div>
-      <div class="lore"><span class="tag">Lore</span><p>InstructGPT → ChatGPT, 30 Nov 2022. The “shoggoth with a smiley face” meme: the strange base model, wearing the assistant mask.</p></div>
-    </div>
-  </div>
-  <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>16</span>
-  </footer>
-</section>
-
-<!-- RL -->
-<section class="slide layout-custom">
-  <div class="slide-content">
-    <p class="kicker">Part 1 · Post-training</p>
-    <h2>Reinforcement learning: answer, grade, reinforce</h2>
-    <div class="stage">
-      <div class="flow">
-        <div class="node"><strong>Answer</strong><span>the model writes a response</span></div>
-        <span class="arrow">→</span>
-        <div class="node"><strong>Grade</strong><span>a score, automatic or human</span></div>
-        <span class="arrow">→</span>
-        <div class="node node-accent"><strong>Reinforce</strong><span>make high-scoring answers more likely</span></div>
-        <span class="arrow">↺</span>
-      </div>
-      <div class="panels-2">
-        <div class="panel">
-          <span class="panel-label">What it knows</span>
-          <h3>RL on verifiable answers</h3>
-          <p>Automatic grading on factual data — maths, code, quizzes — for accuracy.</p>
-        </div>
-        <div class="panel">
-          <span class="panel-label">How it behaves</span>
-          <h3>RLHF</h3>
-          <p>Humans pick the better of two answers — for tone, helpfulness, safety.</p>
-        </div>
-      </div>
-      <div class="lore"><span class="tag">Lore</span><p>AlphaGo’s “move 37” (2016) — RL finding what no human would play. RLHF is what turned GPT-3 into InstructGPT.</p></div>
-    </div>
-  </div>
-  <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>17</span>
-  </footer>
-</section>
-
-<!-- Reasoning -->
-<section class="slide layout-custom">
-  <div class="slide-content">
-    <p class="kicker">Part 1 · Post-training</p>
-    <h2>System 2 thinking: reasoning learned by RL</h2>
-    <div class="stage">
-      <div class="split">
-        <div class="stack">
-          <div class="panel panel-featured">
-            <span class="panel-label">What you read</span>
-            <p><strong>The answer is 42.</strong></p>
-          </div>
-          <div class="code">Hmm, rephrase the problem first…
-Strategy A: try small cases   <span class="dim">→ fails for n=3</span>
-Wait — that contradicts step 2.
-Strategy B: work backwards    <span class="hl">→ works</span>
-Check the result again. <span class="hl">✓</span></div>
-        </div>
-        <ul class="points">
-          <li>Models learn to write <strong>scratchpad reasoning</strong> before answering</li>
-          <li>Rephrase, explore strategies, catch mistakes, self-correct</li>
-          <li>The visible answer is the tip of a much longer hidden process</li>
-        </ul>
-      </div>
-      <div class="lore"><span class="tag">Lore</span><p>o1 (Sept 2024) “thinks before answering”; DeepSeek-R1 (Jan 2025) showed it emerging from RL on verifiable answers.</p></div>
-    </div>
-  </div>
-  <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>18</span>
-  </footer>
-</section>
-
-<!-- Chatbot = f one level up -->
-<section class="slide layout-custom">
-  <div class="slide-content">
-    <p class="kicker">Part 1 · The chatbot</p>
-    <h2>A chatbot is the same function, one level up</h2>
-    <div class="stage">
-      <div class="split">
-        <div class="stack">
-          <div class="code">f(system . user1)
-    = <span class="hl">assistant1</span>
-
-f(system . user1 . assistant1 . user2)
-    = <span class="hl">assistant2</span>
-<span class="dim">…</span></div>
-          <ul class="points">
-            <li>x is now the whole transcript; y is the next assistant message</li>
-            <li>Same mechanism: text in, text out — with roles</li>
-          </ul>
-        </div>
-        <div class="chat">
-          <div class="msg msg-system"><span class="role">System</span>You are a helpful assistant.</div>
-          <div class="msg"><span class="role">User 1</span>Explain tokens in one line.</div>
-          <div class="msg msg-assistant"><span class="role">Assistant 1</span>Tokens are the text fragments a model reads.</div>
-          <div class="msg"><span class="role">User 2</span>And why do they cost money?</div>
-          <div class="msg msg-assistant"><span class="role">Assistant 2</span>…</div>
-        </div>
-      </div>
+      <div class="lore"><span class="tag">Lore</span><p>2023: lawyers filed a brief citing court cases invented by ChatGPT (<em>Mata v. Avianca</em>).</p></div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -555,30 +551,19 @@ f(system . user1 . assistant1 . user2)
   </footer>
 </section>
 
-<!-- Boxes: model in chatbot system -->
+<!-- Intelligence as compression -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · The chatbot</p>
-    <h2>The chatbot is software wrapped around f</h2>
+    <p class="kicker">Part 1 · Keep in mind</p>
+    <h2>Why compression looks like intelligence</h2>
     <div class="stage">
-      <div class="split split-wide-left">
-        <div class="box box-chat">
-          <span class="box-tag">Chatbot system</span>
-          <div class="box-model box">
-            <span class="box-tag">The model</span>
-            <span class="formula">f(x) = y</span>
-          </div>
-          <div class="box-row">
-            <div class="box-mini"><strong>History</strong>every message so far</div>
-            <div class="box-mini"><strong>Append</strong>message after message</div>
-          </div>
-        </div>
-        <div class="callouts">
-          <div class="callout"><h3>The model</h3><p>A stateless function: text in, distribution out</p></div>
-          <div class="callout"><h3>The chatbot system</h3><p>Keeps the history, appends each message, calls f again</p></div>
-          <div class="callout"><h3>You</h3><p>Type the next message — and see only the last answer</p></div>
-        </div>
-      </div>
+      <dl class="defs">
+        <div class="def def-wide"><dt>Newton</dt><dd>Three laws compress countless observations: falling apples, orbiting planets, colliding balls</dd></div>
+        <div class="def def-wide"><dt>Information theory</dt><dd>Predicting well and compressing well are the same problem</dd></div>
+        <div class="def def-wide"><dt>An LLM</dt><dd>To reproduce the world’s text, it must capture the regularities in it: grammar, facts, reasoning patterns</dd></div>
+      </dl>
+      <p class="takeaway">Intelligence is compression: <em>the better a model compresses what humans wrote, the more it can do with it</em>. That is how a text completer can become an assistant.</p>
+      <div class="lore"><span class="tag">Lore</span><p>Claude Shannon, the father of information theory, widely assumed to be the namesake of Claude.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -587,67 +572,35 @@ f(system . user1 . assistant1 . user2)
   </footer>
 </section>
 
-<!-- Context isolation -->
-<section class="slide layout-custom">
+<!-- Statement -->
+<section class="slide layout-statement">
   <div class="slide-content">
-    <p class="kicker">Part 1 · The chatbot</p>
-    <h2>Context isolation: the model only sees x</h2>
-    <div class="stage">
-      <div class="panels-2">
-        <div class="panel">
-          <span class="panel-label">Conversation A</span>
-          <div class="chat">
-            <div class="msg"><span class="role">User</span>My name is Ana.</div>
-            <div class="msg msg-assistant"><span class="role">Assistant</span>Nice to meet you, Ana!</div>
-          </div>
-        </div>
-        <div class="panel">
-          <span class="panel-label">Conversation B — a different x</span>
-          <div class="chat">
-            <div class="msg"><span class="role">User</span>What is my name?</div>
-            <div class="msg msg-assistant"><span class="role">Assistant</span>I don’t know your name.</div>
-          </div>
-        </div>
-      </div>
-      <ul class="points">
-        <li>What is not in the text <strong>does not exist</strong> for the model — no side channel, no shared state</li>
-        <li>Another conversation is another x: isolation is what you control — and what you can exploit</li>
-        <li>“Memory” features only inject saved notes into x. Tool results and code output will enter it too (Part 2)</li>
-      </ul>
-    </div>
+    <p class="kicker">Beyond Completion</p>
+    <p>We compressed human knowledge into a model that only dreams documents. <span class="ask">How do we make it an assistant?</span></p>
   </div>
-  <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>21</span>
-  </footer>
 </section>
 
-<!-- Context window -->
+<!-- In-context pattern matching -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · The chatbot</p>
-    <h2>The context window: a hard limit on x</h2>
+    <p class="kicker">Part 1 · Becoming an assistant</p>
+    <h2>In-context pattern matching</h2>
     <div class="stage">
-      <div class="seg">
-        <span class="s-c" style="--f:1">System</span>
-        <span class="s-a" style="--f:4">History</span>
-        <span class="s-b" style="--f:2">Documents</span>
-        <span style="--f:1.5">Your message</span>
-        <span class="s-free" style="--f:3">Room for the reply</span>
-      </div>
-      <div class="split split-top">
-        <ul class="points">
-          <li>How many tokens the model can process at once — input <strong>and</strong> output together</li>
-          <li>Everything the model needs must fit inside — or it does not exist for it</li>
-          <li>Windows grew from a few thousand tokens to a million</li>
-        </ul>
-        <div class="panel panel-featured">
-          <span class="panel-label">One million tokens</span>
-          <h3>≈ 4 Harry Potter books, read in a single call</h3>
-          <p>Fitting is not the same as using well — see context rot.</p>
+      <div class="split">
+        <div class="panel">
+          <span class="panel-label">Dim: the prompt · gold: what the model writes</span>
+          <div class="code code-lg"><span class="dim">chat,   cat
+maison, house
+arbre,  tree
+fleur,</span> <span class="hl">flower</span></div>
         </div>
+        <ul class="points">
+          <li>Show a few examples in the prompt: the model spots the <strong>pattern</strong> and applies it to the next case</li>
+          <li>No retraining, no instruction: the pattern is in the text, and continuing the text is all it does</li>
+          <li>It is <strong>emergent</strong>: nobody built this in, it appeared as models scaled up</li>
+        </ul>
       </div>
-      <div class="lore"><span class="tag">Lore</span><p>“Needle in a haystack” tests: hide one fact in a huge prompt and ask for it back.</p></div>
+      <div class="lore"><span class="tag">Lore</span><p>GPT-3 (2020), “Language Models are Few-Shot Learners”, the paper that made this the headline.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -656,30 +609,30 @@ f(system . user1 . assistant1 . user2)
   </footer>
 </section>
 
-<!-- Stateless + KV cache -->
+<!-- Fine-tuning -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · The chatbot</p>
-    <h2>Stateless chat, and the KV cache</h2>
+    <p class="kicker">Part 1 · Becoming an assistant</p>
+    <h2>Fine-tuning: keep training, on documents we choose</h2>
     <div class="stage">
-      <div class="split split-wide-right">
-        <div class="panel">
-          <span class="panel-label">What each API call carries</span>
-          <div class="grow">
-            <div class="row"><b>Turn 1</b><div style="--w:30%"><span class="fresh" style="--n:1"></span></div></div>
-            <div class="row"><b>Turn 2</b><div style="--w:60%"><span class="cached" style="--c:1"></span><span class="fresh" style="--n:1"></span></div></div>
-            <div class="row"><b>Turn 3</b><div style="--w:100%"><span class="cached" style="--c:2"></span><span class="fresh" style="--n:1"></span></div></div>
-          </div>
-          <p class="note-sm"><strong>Purple</strong>: history re-sent, served from the cache. <strong>Teal</strong>: new tokens to process.</p>
-        </div>
-        <ul class="points">
-          <li>The model remembers nothing between two messages</li>
-          <li>Every API call <strong>re-sends the full history</strong></li>
-          <li><strong>KV cache</strong> — stores computed attention states, so history is not re-processed</li>
-          <li>Without it, each turn would be slower and costlier than the last</li>
-        </ul>
+      <div class="flow">
+        <div class="node"><strong>Pre-training</strong><span>trillions of tokens of web text</span><span class="note-sm">gives the knowledge</span></div>
+        <span class="arrow">→</span>
+        <div class="node node-accent"><strong>Fine-tuning</strong><span>a small, curated set of documents</span><span class="note-sm">gives the behaviour</span></div>
+        <span class="arrow">→</span>
+        <div class="node node-dark"><strong>Same model</strong><span>now behaving differently</span></div>
       </div>
-      <div class="lore"><span class="tag">Lore</span><p>This is why providers bill cached input tokens at a fraction of the normal price.</p></div>
+      <ul class="points">
+        <li>The same exercise (predict the next token) on a much smaller, <strong>curated</strong> dataset: thousands of examples, not trillions of tokens</li>
+        <li>We choose the documents, so we choose what the model becomes, for example by fine-tuning on:</li>
+      </ul>
+      <div class="panels-5">
+        <div class="panel panel-muted option"><p>Assistant conversations</p></div>
+        <div class="panel panel-muted option"><p>Encyclopedias</p></div>
+        <div class="panel panel-muted option"><p>School books</p></div>
+        <div class="panel panel-muted option"><p>Legal or medical texts</p></div>
+        <div class="panel panel-muted option"><p>Code</p></div>
+      </div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -688,27 +641,28 @@ f(system . user1 . assistant1 . user2)
   </footer>
 </section>
 
-<!-- Context rot -->
+<!-- Instruction tuning -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · The chatbot</p>
-    <h2>Context rot: the long-conversation trade-off</h2>
+    <p class="kicker">Part 1 · Becoming an assistant</p>
+    <h2>Instruction tuning: documents that teach a role</h2>
     <div class="stage">
-      <div class="split split-wide-left">
+      <div class="split">
+        <div class="panel">
+          <span class="panel-label">One of thousands of documents we wrote</span>
+          <div class="code">User: What is the capital of France?
+Assistant: The capital of France is Paris.
+User: And of Italy?
+Assistant: Rome.</div>
+        </div>
         <ul class="points">
-          <li>The KV cache makes long chats cheap — nothing pushes you to start over</li>
-          <li>But reasoning <strong>degrades as context grows</strong>: early instructions fade, contradictions pile up</li>
-          <li>The failure is silent — the model never warns you</li>
+          <li>The fine-tuning data: <strong>conversations</strong> of a user and an ideal assistant, first written by paid people, now often generated by other models</li>
+          <li>Fed to the model like any text, it learns the pattern (after <code>User:</code> comes <code>Assistant:</code>), which is pattern matching again</li>
+          <li>Now it answers instead of continuing, with a stable persona and tone</li>
+          <li>The base model never refused to help: it had no notion of being asked</li>
         </ul>
-        <figure class="figure figure-contain">
-          <div class="figure-ph">illustration placeholder · quality-vs-length slope: still-fine zone, start-a-new-chat zone (no numbers)</div>
-        </figure>
       </div>
-      <div class="panels-3">
-        <div class="panel"><span class="panel-label">New topic</span><p>→ new conversation</p></div>
-        <div class="panel"><span class="panel-label">Long thread</span><p>→ restate the goal</p></div>
-        <div class="panel"><span class="panel-label">Documents</span><p>→ keep only what is still relevant</p></div>
-      </div>
+      <div class="lore"><span class="tag">Lore</span><p>InstructGPT → ChatGPT, 30 Nov 2022: the same model family, now speaking in turns.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -717,14 +671,160 @@ f(system . user1 . assistant1 . user2)
   </footer>
 </section>
 
-<!-- Statement -->
-<section class="slide layout-statement">
+
+<!-- RL verifiable -->
+<section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Beyond the Chatbot</p>
-    <p>Our reasoning assistant still waits for us to fix its mistakes. What if it could act on its own?</p>
+    <p class="kicker">Part 1 · Becoming an assistant</p>
+    <h2>Reinforcement learning: a quiz with an answer key</h2>
+    <div class="stage">
+      <div class="split split-wide-left">
+        <div class="panel">
+          <span class="panel-label">Question · answer key: Canberra</span>
+          <div class="code code-lg">What is the capital of Australia?
+
+attempt 1   Sydney      <span class="dim">✗</span>
+attempt 2   Canberra    <span class="hl">✓</span>
+attempt 3   Canberra    <span class="hl">✓</span>
+attempt 4   Melbourne   <span class="dim">✗</span></div>
+        </div>
+        <ul class="points">
+          <li>Questions with a <strong>known answer</strong>: the model tries several times, and each answer is checked automatically</li>
+          <li>Right answers are <strong>reinforced</strong>, wrong ones are not: it gets reliable on what it knows</li>
+          <li>It also learns to say “I don’t know” when unsure, so fewer <strong>hallucinations</strong> on well-known facts</li>
+          <li>Works wherever answers can be checked, maths and code too</li>
+        </ul>
+      </div>
+    </div>
   </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>25</span>
+  </footer>
 </section>
 
+<!-- RLHF -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Becoming an assistant</p>
+    <h2>RLHF: when only a human can judge</h2>
+    <div class="stage" style="gap: var(--space-4)">
+      <div class="msg"><span class="role">Prompt</span>Explain tokens to a child.</div>
+      <div class="panels-2">
+        <div class="panel">
+          <span class="panel-label">Answer A</span>
+          <p class="answer">Tokens are sub-word units produced by a byte-pair-encoding tokeniser.</p>
+        </div>
+        <div class="panel panel-featured">
+          <span class="panel-label">Answer B · picked by the human ✓</span>
+          <p class="answer">Tokens are the little pieces of text a computer reads, like Lego bricks.</p>
+        </div>
+      </div>
+      <ul class="points">
+        <li>Tone, helpfulness and safety cannot be checked by a program: humans <strong>pick the better of two answers</strong>, and the preferences train a reward signal</li>
+        <li>The catch: people like being agreed with, so the model can learn to flatter: <strong>sycophancy</strong></li>
+      </ul>
+      <div class="lore"><span class="tag">Lore</span><p>April 2025: a ChatGPT update was rolled back after users found it far too flattering.</p></div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>26</span>
+  </footer>
+</section>
+
+<!-- Reasoning -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Becoming an assistant</p>
+    <h2>System 2 thinking: write the reasoning first</h2>
+    <div class="stage">
+      <div class="split">
+        <div class="stack">
+          <div class="msg"><span class="role">Question</span>A man looks at a portrait: “Brothers and sisters I have none, but that man’s father is my father’s son.” Who is in the portrait?</div>
+          <div class="code code-sm"><span class="dim">Thinking…
+No brothers or sisters: an only child.
+So “my father’s son” can only be me.
+So “that man’s father” is me.
+Easy: the portrait shows me. Wait.
+then I would be my own father. No.
+If I am his father, he is my son.</span>
+<span class="hl">Answer: his son.</span></div>
+        </div>
+        <ul class="points">
+          <li>Models learn to write <strong>scratchpad reasoning</strong> before answering. The visible answer is the tip of a much longer hidden process</li>
+          <li><strong>Why it works:</strong> each token is one pass of f, a fixed amount of computation. More tokens, more thinking</li>
+          <li>The text it writes becomes x: intermediate steps are kept, then rephrased, checked, corrected, or replaced by another strategy</li>
+          <li>Trained by RL on verifiable answers: thinking that leads to the right answer is reinforced</li>
+        </ul>
+      </div>
+      <div class="lore"><span class="tag">Lore</span><p>DeepSeek-R1 (Jan 2025): reasoning from RL in an open model. It shook the industry and the stock market.</p></div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>27</span>
+  </footer>
+</section>
+
+<!-- Boxes: model in chatbot system -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · The chatbot</p>
+    <h2>The chatbot is software wrapped around the model</h2>
+    <div class="stage">
+      <div class="split split-wide-left">
+        <div class="box box-chat">
+          <span class="box-tag">Chatbot system</span>
+          <div class="box-model box">
+            <span class="box-tag">The model · after post-training</span>
+            <span class="formula">f(x) = y</span>
+            <span class="formula-sub">same interface, a much more capable function</span>
+          </div>
+          <div class="box-row">
+            <div class="box-mini"><strong>History</strong>every message so far</div>
+            <div class="box-mini"><strong>Append</strong>message after message</div>
+          </div>
+        </div>
+        <div class="callouts">
+          <div class="callout"><h3>The model</h3><p>Still text in, distribution out, but shaped by post-training into an assistant that reasons</p></div>
+          <div class="callout"><h3>The chatbot system</h3><p>Keeps the history, appends each message, calls the model again, and stops when it is your turn</p></div>
+          <div class="callout"><h3>You</h3><p>Type the next message, and see only the last answer</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>28</span>
+  </footer>
+</section>
+
+<!-- Stateless -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · The chatbot</p>
+    <h2>The whole conversation goes back in, every time</h2>
+    <div class="stage" style="gap: var(--space-4)">
+      <div class="code">f(system . user1)                                            = <span class="hl">assistant1</span>
+f(system . user1 . assistant1 . user2)                       = <span class="hl">assistant2</span>
+f(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl">assistant3</span></div>
+      <ul class="points">
+        <li>The model sees only x: it <strong>remembers nothing</strong> between two messages</li>
+        <li>So the chat system <strong>re-sends the full history</strong> on every message: the conversation is rebuilt from scratch each time</li>
+        <li>“Memory” features only add saved notes to x</li>
+      </ul>
+      <div class="panel panel-muted">
+        <span class="panel-label">KV cache</span>
+        <p>Reprocessing the whole history each time would be slow and costly. The model stores its computed attention states: <strong>only new tokens are processed</strong>, and cached tokens are billed at a fraction of the price.</p>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>29</span>
+  </footer>
+</section>
 <!-- ═══════════════════════ PART 2 · AGENTIC ═════════════════════════════ -->
 <section class="slide layout-section inverse">
   <div class="slide-content">
@@ -752,15 +852,15 @@ f(system . user1 . assistant1 . user2)
           <div class="msg"><span class="role">User</span>Will it rain in Paris on Saturday?</div>
           <div class="msg msg-assistant"><span class="role">Assistant → system</span><code>weather(city="Paris", day="Sat")</code></div>
           <div class="msg msg-tool"><span class="role">System → assistant</span>{"forecast": "rain", "temp_c": 11}</div>
-          <div class="msg msg-assistant"><span class="role">Assistant → user</span>Yes — rain, 11 °C. Plan indoors.</div>
+          <div class="msg msg-assistant"><span class="role">Assistant → user</span>Yes, rain, 11 °C. Plan indoors.</div>
         </div>
         <div class="stack">
           <div class="code">f(system . user . <span class="hl">tool_call . tool_result</span>)
     = assistant</div>
           <ul class="points">
             <li>A model that writes text can write <strong>structured tool requests</strong></li>
-            <li>It runs nothing — it <em>writes a request</em>; the software executes and returns the result</li>
-            <li>A <strong>three-party exchange</strong>: user, agent, system — two of them usually invisible to you</li>
+            <li>It runs nothing: it <em>writes a request</em>; the software executes and returns the result</li>
+            <li>A <strong>three-party exchange</strong>: user, agent, system. Two of them are usually invisible to you</li>
           </ul>
         </div>
       </div>
@@ -769,7 +869,7 @@ f(system . user1 . assistant1 . user2)
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>28</span>
+    <span>32</span>
   </footer>
 </section>
 
@@ -793,13 +893,13 @@ f(system . user . … . result_2)            = <span class="hl">final answer</sp
       </div>
       <ul class="points">
         <li>The system talks to itself, in an automated loop; you are only at the entry and the exit</li>
-        <li>Each tool response becomes context for the next instruction — one question, many tool calls, until the agent has what it needs</li>
+        <li>Each tool response becomes context for the next instruction: one question, many tool calls, until the agent has what it needs</li>
       </ul>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>29</span>
+    <span>33</span>
   </footer>
 </section>
 
@@ -821,12 +921,12 @@ f(system . user . … . result_2)            = <span class="hl">final answer</sp
         <span class="arrow">→</span>
         <div class="node node-dark" style="flex: 1"><strong>Itinerary</strong><span>reasoned over everything fetched</span></div>
       </div>
-      <p class="takeaway">None of it is in the model — <em>all of it is fetched</em>, then reasoned over.</p>
+      <p class="takeaway">None of it is in the model: <em>all of it is fetched</em>, then reasoned over.</p>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>30</span>
+    <span>34</span>
   </footer>
 </section>
 
@@ -837,7 +937,7 @@ f(system . user . … . result_2)            = <span class="hl">final answer</sp
     <h2>What is an “agent”? Nobody quite agrees</h2>
     <div class="stage">
       <div class="stack">
-        <div class="spectrum">“agent” — somewhere in here</div>
+        <div class="spectrum">“agent”: somewhere in here</div>
         <div class="spectrum-labels"><span>chatbot</span><span>assistant with tools</span><span>autonomous agent</span><span>multi-agent</span></div>
       </div>
       <p class="lead">No settled definition, so debates go in circles: the <strong>model</strong>? The <strong>software around it</strong>? <strong>Both</strong>? Vendors mean all three. What we <em>can</em> define:</p>
@@ -850,7 +950,7 @@ f(system . user . … . result_2)            = <span class="hl">final answer</sp
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>31</span>
+    <span>35</span>
   </footer>
 </section>
 
@@ -872,13 +972,13 @@ f(system . user . … . result_2)            = <span class="hl">final answer</sp
           <p>A position, anchored in your sources.</p>
         </div>
       </div>
-      <p class="takeaway">Same model, same question — <em>only the prompt changes</em>.</p>
+      <p class="takeaway">Same model, same question: <em>only the prompt changes</em>.</p>
       <p class="lead">Pasting a document is you acting as the tool. An agent can do it by itself.</p>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>32</span>
+    <span>36</span>
   </footer>
 </section>
 
@@ -900,14 +1000,14 @@ f(system . user . … . result_2)            = <span class="hl">final answer</sp
       <ul class="points">
         <li><strong>RAG</strong> (retrieval-augmented generation), database queries, document and email search</li>
         <li>The agent fetches what it needs, when it needs it</li>
-        <li>Context grounding, made automatic — the agent attaches the documents itself</li>
-        <li>Selection matters: the window is limited, and context rot is real</li>
+        <li>Context grounding, made automatic: the agent attaches the documents itself</li>
+        <li>Selection matters: keep only what is still relevant, because the window is limited and context rot is real</li>
       </ul>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>33</span>
+    <span>37</span>
   </footer>
 </section>
 
@@ -928,15 +1028,15 @@ f(system . user . … . result_2)            = <span class="hl">final answer</sp
         </div>
         <ul class="points">
           <li>Anything with an API: email, calendar, CRM, tickets, publishing, even 3D and CAD</li>
-          <li>Same tool-calling mechanism — but now the request <em>changes something</em></li>
-          <li>What matters: <strong>reversible vs. irreversible</strong> — and what you leave unsupervised</li>
+          <li>Same tool-calling mechanism, but now the request <em>changes something</em></li>
+          <li>What matters: <strong>reversible vs. irreversible</strong>, and what you leave unsupervised</li>
         </ul>
       </div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>34</span>
+    <span>38</span>
   </footer>
 </section>
 
@@ -950,11 +1050,11 @@ f(system . user . … . result_2)            = <span class="hl">final answer</sp
         <div class="stack">
           <div class="panel panel-muted">
             <span class="panel-label">The model estimates</span>
-            <p>“The total is about 48,000 €” — plausible, unverifiable.</p>
+            <p>“The total is about 48,000 €”: plausible, unverifiable.</p>
           </div>
           <div class="panel panel-featured">
             <span class="panel-label">The script computes</span>
-            <p><code>sum(rows) = 48,317.40 €</code> — exact, auditable.</p>
+            <p><code>sum(rows) = 48,317.40 €</code>: exact, auditable.</p>
           </div>
           <p class="note-sm">The agent writes code, runs it in a sandbox, and uses the result.</p>
         </div>
@@ -970,7 +1070,7 @@ f(system . user . … . result_2)            = <span class="hl">final answer</sp
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>35</span>
+    <span>39</span>
   </footer>
 </section>
 
@@ -989,7 +1089,7 @@ f(system . user . … . result_2)            = <span class="hl">final answer</sp
         <span class="arrow">↺</span>
       </div>
       <ul class="points">
-        <li>Models already interpret images — screenshots, charts, renders, video frames</li>
+        <li>Models already interpret images: screenshots, charts, renders, video frames</li>
         <li>On its own, a model describes. <strong>In an agent loop</strong>, it iterates and self-corrects on what it sees</li>
         <li>Enables visual content made by iteration: layouts, diagrams, 3D, even short films frame by frame</li>
         <li>Seeing a screen is also what makes computer use possible</li>
@@ -999,7 +1099,7 @@ f(system . user . … . result_2)            = <span class="hl">final answer</sp
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>36</span>
+    <span>40</span>
   </footer>
 </section>
 
@@ -1028,8 +1128,8 @@ f(system . user . … . result_2)            = <span class="hl">final answer</sp
       </div>
       <ul class="points">
         <li><strong>No API?</strong> The agent uses software like a person: read, point, click, type</li>
-        <li>Unlocks the long tail — legacy apps, web interfaces, anything never integrated</li>
-        <li>Slower, more fragile, costlier — interfaces change, the agent must re-orient</li>
+        <li>Unlocks the long tail: legacy apps, web interfaces, anything never integrated</li>
+        <li>Slower, more fragile, costlier: interfaces change, the agent must re-orient</li>
         <li>Not a superpower: a fallback for what was never machine-readable</li>
       </ul>
       <div class="lore"><span class="tag">Lore</span><p>Anthropic computer use (Oct 2024), OpenAI Operator (Jan 2025).</p></div>
@@ -1037,7 +1137,7 @@ f(system . user . … . result_2)            = <span class="hl">final answer</sp
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>37</span>
+    <span>41</span>
   </footer>
 </section>
 
@@ -1058,15 +1158,15 @@ f(system . user . … . result_2)            = <span class="hl">final answer</sp
       </div>
       <ul class="points">
         <li>Procedures, domain rules and templates, loaded <strong>on the fly</strong></li>
-        <li>Retrieval injects <strong>data</strong>; skills inject <strong>instructions</strong> — the how, not the what</li>
+        <li>Retrieval injects <strong>data</strong>; skills inject <strong>instructions</strong>: the how, not the what</li>
         <li>E.g. report format, pre-publication checklist, filing conventions, monthly close, tone rules</li>
-        <li>Loaded only when relevant — short standing instructions, less context rot</li>
+        <li>Loaded only when relevant: short standing instructions, less context rot</li>
       </ul>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>38</span>
+    <span>42</span>
   </footer>
 </section>
 
@@ -1090,14 +1190,14 @@ f(system . user . … . result_2)            = <span class="hl">final answer</sp
       <ul class="points">
         <li><strong>Reasoning</strong> to plan, <strong>tools</strong> to act, <strong>verification</strong> to check against the goal</li>
         <li>Reasoning alone: plausible plans. Tools alone: unchecked actions. The loop: tested results</li>
-        <li>The agent <strong>verifies its own result</strong> — and stops when the criteria are met, not after a fixed number of steps</li>
+        <li>The agent <strong>verifies its own result</strong>, and stops when the criteria are met, not after a fixed number of steps</li>
       </ul>
-      <div class="lore"><span class="tag">Lore</span><p>ReAct (Yao et al., 2022); AutoGPT (2023) made the loop go viral — before models were reliable enough.</p></div>
+      <div class="lore"><span class="tag">Lore</span><p>ReAct (Yao et al., 2022); AutoGPT (2023) made the loop go viral, before models were reliable enough.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>39</span>
+    <span>43</span>
   </footer>
 </section>
 
@@ -1115,8 +1215,8 @@ $ run tests
 <span class="hl">PASS  44 passed</span></div>
         <ul class="points">
           <li>Code gives <strong>deterministic feedback</strong>: compilers, unit tests, linters</li>
-          <li>Verification is free, instant, unambiguous — the test passes or fails</li>
-          <li>Why coding agents matured first — and fuzzier tasks lag behind</li>
+          <li>Verification is free, instant, unambiguous: the test passes or fails</li>
+          <li>Why coding agents matured first, and fuzzier tasks lag behind</li>
           <li>Lesson: give the agent a way to check itself</li>
         </ul>
       </div>
@@ -1125,7 +1225,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>40</span>
+    <span>44</span>
   </footer>
 </section>
 
@@ -1150,14 +1250,14 @@ $ run tests
         <div class="callouts">
           <div class="callout"><h3>Model</h3><p>Still just f. Nothing changed inside.</p></div>
           <div class="callout"><h3>Chatbot system</h3><p>Maintains history, appends results, re-calls f</p></div>
-          <div class="callout"><h3>Environment</h3><p>Where the text becomes action — and leaves traces</p></div>
+          <div class="callout"><h3>Environment</h3><p>Where the text becomes action, and leaves traces</p></div>
         </div>
       </div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>41</span>
+    <span>45</span>
   </footer>
 </section>
 
@@ -1175,7 +1275,7 @@ $ run tests
 └─ outputs/    <span class="dim">what the agent produces</span></div>
         <ul class="points">
           <li>Tools to create, read and write documents, plus a filesystem: the <strong>advanced usage</strong></li>
-          <li>The agent sets up its own memory for the project — and you work <em>with</em> it</li>
+          <li>The agent sets up its own memory for the project, and you work <em>with</em> it</li>
           <li>Teach it like an <strong>intern</strong>: explain once, correct, let it write the lesson down</li>
           <li>Memory outlives the context window</li>
         </ul>
@@ -1185,7 +1285,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>42</span>
+    <span>46</span>
   </footer>
 </section>
 
@@ -1206,7 +1306,7 @@ $ run tests
       </div>
       <ul class="points">
         <li>Specialised agents in <strong>orchestrator / worker</strong> setups: planners, coders, reviewers</li>
-        <li>Each worker: a clean context, a narrow job — context isolation on purpose, a direct answer to context rot</li>
+        <li>Each worker: a clean context, a narrow job: context isolation on purpose, a direct answer to context rot</li>
         <li>Workers hand back a result, not their whole context</li>
       </ul>
       <div class="lore"><span class="tag">Lore</span><p>Anthropic’s multi-agent research system (2025): lead agent plus parallel sub-agents.</p></div>
@@ -1214,7 +1314,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>43</span>
+    <span>47</span>
   </footer>
 </section>
 
@@ -1240,11 +1340,11 @@ $ run tests
         <div class="stat-note">Tokens as the unit of effort</div>
       </div>
     </div>
-    <p class="note-sm">OpenAI’s own account, announced Sept 2026 — not an ablation, and credit for the idea is disputed.</p>
+    <p class="note-sm">OpenAI’s own account, announced Sept 2026. Not an ablation, and credit for the idea is disputed.</p>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>44</span>
+    <span>48</span>
   </footer>
 </section>
 
@@ -1269,7 +1369,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>45</span>
+    <span>49</span>
   </footer>
 </section>
 
@@ -1277,10 +1377,11 @@ $ run tests
 <section class="slide layout-custom">
   <div class="slide-content">
     <p class="kicker">Part 2 · Outlook</p>
-    <h2>Two years of progress, in five steps</h2>
+    <h2>Two years of progress, in six steps</h2>
     <div class="stage stage-center">
       <div class="timeline">
         <div class="tl-item"><span class="tl-date">~2 years ago</span><h3>Tool usage</h3><p>The concept lands: the model writes requests, software acts</p></div>
+        <div class="tl-item"><span class="tl-date">Jan 2025</span><h3>Reasoning for all</h3><p>DeepSeek-R1: thinking learned by RL, in an open model</p></div>
         <div class="tl-item"><span class="tl-date">Early 2025</span><h3>1M-token windows</h3><p>Four Harry Potter books in one call</p></div>
         <div class="tl-item"><span class="tl-date">April 2025</span><h3>Code for tool calling</h3><p>Agents write code to chain their tools</p></div>
         <div class="tl-item"><span class="tl-date">Nov 2025</span><h3>Better use of context</h3><p>Much less context rot</p></div>
@@ -1290,7 +1391,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>46</span>
+    <span>50</span>
   </footer>
 </section>
 
@@ -1301,7 +1402,7 @@ $ run tests
     <h2>The full agentic harness stack</h2>
     <div class="stage">
       <div class="layers">
-        <div class="layer layer-core"><b>0</b><strong>Model</strong><span>f(x) = y — the small box in the middle</span></div>
+        <div class="layer layer-core"><b>0</b><strong>Model</strong><span>f(x) = y, the small box in the middle</span></div>
         <div class="layer"><b>1</b><strong>Chatbot system</strong><span>history, UI, one message after another</span></div>
         <div class="layer"><b>2</b><strong>Tools</strong><span>retrieval, APIs, code, screen, vision</span></div>
         <div class="layer"><b>3</b><strong>Dynamic skills</strong><span>instructions loaded when relevant</span></div>
@@ -1313,7 +1414,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>47</span>
+    <span>51</span>
   </footer>
 </section>
 
@@ -1321,7 +1422,7 @@ $ run tests
 <section class="slide layout-statement">
   <div class="slide-content">
     <p class="kicker">Back to You</p>
-    <p>Our systems now reason, use tools and self-correct across agents. How does that change the way you work?</p>
+    <p>Our systems now reason, use tools and self-correct across agents. <span class="ask">How does that change the way you work?</span></p>
   </div>
 </section>
 
@@ -1334,17 +1435,17 @@ $ run tests
       <div class="step">
         <span class="step-num">1</span>
         <h3>The Foundation Model</h3>
-        <p>Raw completion engine — prone to hallucinations and prompt sensitivity</p>
+        <p>Raw completion engine, prone to hallucinations and prompt sensitivity</p>
       </div>
       <div class="step">
         <span class="step-num">2</span>
         <h3>The Interactive Chatbot</h3>
-        <p>Human in the loop — today’s standard usage</p>
+        <p>Human in the loop: today’s standard usage</p>
       </div>
       <div class="step">
         <span class="step-num">3</span>
         <h3>Agentic Execution</h3>
-        <p>Machine in the loop — the agent checks its own work</p>
+        <p>Machine in the loop: the agent checks its own work</p>
       </div>
       <div class="step">
         <span class="step-num">4</span>
@@ -1355,7 +1456,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>49</span>
+    <span>53</span>
   </footer>
 </section>
 
@@ -1381,11 +1482,11 @@ $ run tests
         <p>In simulated companies, some models chose blackmail to avoid being replaced (Anthropic, 2025).</p>
       </div>
     </div>
-    <p class="takeaway" style="margin-top: var(--space-4)">The more autonomy, tools and task length we give, <em>the more it matters</em> — self-verification is only as good as the criteria you set.</p>
+    <p class="takeaway" style="margin-top: var(--space-4)">The more autonomy, tools and task length we give, <em>the more it matters</em>: self-verification is only as good as the criteria you set.</p>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>50</span>
+    <span>54</span>
   </footer>
 </section>
 
@@ -1421,7 +1522,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>51</span>
+    <span>55</span>
   </footer>
 </section>
 
@@ -1430,7 +1531,7 @@ $ run tests
   <div class="slide-content">
     <p class="kicker">Thank you</p>
     <h2>Questions &amp; discussion</h2>
-    <p class="lead">Supply the context, the instructions and the expected result — let the loop do the rest.</p>
+    <p class="lead">Supply the context, the instructions and the expected result, and let the loop do the rest.</p>
     <div class="contact">
       <div>
         <strong>Contact</strong>
