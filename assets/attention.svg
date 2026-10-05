@@ -1,0 +1,57 @@
+<svg viewBox="0 0 900 318" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Attention from the token apple: in “I ate an apple for lunch” it pulls strongly from ate and lunch, meaning the fruit; in “I bought an Apple phone yesterday” it pulls strongly from phone, meaning the company">
+
+  <!-- THEME COPY — kujaku (styles/themes/kujaku.css). Swap to re-theme. -->
+  <style>
+    .bg-base          { fill: #F5F7F7; }
+    .bg-surface       { fill: #FFFFFF; }
+    .bg-muted         { fill: #E3EBEB; }
+    .text-primary     { fill: #17323A; }
+    .text-secondary   { fill: #51707A; }
+    .text-on-accent   { fill: #FFFFFF; }
+    .accent-primary   { fill: #0E7C7B; }
+    .accent-secondary { fill: #7A5195; }
+    .accent-tertiary  { fill: #C2A14D; }
+    .stroke-primary   { stroke: #0E7C7B; }
+    .stroke-secondary { stroke: #7A5195; }
+    .stroke-tertiary  { stroke: #C2A14D; }
+    .stroke-strong    { stroke: #17323A; }
+    .stroke-subtle    { stroke: #D3DFDF; }
+  </style>
+  <!-- arcs: thicker = stronger attention from "apple" -->
+  <path d="M 330 108 Q 209 -43 87 108" class="stroke-secondary" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+  <path d="M 330 108 Q 244 -12 158 108" class="stroke-primary" stroke-width="7.8" stroke-linecap="round" fill="none"/>
+  <path d="M 330 108 Q 283 23 237 108" class="stroke-secondary" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M 330 108 Q 380 20 430 108" class="stroke-secondary" stroke-width="2.3" stroke-linecap="round" fill="none"/>
+  <path d="M 330 108 Q 430 -24 531 108" class="stroke-primary" stroke-width="7.1" stroke-linecap="round" fill="none"/>
+  <rect x="65" y="112" width="45" height="46" rx="6" class="bg-muted"/>
+  <text x="87" y="143" text-anchor="middle" font-family="monospace" font-size="24" font-weight="400" class="text-primary">I</text>
+  <rect x="122" y="112" width="74" height="46" rx="6" class="accent-primary"/>
+  <text x="158" y="143" text-anchor="middle" font-family="monospace" font-size="24" font-weight="400" class="text-on-accent">ate</text>
+  <rect x="207" y="112" width="59" height="46" rx="6" class="bg-muted"/>
+  <text x="237" y="143" text-anchor="middle" font-family="monospace" font-size="24" font-weight="400" class="text-primary">an</text>
+  <rect x="278" y="112" width="103" height="46" rx="6" class="accent-secondary"/>
+  <text x="330" y="143" text-anchor="middle" font-family="monospace" font-size="24" font-weight="400" class="text-on-accent">apple</text>
+  <rect x="394" y="112" width="74" height="46" rx="6" class="bg-muted"/>
+  <text x="430" y="143" text-anchor="middle" font-family="monospace" font-size="24" font-weight="400" class="text-primary">for</text>
+  <rect x="479" y="112" width="103" height="46" rx="6" class="accent-primary"/>
+  <text x="531" y="143" text-anchor="middle" font-family="monospace" font-size="24" font-weight="400" class="text-on-accent">lunch</text>
+  <text x="618" y="143" text-anchor="start" font-family="sans-serif" font-size="22" font-weight="700" class="text-primary">→ the fruit</text>
+  <path d="M 330 258 Q 187 88 43 258" class="stroke-secondary" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+  <path d="M 330 258 Q 233 129 136 258" class="stroke-secondary" stroke-width="3.6" stroke-linecap="round" fill="none"/>
+  <path d="M 330 258 Q 283 173 237 258" class="stroke-secondary" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M 330 258 Q 388 163 445 258" class="stroke-primary" stroke-width="8.1" stroke-linecap="round" fill="none"/>
+  <path d="M 330 258 Q 460 100 589 258" class="stroke-secondary" stroke-width="2.3" stroke-linecap="round" fill="none"/>
+  <rect x="21" y="262" width="45" height="46" rx="6" class="bg-muted"/>
+  <text x="43" y="293" text-anchor="middle" font-family="monospace" font-size="24" font-weight="400" class="text-primary">I</text>
+  <rect x="78" y="262" width="118" height="46" rx="6" class="bg-muted"/>
+  <text x="136" y="293" text-anchor="middle" font-family="monospace" font-size="24" font-weight="400" class="text-primary">bought</text>
+  <rect x="207" y="262" width="59" height="46" rx="6" class="bg-muted"/>
+  <text x="237" y="293" text-anchor="middle" font-family="monospace" font-size="24" font-weight="400" class="text-primary">an</text>
+  <rect x="278" y="262" width="103" height="46" rx="6" class="accent-secondary"/>
+  <text x="330" y="293" text-anchor="middle" font-family="monospace" font-size="24" font-weight="400" class="text-on-accent">Apple</text>
+  <rect x="394" y="262" width="103" height="46" rx="6" class="accent-primary"/>
+  <text x="445" y="293" text-anchor="middle" font-family="monospace" font-size="24" font-weight="400" class="text-on-accent">phone</text>
+  <rect x="508" y="262" width="161" height="46" rx="6" class="bg-muted"/>
+  <text x="589" y="293" text-anchor="middle" font-family="monospace" font-size="24" font-weight="400" class="text-primary">yesterday</text>
+  <text x="706" y="293" text-anchor="start" font-family="sans-serif" font-size="22" font-weight="700" class="text-primary">→ the company</text>
+</svg>

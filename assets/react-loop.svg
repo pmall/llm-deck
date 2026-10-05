@@ -1,0 +1,57 @@
+<svg viewBox="0 0 600 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The ReAct loop: the model thinks, acts by writing a tool call, the system runs it and the result is observed, then the model thinks again, until it answers">
+
+  <!-- THEME COPY — kujaku (styles/themes/kujaku.css). Swap to re-theme. -->
+  <style>
+    .bg-base          { fill: #F5F7F7; }
+    .bg-surface       { fill: #FFFFFF; }
+    .bg-muted         { fill: #E3EBEB; }
+    .text-primary     { fill: #17323A; }
+    .text-secondary   { fill: #51707A; }
+    .text-on-accent   { fill: #FFFFFF; }
+    .accent-primary   { fill: #0E7C7B; }
+    .accent-secondary { fill: #7A5195; }
+    .accent-tertiary  { fill: #C2A14D; }
+    .stroke-primary   { stroke: #0E7C7B; }
+    .stroke-secondary { stroke: #7A5195; }
+    .stroke-tertiary  { stroke: #C2A14D; }
+    .stroke-strong    { stroke: #17323A; }
+    .stroke-subtle    { stroke: #D3DFDF; }
+  </style>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="accent-secondary"/>
+    </marker>
+  </defs>
+
+  <!-- entry / exit -->
+  <text x="20" y="98" font-family="sans-serif" font-size="17" font-weight="700" class="text-primary">You ask</text>
+  <line x1="98" y1="92" x2="200" y2="92" class="stroke-secondary" stroke-width="3" fill="none" marker-end="url(#ah)"/>
+  <line x1="400" y1="92" x2="490" y2="92" class="stroke-secondary" stroke-width="3" fill="none" marker-end="url(#ah)"/>
+  <text x="500" y="86" font-family="sans-serif" font-size="17" font-weight="700" class="text-primary">Answer</text>
+  <text x="500" y="108" font-family="sans-serif" font-size="14" class="text-secondary">when done</text>
+
+  <!-- Think -->
+  <rect x="205" y="50" width="190" height="86" rx="10" class="accent-primary"/>
+  <text x="300" y="88" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="700" class="text-on-accent">Think</text>
+  <text x="300" y="114" text-anchor="middle" font-family="sans-serif" font-size="15" class="text-on-accent">plan the next step</text>
+
+  <!-- Act -->
+  <rect x="385" y="320" width="190" height="86" rx="10" class="accent-primary"/>
+  <text x="480" y="358" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="700" class="text-on-accent">Act</text>
+  <text x="480" y="384" text-anchor="middle" font-family="sans-serif" font-size="15" class="text-on-accent">write a tool call</text>
+
+  <!-- Observe -->
+  <rect x="25" y="320" width="190" height="86" rx="10" class="bg-muted"/>
+  <text x="120" y="358" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="700" class="text-primary">Observe</text>
+  <text x="120" y="384" text-anchor="middle" font-family="sans-serif" font-size="15" class="text-secondary">read the result</text>
+
+  <!-- cycle arrows -->
+  <path d="M 360 140 Q 470 190 478 312" class="stroke-secondary" stroke-width="3" fill="none" marker-end="url(#ah)"/>
+  <line x1="380" y1="363" x2="222" y2="363" class="stroke-secondary" stroke-width="3" fill="none" marker-end="url(#ah)"/>
+  <path d="M 122 314 Q 130 190 238 142" class="stroke-secondary" stroke-width="3" fill="none" marker-end="url(#ah)"/>
+
+  <!-- arrow labels -->
+  <text x="300" y="345" text-anchor="middle" font-family="sans-serif" font-size="15" class="text-secondary">the system runs it,</text>
+  <text x="300" y="390" text-anchor="middle" font-family="sans-serif" font-size="15" class="text-secondary">appends the result</text>
+  <text x="300" y="450" text-anchor="middle" font-family="monospace" font-size="15" class="text-secondary">repeat: one request, many steps</text>
+</svg>

@@ -73,7 +73,13 @@ Each file in `layouts/` is a copy-paste `<section>` snippet, standalone-previewa
 
 The 19 layouts cover the common cases and should be used as-is ~99% of the time. They are a starting point — when a slide genuinely needs a small deviation to serve the user's instruction, deviate. The styling vocabulary (`.kicker`, `.lead`, `.cards-*`, `.figure`, the `inverse` modifier) is composable. Consecutive slides on the same layout read as a rut — vary them.
 
-**Custom content slides.** When the content has its own shape (a formula, a dialogue, a flow, nested boxes, a timeline), build a `.slide.layout-custom` from the components in `base.css` §7 — `.split`, `.panel`, `.code`, `.chips`, `.bars`, `.chat`/`.msg`, `.flow`/`.node`, `.box`, `.layers`, `.timeline`, `.lore`…, with the usual kicker + `h2`, the footer, and nothing past the footer. Diagrams that are really structured text stay in HTML/CSS; reserve `.figure-ph` → SVG for genuine illustrations.
+**Custom content slides.** When the content has its own shape (a formula, a dialogue, a flow, nested boxes, a timeline), build a `.slide.layout-custom` from the components in `base.css` §7 — `.split`, `.panel`, `.code`, `.chips`, `.bars`, `.chat`/`.msg`, `.flow`/`.node`, `.box`, `.layers`, `.timeline`, `.lore`…, with the usual kicker + `h2`, the footer, and nothing past the footer. Diagrams that are really structured text (lists, trees, code, a row of boxes) stay in HTML/CSS. Anything with real geometry — cycles, branching arrows, positioned shapes, charts — is a standalone SVG figure (§6): don't force it into `.flow`/`.node`.
+
+**Statement slides.** `big-statement` slides are the only transitions inside a part, and follow fixed rules:
+
+1. A statement opens a section *within* a part — never the first section (the section divider opens it), never right after a divider, never two in a row.
+2. Shape: one sentence stating what the previous section established, then the question (`<span class="ask">`) the next section answers.
+3. Its kicker is the section's name, identical to the `Part N · <section>` kicker of the slides that follow.
 
 Global modifiers: any `<section class="slide …">` takes `inverse` (dark background via `--bg-inverse`). Optional `.slide-footer` shows deck title + page number — keep page numbers in sync.
 
@@ -96,6 +102,21 @@ In HTML, figure slots are marked with a `.figure-ph` placeholder — replace wit
 ## 7. Content
 
 Slides are spoken support, not a document. Short sentences, one idea per slide. The title states the takeaway, not the topic ("Model beats baseline by 25 points", not "Results"). Prefer a figure or a number over a paragraph. When in doubt, split the slide.
+
+### Quality bar
+
+The reference is Part 1, slides "An LLM is a zip file" to "Judge the document", and above all the open, box-free slides "Tokens are the unit of everything" and "Why compression looks like intelligence". Every slide must reach that level. A slide passes only if **all** of these hold:
+
+1. **One demonstration carries the idea.** A concrete example built from the deck's own primitives (chips, bars, `llm( … )` rows, code blocks, an SVG figure) shows the point so that the audience gets it from the visual alone. The text only names what the visual shows.
+2. **Real, recurring examples.** Reuse the deck's running examples (*The cat sat on the mat*, *apple*, the zebra page, *strawberry*) and real tokens, numbers, sentences. No abstract placeholders, no row of three text-only cards.
+3. **Open layout, no decorative boxes.** The model is "Why compression looks like intelligence" and "Tokens are the unit of everything": full-width definition rows separated by thin rules (`.defs`), a label on the left, the content on the right, then one takeaway line. Content sits directly on the slide. A panel (box) is used only when two things must be visibly grouped or contrasted side by side, never to wrap a single block, never as a row of text cards.
+4. **Fill the space.** The content block spans the full width and its rows are sized (`.defs-lg`, larger chips) so the slide is balanced top to bottom: no thin strip of content floating in empty space. Then at most **one takeaway line or two bullets**, each fitting on one full-width line.
+5. **No ugly wraps.** No line in a half-width column that wraps into a fragment, no orphan word, no heading on two lines next to one-line siblings. Fix by rewording, never by forcing breaks.
+6. **Even spacing, measured.** Gaps title → block → block → takeaway/lore are equal (±5px). Nothing touches the title or the footer. No dead space at the bottom of a panel. Side-by-side panels have equal height.
+7. **Consistent colours.** Purple = the token in focus / the prediction; teal = context, input, attention; gold on dark = what the model writes; grey chips = plain tokens.
+8. **Beginner wording.** Plain words for someone seeing it once, out loud. Say what the viewer sees. No jargon, no reference to an earlier slide, "LLM" rather than "model".
+
+**Verification before presenting a slide** (not optional): render it, run `export.py boxes` on its blocks, zoom on every text block, and check rules 1–8 one by one. A slide that fails any rule is not shown; it is fixed first.
 
 ## 8. QA
 

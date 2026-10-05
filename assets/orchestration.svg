@@ -1,0 +1,73 @@
+<svg viewBox="0 0 640 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orchestration: an orchestrator sends tasks to four worker agents, each with its own clean context, and receives only their results">
+
+  <!-- THEME COPY — kujaku (styles/themes/kujaku.css). Swap to re-theme. -->
+  <style>
+    .bg-base          { fill: #F5F7F7; }
+    .bg-surface       { fill: #FFFFFF; }
+    .bg-muted         { fill: #E3EBEB; }
+    .text-primary     { fill: #17323A; }
+    .text-secondary   { fill: #51707A; }
+    .text-on-accent   { fill: #FFFFFF; }
+    .accent-primary   { fill: #0E7C7B; }
+    .accent-secondary { fill: #7A5195; }
+    .accent-tertiary  { fill: #C2A14D; }
+    .stroke-primary   { stroke: #0E7C7B; }
+    .stroke-secondary { stroke: #7A5195; }
+    .stroke-tertiary  { stroke: #C2A14D; }
+    .stroke-strong    { stroke: #17323A; }
+    .stroke-subtle    { stroke: #D3DFDF; }
+  </style>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="accent-secondary"/>
+    </marker>
+    <marker id="ahd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="text-primary"/>
+    </marker>
+  </defs>
+
+  <!-- orchestrator -->
+  <rect x="170" y="20" width="300" height="84" rx="10" class="accent-secondary"/>
+  <text x="320" y="58" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="700" class="text-on-accent">Orchestrator</text>
+  <text x="320" y="84" text-anchor="middle" font-family="sans-serif" font-size="15" class="text-on-accent">plans, delegates, assembles</text>
+
+  <!-- workers: task down (solid), result up (dashed) -->
+  <line x1="285" y1="104" x2="77" y2="236" class="stroke-strong" stroke-width="2" fill="none" marker-end="url(#ahd)"/>
+  <line x1="93" y1="236" x2="301" y2="108" class="stroke-secondary" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#ah)"/>
+  <rect x="20" y="244" width="130" height="130" rx="10" class="bg-surface stroke-subtle" stroke-width="2"/>
+  <text x="85" y="280" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="700" class="text-primary">Planner</text>
+  <text x="85" y="304" text-anchor="middle" font-family="sans-serif" font-size="14" class="text-secondary">one narrow job</text>
+  <text x="35" y="338" font-family="monospace" font-size="12" class="text-secondary">own context</text>
+  <rect x="35" y="346" width="100" height="12" rx="3" class="bg-muted"/>
+  <rect x="35" y="346" width="38" height="12" rx="3" class="accent-primary"/>
+  <line x1="308" y1="104" x2="234" y2="236" class="stroke-strong" stroke-width="2" fill="none" marker-end="url(#ahd)"/>
+  <line x1="250" y1="236" x2="324" y2="108" class="stroke-secondary" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#ah)"/>
+  <rect x="177" y="244" width="130" height="130" rx="10" class="bg-surface stroke-subtle" stroke-width="2"/>
+  <text x="242" y="280" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="700" class="text-primary">Coder</text>
+  <text x="242" y="304" text-anchor="middle" font-family="sans-serif" font-size="14" class="text-secondary">one narrow job</text>
+  <text x="192" y="338" font-family="monospace" font-size="12" class="text-secondary">own context</text>
+  <rect x="192" y="346" width="100" height="12" rx="3" class="bg-muted"/>
+  <rect x="192" y="346" width="55" height="12" rx="3" class="accent-primary"/>
+  <line x1="332" y1="104" x2="391" y2="236" class="stroke-strong" stroke-width="2" fill="none" marker-end="url(#ahd)"/>
+  <line x1="407" y1="236" x2="348" y2="108" class="stroke-secondary" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#ah)"/>
+  <rect x="334" y="244" width="130" height="130" rx="10" class="bg-surface stroke-primary" stroke-width="3"/>
+  <text x="399" y="280" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="700" class="text-primary">Coder</text>
+  <text x="399" y="304" text-anchor="middle" font-family="sans-serif" font-size="14" class="accent-primary">mid-loop</text>
+  <text x="349" y="338" font-family="monospace" font-size="12" class="text-secondary">own context</text>
+  <rect x="349" y="346" width="100" height="12" rx="3" class="bg-muted"/>
+  <rect x="349" y="346" width="70" height="12" rx="3" class="accent-primary"/>
+  <line x1="355" y1="104" x2="548" y2="236" class="stroke-strong" stroke-width="2" fill="none" marker-end="url(#ahd)"/>
+  <line x1="564" y1="236" x2="371" y2="108" class="stroke-secondary" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#ah)"/>
+  <rect x="491" y="244" width="130" height="130" rx="10" class="bg-surface stroke-subtle" stroke-width="2"/>
+  <text x="556" y="280" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="700" class="text-primary">Reviewer</text>
+  <text x="556" y="304" text-anchor="middle" font-family="sans-serif" font-size="14" class="text-secondary">one narrow job</text>
+  <text x="506" y="338" font-family="monospace" font-size="12" class="text-secondary">own context</text>
+  <rect x="506" y="346" width="100" height="12" rx="3" class="bg-muted"/>
+  <rect x="506" y="346" width="30" height="12" rx="3" class="accent-primary"/>
+
+  <!-- legend -->
+  <line x1="150" y1="410" x2="190" y2="410" class="stroke-strong" stroke-width="2" fill="none"/>
+  <text x="198" y="415" font-family="sans-serif" font-size="14" class="text-secondary">task</text>
+  <line x1="290" y1="410" x2="330" y2="410" class="stroke-secondary" stroke-width="2" stroke-dasharray="5 5" fill="none"/>
+  <text x="338" y="415" font-family="sans-serif" font-size="14" class="text-secondary">result only, not the context</text>
+</svg>
