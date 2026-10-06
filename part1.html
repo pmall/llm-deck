@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demystifying LLMs: From Zero to Chatbots, then Agents</title>
+<!--
+  ==========================================================================
+  DECK.HTML: Demystifying LLMs: from autocomplete to swarms of agents.
+
+  Three parts:
+    1. What is an LLM, really?   (tokens, llm(x) = y, post-training, context)
+    2. How do agents work?       (tools in a loop, environment, orchestration)
+    3. Where is this heading?    (progress, misalignment, your role)
+
+  Assembled from:
+    styles/base.css            structure + print rules (always linked)
+    styles/themes/<name>.css   the active color theme (swap ONE line to
+                               re-theme the whole deck)
+    layouts/*.html             stock slide snippets (opening, closing, quote,
+                               section, stats, steps, agenda…)
+    base.css §7                custom content components (layout-custom)
+
+  HARD RULES (see AGENTS.md):
+    - No JavaScript.
+    - No raw hex colors in this file; use var(--tokens) only.
+    - Figures are standalone .svg files in assets/, embedded with <img>.
+      Never inline SVG markup here.
+    - One .slide per printed page; print via Chromium → PDF.
+    - Illustration slots are .figure-ph placeholders until the SVGs exist;
+      their text is the brief for the figure (see FIGURES.md).
+  ==========================================================================
+-->
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/themes/kujaku.css">
+</head>
+<body>
+
+<!-- ── COVER ───────────────────────────────────────────────────────────── -->
+<section class="slide layout-cover inverse">
+  <div class="slide-content">
+    <p class="kicker">Workshop · [Date]</p>
+    <h1>Demystifying LLMs</h1>
+    <p class="lead">From autocomplete to swarms of agents</p>
+    <div class="meta">
+      <span>[Author Name] · [Affiliation]</span>
+      <span>[Date]</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── AGENDA ──────────────────────────────────────────────────────────── -->
+<section class="slide layout-agenda">
+  <div class="slide-content">
+    <p class="kicker">Agenda</p>
+    <h2>Three questions for today</h2>
+    <ol class="agenda-list">
+      <li class="agenda-item">
+        <span class="agenda-num">01</span>
+        <span class="agenda-title">What is an LLM, really?</span>
+        <span class="agenda-note">How it learns · how it writes · how it becomes an assistant</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">02</span>
+        <span class="agenda-title">How do agents work?</span>
+        <span class="agenda-note">Tools · the loop · its own workspace · many agents together</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">03</span>
+        <span class="agenda-title">Where is this heading?</span>
+        <span class="agenda-note">Recent progress · the risks · what it changes for you</span>
+      </li>
+    </ol>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>2</span>
+  </footer>
+</section>
+
+<!-- ═══════════════════════ PART 1 · WHAT IS AN LLM, REALLY? ═══════════════ -->
+<section class="slide layout-section inverse">
+  <div class="slide-content">
+    <p class="section-num">01</p>
+    <h2>What is an LLM, really?</h2>
+  </div>
+</section>
+
+<!-- Zip -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · What it is</p>
+    <h2>An LLM is a zip file of human knowledge</h2>
+    <div class="stage">
+      <div class="panel">
+        <span class="panel-label">Training compresses the text into one file</span>
+        <div class="bars bars-wide bars-big">
+          <div class="bar"><span>Human text</span><span class="track"><span class="fill" style="--w:100%"></span></span><span class="val">≈ 60–150 TB</span></div>
+          <div class="bar pick"><span>The LLM file</span><span class="track"><span class="fill" style="--w:1.5%"></span></span><span class="val">≈ 0.1–1 TB</span></div>
+        </div>
+      </div>
+      <div class="panels-2">
+        <div class="panel">
+          <span class="panel-label">In · the training data</span>
+          <h3>Mostly public text</h3>
+          <p>Web pages, books, code, Wikipedia</p>
+        </div>
+        <div class="panel panel-featured">
+          <span class="panel-label">Out · the LLM</span>
+          <h3>Lossy: the gist, not the page</h3>
+          <p>Hundreds of times smaller: nothing is stored exactly</p>
+        </div>
+      </div>
+      <div class="lore"><span class="tag">Lore</span><p>Karpathy opens his LLM talks with this “zip file of the internet”. Ted Chiang: “a blurry JPEG of the web”.</p></div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>4</span>
+  </footer>
+</section>
+
+<!-- Tokens -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · What it is</p>
+    <h2>Knowledge reaches the LLM as tokens</h2>
+    <div class="stage">
+      <div class="panels-3">
+        <div class="panel">
+          <span class="panel-label">Frequent words · one token each</span>
+          <div class="chips chips-sm"><span class="chip">The</span><span class="chip"> cat</span><span class="chip"> sat</span><span class="chip"> on</span><span class="chip"> the</span><span class="chip"> mat</span></div>
+        </div>
+        <div class="panel">
+          <span class="panel-label">Longer words · split in pieces</span>
+          <div class="chips chips-sm"><span class="chip">Token</span><span class="chip">isation</span></div>
+          <div class="chips chips-sm"><span class="chip">un</span><span class="chip">believ</span><span class="chip">able</span></div>
+        </div>
+        <div class="panel panel-featured">
+          <span class="panel-label">Every script, same vocabulary</span>
+          <div class="chips chips-sm"><span class="chip">你好</span><span class="chip">，</span><span class="chip">世界</span></div>
+          <div class="chips chips-sm"><span class="chip">При</span><span class="chip">вет</span><span class="chip">,</span><span class="chip"> мир</span></div>
+          <div class="chips chips-sm"><span class="chip">こんにちは</span></div>
+        </div>
+      </div>
+      <ul class="points">
+        <li>Text is split into <strong>tokens</strong> (sub-word units), the only way an LLM reads any input</li>
+        <li><strong>One single vocabulary</strong> of about 100,000 tokens covers every language and script: Latin, Chinese, Cyrillic, Japanese… even emoji and code</li>
+        <li>Not words, syllables or characters: whatever fragments the tokeniser found frequent</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>5</span>
+  </footer>
+</section>
+
+<!-- Training -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · What it is</p>
+    <h2>Training: predict the next token</h2>
+    <div class="stage">
+      <div class="panels-2">
+        <div class="panel panel-center">
+          <span class="panel-label">A slice of the training text</span>
+          <div class="chips chips-sm chips-flat"><span class="chip">…</span><span class="chip">of</span><span class="chip">town</span><span class="chip">.</span><span class="chip pull">The</span><span class="chip pull">cat</span><span class="chip pull">sat</span><span class="chip pull">on</span><span class="chip pull">the</span><span class="chip pull">mat</span><span class="chip">while</span><span class="chip">the</span><span class="chip">rain</span></div>
+        </div>
+        <div class="panel panel-center">
+          <span class="panel-label">Predict each next token</span>
+          <div class="stack" style="gap: var(--space-2); align-items: center">
+            <div class="chips chips-xs chips-flat chips-grid"><span class="chip">The</span><span class="chip target">cat</span><span class="chip mask"></span><span class="chip mask"></span><span class="chip mask"></span><span class="chip mask"></span></div>
+            <div class="chips chips-xs chips-flat chips-grid"><span class="chip">The</span><span class="chip">cat</span><span class="chip target">sat</span><span class="chip mask"></span><span class="chip mask"></span><span class="chip mask"></span></div>
+            <div class="chips chips-xs chips-flat chips-grid"><span class="chip">The</span><span class="chip">cat</span><span class="chip">sat</span><span class="chip target">on</span><span class="chip mask"></span><span class="chip mask"></span></div>
+            <div class="chips chips-xs chips-flat chips-grid"><span class="chip">The</span><span class="chip">cat</span><span class="chip">sat</span><span class="chip">on</span><span class="chip target">the</span><span class="chip mask"></span></div>
+            <div class="chips chips-xs chips-flat chips-grid"><span class="chip">The</span><span class="chip">cat</span><span class="chip">sat</span><span class="chip">on</span><span class="chip">the</span><span class="chip target">mat</span></div>
+          </div>
+        </div>
+      </div>
+      <ul class="points">
+        <li>Take <strong>slices</strong> from the big blob of human text</li>
+        <li>Show the tokens so far: the LLM predicts the next one (purple), the rest is hidden</li>
+        <li>Repeat trillions of times. <strong>No labels needed</strong>: the answer is in the text</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>6</span>
+  </footer>
+</section>
+
+<!-- Attention -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · What it is</p>
+    <h2>Attention: every token looks at the others</h2>
+    <div class="stage">
+      <div class="panel panel-figure">
+        <span class="panel-label">Same word, two meanings: the context decides</span>
+        <figure class="figure figure-contain"><img src="assets/attention.svg" alt="Attention from apple: ate and lunch pull toward the fruit, phone pulls toward the company"></figure>
+      </div>
+      <ul class="points">
+        <li>Each token weighs all the others at once: <strong>the thicker the line, the stronger the pull</strong></li>
+      </ul>
+      <div class="lore"><span class="tag">Lore</span><p>“Attention Is All You Need” (2017) introduced the Transformer, the “T” in GPT.</p></div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>7</span>
+  </footer>
+</section>
+
+<!-- Generation -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · What it is</p>
+    <h2>Inference: one token at a time</h2>
+    <div class="stage">
+      <div class="split split-wide-left split-stretch">
+        <div class="panel panel-fill">
+          <div class="gen-rows">
+            <div class="gen-row"><span class="fn">llm(</span><div class="chips chips-sm chips-flat"><span class="chip">The</span><span class="chip">cat</span></div><span class="fn">)</span><span class="fn-arrow">→</span><span class="chips chips-sm chips-flat"><span class="chip target">sat</span></span></div>
+            <div class="gen-row"><span class="fn">llm(</span><div class="chips chips-sm chips-flat"><span class="chip">The</span><span class="chip">cat</span><span class="chip just">sat</span></div><span class="fn">)</span><span class="fn-arrow">→</span><span class="chips chips-sm chips-flat"><span class="chip target">on</span></span></div>
+            <div class="gen-row"><span class="fn">llm(</span><div class="chips chips-sm chips-flat"><span class="chip">The</span><span class="chip">cat</span><span class="chip">sat</span><span class="chip just">on</span></div><span class="fn">)</span><span class="fn-arrow">→</span><span class="chips chips-sm chips-flat"><span class="chip target">the</span></span></div>
+            <div class="gen-row"><span class="fn">llm(</span><div class="chips chips-sm chips-flat"><span class="chip">The</span><span class="chip">cat</span><span class="chip">sat</span><span class="chip">on</span><span class="chip just">the</span></div><span class="fn">)</span><span class="fn-arrow">→</span><span class="chips chips-sm chips-flat"><span class="chip target">mat</span></span></div>
+          </div>
+        </div>
+        <div class="panel panel-muted xy">
+          <span class="panel-label">How to read a row</span>
+          <div class="stack runs">
+            <div class="xy-item">
+              <div class="xy-head"><span class="xy-key">x</span><span class="chips chips-sm chips-flat"><span class="chip">The</span><span class="chip">cat</span></span></div>
+              <p>The text so far: all the LLM sees</p>
+            </div>
+            <div class="xy-item">
+              <div class="xy-head"><span class="xy-key">y</span><span class="chips chips-sm chips-flat"><span class="chip target">sat</span></span></div>
+              <p>The next token, added to x</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">Every answer you read is written this way: <em>one token at a time</em>.</p>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>8</span>
+  </footer>
+</section>
+
+<!-- Distribution -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · What it is</p>
+    <h2>Zoom on one step: the next token is drawn, not chosen</h2>
+    <div class="stage">
+      <div class="split split-wide-left split-stretch">
+        <div class="panel panel-fill">
+          <div class="gen-row"><span class="fn">llm(</span><div class="chips chips-sm chips-flat"><span class="chip">The</span><span class="chip">cat</span><span class="chip">sat</span><span class="chip">on</span><span class="chip">the</span></div><span class="fn">)</span><span class="fn-arrow">=</span></div>
+          <div class="bars bars-big">
+            <div class="bar"><span>mat</span><span class="track"><span class="fill" style="--w:81%"></span></span><span class="val">45%</span></div>
+            <div class="bar"><span>floor</span><span class="track"><span class="fill" style="--w:32%"></span></span><span class="val">18%</span></div>
+            <div class="bar"><span>sofa</span><span class="track"><span class="fill" style="--w:22%"></span></span><span class="val">12%</span></div>
+          </div>
+          <p class="bars-rest">+ 99,997 other tokens, each under 1%</p>
+        </div>
+        <div class="panel panel-muted">
+          <span class="panel-label">Same x, three runs</span>
+          <div class="stack runs">
+            <div class="run-row"><span class="run-n">run 1</span><span class="fn-arrow">→</span><span class="chips chips-sm chips-flat"><span class="chip target">mat</span></span></div>
+            <div class="run-row"><span class="run-n">run 2</span><span class="fn-arrow">→</span><span class="chips chips-sm chips-flat"><span class="chip target">sofa</span></span></div>
+            <div class="run-row"><span class="run-n">run 3</span><span class="fn-arrow">→</span><span class="chips chips-sm chips-flat"><span class="chip target">mat</span></span></div>
+          </div>
+        </div>
+      </div>
+      <ul class="points">
+        <li>y is not one word: a <strong>score for every token</strong> of the vocabulary, about 100,000 of them</li>
+        <li>The next token is <strong>drawn at random</strong>, weighted by its score: the same prompt can give different answers</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>9</span>
+  </footer>
+</section>
+
+<!-- Autocomplete -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · What it is</p>
+    <h2>At this point: a machine that dreams documents</h2>
+    <div class="stage">
+      <p class="legend"><span class="dim-key">what you write</span> · <span class="hl-key">what the LLM dreams</span></p>
+      <div class="panels-3">
+        <div class="panel">
+          <span class="panel-label">An encyclopedia page</span>
+          <div class="code code-sm code-wrap"><span class="dim">Zebra - Wikipedia
+The zebra is</span><span class="hl"> an African equine with black-and-white stripes. They graze in…</span></div>
+        </div>
+        <div class="panel">
+          <span class="panel-label">A piece of code</span>
+          <div class="code code-sm"><span class="dim">def is_even(n):</span>
+<span class="hl">    return n % 2 == 0
+
+def is_odd(n):
+    return not is_even(n)</span></div>
+        </div>
+        <div class="panel">
+          <span class="panel-label">A question</span>
+          <div class="code code-sm code-wrap"><span class="dim">Where is Paris?</span>
+<span class="hl">Where is Rome?
+Where is Madrid?
+Where is Berlin?</span></div>
+        </div>
+      </div>
+      <ul class="points">
+        <li>Give it the start of a document: it <strong>dreams the rest</strong>, token by token, never looked up</li>
+        <li>It does not answer you: it <strong>continues</strong>. A question becomes a quiz</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>10</span>
+  </footer>
+</section>
+
+<!-- Judge the document -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · What it is</p>
+    <h2>Judge the document, not the mechanism</h2>
+    <div class="stage">
+      <div class="panels-2 panels-lg">
+        <div class="panel panel-muted">
+          <span class="panel-label">The worry</span>
+          <h3>“It only predicts the next word.”</h3>
+          <p>True, and it makes people freak out. It tells you nothing about the quality of what comes out.</p>
+        </div>
+        <div class="panel panel-featured">
+          <span class="panel-label">The question that matters</span>
+          <h3>Is the produced document <em>good</em>?</h3>
+          <p>Useful, correct, fit for the task: that is what we evaluate, and what the rest of this talk builds on.</p>
+        </div>
+      </div>
+      <p class="takeaway">How the document gets written can change: other architectures exist, such as diffusion text models. <em>Nothing that follows would change.</em></p>
+      <div class="lore"><span class="tag">Lore</span><p>“Stochastic parrots” (Bender et al., 2021) is the best-known version of the worry.</p></div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>11</span>
+  </footer>
+</section>
+
+<!-- Intelligence as compression -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · What it is</p>
+    <h2>Why compression looks like intelligence</h2>
+    <div class="stage">
+      <dl class="defs">
+        <div class="def def-wide"><dt>Newton</dt><dd>Three laws compress countless observations: falling apples, orbiting planets, colliding balls</dd></div>
+        <div class="def def-wide"><dt>Information theory</dt><dd>Predicting well and compressing well are the same problem</dd></div>
+        <div class="def def-wide"><dt>An LLM</dt><dd>To reproduce the world’s text, it must capture the regularities in it: grammar, facts, reasoning patterns</dd></div>
+      </dl>
+      <p class="takeaway">Intelligence is compression: <em>the better an LLM compresses what humans wrote, the more it can do with it</em>. That is how a text completer can become an assistant.</p>
+      <div class="lore"><span class="tag">Lore</span><p>Claude Shannon, the father of information theory, widely assumed to be the namesake of Claude.</p></div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>12</span>
+  </footer>
+</section>
+
+<!-- Statement -->
+<section class="slide layout-statement">
+  <div class="slide-content">
+    <p class="kicker">Becoming an assistant</p>
+    <p>We compressed human knowledge into an LLM that only dreams documents. <span class="ask">How do we make it an assistant?</span></p>
+  </div>
+</section>
+
+<!-- In-context pattern matching -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Becoming an assistant</p>
+    <h2>In-context pattern matching</h2>
+    <div class="stage">
+      <div class="split">
+        <div class="panel">
+          <span class="panel-label">Dim: the prompt · gold: what the LLM writes</span>
+          <div class="code code-lg"><span class="dim">chat,   cat
+maison, house
+arbre,  tree
+fleur,</span> <span class="hl">flower</span></div>
+        </div>
+        <ul class="points">
+          <li>Show a few examples in the prompt: the LLM spots the <strong>pattern</strong> and applies it to the next case</li>
+          <li>No retraining, no instruction: the pattern is in the text, and continuing the text is all it does</li>
+          <li>It is <strong>emergent</strong>: nobody built this in, it appeared as LLMs scaled up</li>
+        </ul>
+      </div>
+      <div class="lore"><span class="tag">Lore</span><p>GPT-3 (2020), “Language Models are Few-Shot Learners”, the paper that made this the headline.</p></div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>14</span>
+  </footer>
+</section>
+
+<!-- Fine-tuning -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Becoming an assistant</p>
+    <h2>Fine-tuning: keep training, on documents we choose</h2>
+    <div class="stage">
+      <div class="flow">
+        <div class="node"><strong>Pre-training</strong><span>trillions of tokens of web text</span><span class="note-sm">gives the knowledge</span></div>
+        <span class="arrow">→</span>
+        <div class="node node-accent"><strong>Fine-tuning</strong><span>a small, curated set of documents</span><span class="note-sm">gives the behaviour</span></div>
+        <span class="arrow">→</span>
+        <div class="node node-dark"><strong>Same model</strong><span>now behaving differently</span></div>
+      </div>
+      <ul class="points">
+        <li>The same exercise (predict the next token) on a much smaller, <strong>curated</strong> dataset: thousands of examples, not trillions of tokens</li>
+        <li>We choose the documents, so we choose what the LLM becomes, for example by fine-tuning on:</li>
+      </ul>
+      <div class="panels-5">
+        <div class="panel panel-muted option"><p>Assistant conversations</p></div>
+        <div class="panel panel-muted option"><p>Encyclopedias</p></div>
+        <div class="panel panel-muted option"><p>School books</p></div>
+        <div class="panel panel-muted option"><p>Legal or medical texts</p></div>
+        <div class="panel panel-muted option"><p>Code</p></div>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>15</span>
+  </footer>
+</section>
+
+<!-- Instruction tuning -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Becoming an assistant</p>
+    <h2>Instruction tuning: documents that teach a role</h2>
+    <div class="stage">
+      <div class="split">
+        <div class="panel">
+          <span class="panel-label">One of thousands of documents we wrote</span>
+          <div class="code">User: What is the capital of France?
+Assistant: The capital of France is Paris.
+User: And of Italy?
+Assistant: Rome.</div>
+        </div>
+        <ul class="points">
+          <li>The fine-tuning data: <strong>conversations</strong> of a user and an ideal assistant, first written by paid people, now often generated by other LLMs</li>
+          <li>Fed to the LLM like any text, it learns the pattern (after <code>User:</code> comes <code>Assistant:</code>), which is pattern matching again</li>
+          <li>Now it answers instead of continuing, with a stable persona and tone</li>
+          <li>The base model never refused to help: it had no notion of being asked</li>
+        </ul>
+      </div>
+      <div class="lore"><span class="tag">Lore</span><p>InstructGPT → ChatGPT, 30 Nov 2022: the same model family, now speaking in turns.</p></div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>16</span>
+  </footer>
+</section>
+
+<!-- RL verifiable -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Becoming an assistant</p>
+    <h2>Reinforcement learning: a quiz with an answer key</h2>
+    <div class="stage">
+      <div class="split split-wide-left">
+        <div class="panel">
+          <span class="panel-label">Question · answer key: Canberra</span>
+          <div class="code code-lg">What is the capital of Australia?
+
+attempt 1   Sydney      <span class="dim">✗</span>
+attempt 2   Canberra    <span class="hl">✓</span>
+attempt 3   Canberra    <span class="hl">✓</span>
+attempt 4   Melbourne   <span class="dim">✗</span></div>
+        </div>
+        <ul class="points">
+          <li>Questions with a <strong>known answer</strong>: the LLM tries several times, and each answer is checked automatically</li>
+          <li>Right answers are <strong>reinforced</strong>, wrong ones are not: it gets reliable on what it knows</li>
+          <li>It also learns to say “I don’t know” when unsure, so fewer <strong>hallucinations</strong> on well-known facts</li>
+          <li>Works wherever answers can be checked, maths and code too</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>17</span>
+  </footer>
+</section>
+
+<!-- RLHF -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Becoming an assistant</p>
+    <h2>RLHF: when only a human can judge</h2>
+    <div class="stage" style="gap: var(--space-4)">
+      <div class="msg"><span class="role">Prompt</span>Explain tokens to a child.</div>
+      <div class="panels-2">
+        <div class="panel">
+          <span class="panel-label">Answer A</span>
+          <p class="answer">Tokens are sub-word units produced by a byte-pair-encoding tokeniser.</p>
+        </div>
+        <div class="panel panel-featured">
+          <span class="panel-label">Answer B · picked by the human ✓</span>
+          <p class="answer">Tokens are the little pieces of text a computer reads, like Lego bricks.</p>
+        </div>
+      </div>
+      <ul class="points">
+        <li>Tone, helpfulness and safety cannot be checked by a program: humans <strong>pick the better of two answers</strong>, and the preferences train a reward signal</li>
+        <li>The catch: people like being agreed with, so the LLM can learn to flatter: <strong>sycophancy</strong></li>
+      </ul>
+      <div class="lore"><span class="tag">Lore</span><p>April 2025: a ChatGPT update was rolled back after users found it far too flattering.</p></div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>18</span>
+  </footer>
+</section>
+
+<!-- Reasoning -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Becoming an assistant</p>
+    <h2>System 2 thinking: write the reasoning first</h2>
+    <div class="stage">
+      <div class="split">
+        <div class="stack">
+          <div class="msg"><span class="role">Question</span>A man looks at a portrait: “Brothers and sisters I have none, but that man’s father is my father’s son.” Who is in the portrait?</div>
+          <div class="code code-sm"><span class="dim">Thinking…
+No brothers or sisters: an only child.
+So “my father’s son” can only be me.
+So “that man’s father” is me.
+Easy: the portrait shows me. Wait.
+then I would be my own father. No.
+If I am his father, he is my son.</span>
+<span class="hl">Answer: his son.</span></div>
+        </div>
+        <ul class="points">
+          <li>LLMs learn to write <strong>scratchpad reasoning</strong> before answering. The visible answer is the tip of a much longer hidden process</li>
+          <li><strong>Why it works:</strong> each token is one pass of the LLM, a fixed amount of computation. More tokens, more thinking</li>
+          <li>The text it writes becomes x: intermediate steps are kept, then rephrased, checked, corrected, or replaced by another strategy</li>
+          <li>Trained by RL on verifiable answers: thinking that leads to the right answer is reinforced</li>
+        </ul>
+      </div>
+      <div class="lore"><span class="tag">Lore</span><p>DeepSeek-R1 (Jan 2025): reasoning from RL in an open LLM. It shook the industry and the stock market.</p></div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>19</span>
+  </footer>
+</section>
+
+<!-- Boxes: model in chatbot system -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · The chatbot</p>
+    <h2>The chatbot is software wrapped around the LLM</h2>
+    <div class="stage">
+      <div class="split split-wide-left">
+        <div class="box box-chat">
+          <span class="box-tag">Chatbot system</span>
+          <div class="box-model box">
+            <span class="box-tag">The LLM · after post-training</span>
+            <span class="formula">llm(x) = y</span>
+            <span class="formula-sub">same interface, a much more capable function</span>
+          </div>
+          <div class="box-row">
+            <div class="box-mini"><strong>History</strong>every message so far</div>
+            <div class="box-mini"><strong>Append</strong>message after message</div>
+          </div>
+        </div>
+        <div class="callouts">
+          <div class="callout"><h3>The LLM</h3><p>Still text in, distribution out, but shaped by post-training into an assistant that reasons</p></div>
+          <div class="callout"><h3>The chatbot system</h3><p>Keeps the history, appends each message, calls the LLM again, and stops when it is your turn</p></div>
+          <div class="callout"><h3>You</h3><p>Type the next message, and see only the last answer</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>20</span>
+  </footer>
+</section>
+
+<!-- Stateless -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · The chatbot</p>
+    <h2>The whole conversation goes back in, every time</h2>
+    <div class="stage" style="gap: var(--space-4)">
+      <div class="code">llm(system . user1)                                            = <span class="hl">assistant1</span>
+llm(system . user1 . assistant1 . user2)                       = <span class="hl">assistant2</span>
+llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl">assistant3</span></div>
+      <ul class="points">
+        <li>The LLM sees only x: it <strong>remembers nothing</strong> between two messages</li>
+        <li>So the chat system <strong>re-sends the full history</strong> on every message: the conversation is rebuilt from scratch each time</li>
+        <li>“Memory” features only add saved notes to x</li>
+      </ul>
+      <div class="panel panel-muted">
+        <span class="panel-label">KV cache</span>
+        <p>Reprocessing the whole history each time would be slow and costly. The LLM stores its computed attention states: <strong>only new tokens are processed</strong>, and cached tokens are billed at a fraction of the price.</p>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>21</span>
+  </footer>
+</section>
+
+<!-- Statement: keep in mind -->
+<section class="slide layout-statement">
+  <div class="slide-content">
+    <p class="kicker">Keep in mind</p>
+    <p>A chatbot is software around a frozen LLM that dreams tokens. <span class="ask">What should you keep in mind when you use one?</span></p>
+  </div>
+</section>
+
+<!-- Language disparity -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Keep in mind</p>
+    <h2>Chatbots are at their best in English</h2>
+    <div class="stage">
+      <div class="split split-wide-right split-top split-natural">
+        <div class="stack">
+          <div class="stat-big">80%</div>
+          <p class="takeaway">of pre-training data is English, roughly</p>
+          <p class="note-sm">The web is mostly English, and the data inherits it.</p>
+        </div>
+        <div class="stack stack-tight">
+          <div class="panel"><h3>Quality gap</h3><p>Richer prose, vocabulary and facts in English</p></div>
+          <div class="panel"><h3>Cultural default</h3><p>Norms, references and examples skew English-speaking</p></div>
+          <div class="panel"><h3>Local knowledge</h3><p>National rules, procedures and jargon are thinner</p></div>
+        </div>
+      </div>
+      <p class="takeaway">Ask in English, then translate: <em>the smaller the language, the bigger the gain</em>.</p>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>23</span>
+  </footer>
+</section>
+
+<!-- Tokens as a unit -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Keep in mind</p>
+    <h2>Tokens are the unit of everything</h2>
+    <div class="stage">
+      <dl class="defs defs-lg">
+        <div class="def def-wide"><dt>1 token</dt><dd>≈ ¾ of an English word, about four characters</dd></div>
+        <div class="def def-wide"><dt>1,000 tokens</dt><dd>≈ 750 words, a page and a half</dd></div>
+        <div class="def def-wide"><dt>100,000 tokens</dt><dd>≈ a short novel</dd></div>
+        <div class="def def-wide"><dt>1,000,000 tokens</dt><dd><strong>≈ 4 Harry Potter books</strong></dd></div>
+      </dl>
+      <p class="takeaway">Tokens measure a text’s size, its cost and the time to produce it. <em>Chatbot usage limits and API prices are counted in tokens</em>.</p>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>24</span>
+  </footer>
+</section>
+
+<!-- Strawberry -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Keep in mind</p>
+    <h2>How many r’s in “strawberry”?</h2>
+    <div class="stage">
+      <div class="panel">
+        <span class="panel-label">“strawberry”, as the LLM receives it</span>
+        <div class="spell">
+          <span class="spell-key">1 · Cut into tokens</span><span class="chip" style="grid-column: span 3">st<span class="r">r</span></span><span class="chip" style="grid-column: span 2">aw</span><span class="chip" style="grid-column: span 5">be<span class="r">r</span><span class="r">r</span>y</span>
+          <span class="spell-key">2 · The LLM receives</span><span class="chip tok" style="grid-column: span 3">496</span><span class="chip tok" style="grid-column: span 2">675</span><span class="chip tok" style="grid-column: span 5">15717</span>
+        </div>
+      </div>
+      <ul class="points">
+        <li>It only receives three numbers: <strong>the letters are not there to count</strong></li>
+        <li>Yet the chatbot answers “2 r’s”, <strong>with full confidence</strong></li>
+      </ul>
+      <div class="lore"><span class="tag">Lore</span><p>The 2024 meme every new LLM gets tested on. OpenAI’s reasoning project was reportedly code-named “Strawberry”.</p></div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>25</span>
+  </footer>
+</section>
+
+<!-- Context window -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Keep in mind</p>
+    <h2>The context window: a hard limit on the conversation</h2>
+    <div class="stage">
+      <div class="seg seg-lg">
+        <span class="s-a" style="--f:5">The conversation so far</span>
+        <span class="s-b" style="--f:3">The answer being written</span>
+        <span class="s-free" style="--f:3">Room left</span>
+      </div>
+      <div class="split" style="align-items: stretch">
+        <ul class="points" style="justify-content: center">
+          <li>The most tokens the LLM can process at once: the conversation <strong>and</strong> its answer</li>
+          <li>What does not fit does not exist for the LLM</li>
+        </ul>
+        <div class="panel panel-featured" style="justify-content: center">
+          <span class="panel-label">Windows keep growing</span>
+          <h3>A few thousand tokens in 2022, a million today</h3>
+        </div>
+      </div>
+      <div class="panel">
+        <span class="panel-label">Context rot</span>
+        <p>The longer the conversation, the more LLMs used to <strong>lose track of what was in it</strong>, silently. Recent LLMs handle long contexts far better, but a big window is still not a perfect memory.</p>
+      </div>
+      <div class="lore"><span class="tag">Lore</span><p>Claude Opus 4.6 was asked to list every spell in the first four Harry Potter books (about 733K tokens): it found 49 of the 50.</p></div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>26</span>
+  </footer>
+</section>
+
+<!-- Knowledge cutoff -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Keep in mind</p>
+    <h2>Knowledge cutoff: the LLM stops at a date</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="assets/knowledge-cutoff.svg" alt="Timeline: training data up to the cutoff, release, today; the gap keeps growing"></figure>
+      <ul class="points">
+        <li>Training data stops at a <strong>fixed date</strong>: the LLM is frozen there</li>
+        <li>It does not know what happened since, not even today’s date</li>
+        <li>Ask the chatbot anyway, and it admits it, or guesses with the same fluency</li>
+        <li>Anything newer must be added to the conversation: by you, or by a tool</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>27</span>
+  </footer>
+</section>
+
+<!-- Reflexive writing + hallucination -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Keep in mind</p>
+    <h2>Reflexive writing, not a knowledge base</h2>
+    <div class="stage">
+      <p class="lead"><strong>Not a search engine</strong>: no lookup, no record retrieved. “Reflexive writing”, driven by the prompt.</p>
+      <div class="panels-2">
+        <div class="panel">
+          <span class="panel-label">Obvious continuation → looks like knowledge</span>
+          <p><code>The capital of France is …</code></p>
+          <div class="bars">
+            <div class="bar pick"><span>Paris</span><span class="track"><span class="fill" style="--w:96%"></span></span><span class="val">~99%</span></div>
+          </div>
+        </div>
+        <div class="panel">
+          <span class="panel-label">Open continuation → looks like creativity</span>
+          <p><code>I drank a delicious cup of …</code></p>
+          <div class="bars">
+            <div class="bar"><span>coffee</span><span class="track"><span class="fill" style="--w:42%"></span></span><span class="val"></span></div>
+            <div class="bar"><span>tea</span><span class="track"><span class="fill" style="--w:28%"></span></span><span class="val"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-featured">
+        <span class="panel-label">Hallucination</span>
+        <p>When there is no obvious continuation, it still writes one: <strong>plausible, confident, and factually wrong</strong>. Nothing in the chatbot checks that it is true.</p>
+      </div>
+      <div class="lore"><span class="tag">Lore</span><p>2023: lawyers filed a brief citing court cases invented by ChatGPT (<em>Mata v. Avianca</em>).</p></div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>28</span>
+  </footer>
+</section>
+
+<!-- Not predictable -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Keep in mind</p>
+    <h2>Some answers cannot be predicted</h2>
+    <div class="stage">
+      <p class="lead">Behind the chatbot, the LLM is a frozen snapshot that predicts the next token. Some answers are not in it.</p>
+      <div class="panels-3">
+        <div class="panel"><span class="panel-label">Not written yet</span><h3>Saturday’s forecast, today’s prices</h3><p>After the cutoff: not in the training data</p></div>
+        <div class="panel"><span class="panel-label">Never seen</span><h3>Your files, your inbox, your database</h3><p>Private: never in the training data</p></div>
+        <div class="panel"><span class="panel-label">Not guessable</span><h3>An exact total, the r’s in “strawberry”</h3><p>Needs computing, not predicting</p></div>
+      </div>
+      <p class="takeaway">The answer has to be <em>fetched or computed</em>, not predicted.</p>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>29</span>
+  </footer>
+</section>
+
+<!-- You do all the rest -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Conclusion</p>
+    <h2>A chatbot only writes: you do all the rest</h2>
+    <div class="stage">
+      <div class="msg"><span class="role">The task</span>Turn the three Q3 reports into a one-page memo, with exact figures.</div>
+      <div class="split split-wide-left">
+        <div class="panel">
+          <span class="panel-label">You · five steps</span>
+          <ul class="points">
+            <li>Open each report, copy it, paste it into the chat</li>
+            <li>Ask for the memo</li>
+            <li>Copy the answer into a document</li>
+            <li>Recheck every figure with a calculator</li>
+            <li>Paste the mistakes back, ask again</li>
+          </ul>
+        </div>
+        <div class="panel panel-featured">
+          <span class="panel-label">The LLM · one step</span>
+          <h3>Writes the memo</h3>
+        </div>
+      </div>
+      <p class="takeaway">You fetch, carry, compute and check. <em>Next: what if software did the rest?</em></p>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>30</span>
+  </footer>
+</section>
+
+</body>
+</html>
