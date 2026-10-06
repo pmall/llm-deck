@@ -101,22 +101,16 @@ In HTML, figure slots are marked with a `.figure-ph` placeholder — replace wit
 
 ## 7. Content
 
-Slides are spoken support, not a document. Short sentences, one idea per slide. The title states the takeaway, not the topic ("Model beats baseline by 25 points", not "Results"). Prefer a figure or a number over a paragraph. When in doubt, split the slide.
+The "structure" slides (opening, closing, agenda, sections, statement) have a fixed design and these rules do not apply to them.
 
-### Quality bar
+The following rules are for *content* slides, with free structure:
 
-The reference is Part 1, slides "An LLM is a zip file" to "Judge the document", and above all the open, box-free slides "Tokens are the unit of everything" and "Why compression looks like intelligence". Every slide must reach that level. A slide passes only if **all** of these hold:
-
-1. **One demonstration carries the idea.** A concrete example built from the deck's own primitives (chips, bars, `llm( … )` rows, code blocks, an SVG figure) shows the point so that the audience gets it from the visual alone. The text only names what the visual shows.
-2. **Real, recurring examples.** Reuse the deck's running examples (*The cat sat on the mat*, *apple*, the zebra page, *strawberry*) and real tokens, numbers, sentences. No abstract placeholders, no row of three text-only cards.
-3. **Open layout, no decorative boxes.** The model is "Why compression looks like intelligence" and "Tokens are the unit of everything": full-width definition rows separated by thin rules (`.defs`), a label on the left, the content on the right, then one takeaway line. Content sits directly on the slide. A panel (box) is used only when two things must be visibly grouped or contrasted side by side, never to wrap a single block, never as a row of text cards.
-4. **Fill the space.** The content block spans the full width and its rows are sized (`.defs-lg`, larger chips) so the slide is balanced top to bottom: no thin strip of content floating in empty space. Then at most **one takeaway line or two bullets**, each fitting on one full-width line.
-5. **No ugly wraps.** No line in a half-width column that wraps into a fragment, no orphan word, no heading on two lines next to one-line siblings. Fix by rewording, never by forcing breaks.
-6. **Even spacing, measured.** Gaps title → block → block → takeaway/lore are equal (±5px). Nothing touches the title or the footer. No dead space at the bottom of a panel. Side-by-side panels have equal height.
-7. **Consistent colours.** Purple = the token in focus / the prediction; teal = context, input, attention; gold on dark = what the model writes; grey chips = plain tokens.
-8. **Beginner wording.** Plain words for someone seeing it once, out loud. Say what the viewer sees. No jargon, no reference to an earlier slide, "LLM" rather than "model".
-
-**Verification before presenting a slide** (not optional): render it, run `export.py boxes` on its blocks, zoom on every text block, and check rules 1–8 one by one. A slide that fails any rule is not shown; it is fixed first.
+1. Clarity for the audience is more important than visual aspect.
+2. Usage of colors must make sense through all the slides.
+3. All visual addition must be justified. Aesthetic must serve the comprehension.
+4. The slide contents must be dense and must occupy all the available space. Dense is different than overcrowded. Margin must be justified and must be shared between components. Unnatural word wrap should be avoided.
+5. Don't force yourself into HTML slides, SVG is perfectly fine when it serves the comprehension.
+6. No sensational term, no slop, only factual explanation.
 
 ## 8. QA
 

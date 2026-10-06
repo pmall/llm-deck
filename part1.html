@@ -3,15 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Demystifying LLMs: From Zero to Chatbots, then Agents</title>
+<title>Demystifying LLMs · Part 1: What is an LLM, really?</title>
 <!--
   ==========================================================================
-  DECK.HTML: Demystifying LLMs: from autocomplete to swarms of agents.
+  PART1.HTML: Demystifying LLMs, session 1 of 2: What is an LLM, really?
+  (Session 2, agents and where this is heading, is part2.html.)
 
-  Three parts:
-    1. What is an LLM, really?   (tokens, llm(x) = y, post-training, context)
-    2. How do agents work?       (tools in a loop, environment, orchestration)
-    3. Where is this heading?    (progress, misalignment, your role)
+  Three sections, then a conclusion:
+    How an LLM writes         (zip file, tokens, training, inference)
+    How it becomes a chatbot  (in-context, fine-tuning, RL, reasoning, chat software)
+    What to watch out for     (language, tokens, context, cutoff, hallucination)
 
   Assembled from:
     styles/base.css            structure + print rules (always linked)
@@ -39,9 +40,9 @@
 <!-- ── COVER ───────────────────────────────────────────────────────────── -->
 <section class="slide layout-cover inverse">
   <div class="slide-content">
-    <p class="kicker">Workshop · [Date]</p>
+    <p class="kicker">Workshop · Part 1 of 2</p>
     <h1>Demystifying LLMs</h1>
-    <p class="lead">From autocomplete to swarms of agents</p>
+    <p class="lead">What is an LLM, really?</p>
     <div class="meta">
       <span>[Author Name] · [Affiliation]</span>
       <span>[Date]</span>
@@ -53,43 +54,35 @@
 <section class="slide layout-agenda">
   <div class="slide-content">
     <p class="kicker">Agenda</p>
-    <h2>Three questions for today</h2>
+    <h2>From human text to the chatbot you use</h2>
     <ol class="agenda-list">
       <li class="agenda-item">
         <span class="agenda-num">01</span>
-        <span class="agenda-title">What is an LLM, really?</span>
-        <span class="agenda-note">How it learns · how it writes · how it becomes an assistant</span>
+        <span class="agenda-title">How an LLM writes</span>
+        <span class="agenda-note">Compressed text · tokens · one token at a time</span>
       </li>
       <li class="agenda-item">
         <span class="agenda-num">02</span>
-        <span class="agenda-title">How do agents work?</span>
-        <span class="agenda-note">Tools · the loop · its own workspace · many agents together</span>
+        <span class="agenda-title">How it becomes a chatbot</span>
+        <span class="agenda-note">Examples · fine-tuning · rewards · thinking first · the chat software</span>
       </li>
       <li class="agenda-item">
         <span class="agenda-num">03</span>
-        <span class="agenda-title">Where is this heading?</span>
-        <span class="agenda-note">Recent progress · the risks · what it changes for you</span>
+        <span class="agenda-title">What to watch out for</span>
+        <span class="agenda-note">Language · tokens · context window · cutoff · made-up answers</span>
       </li>
     </ol>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
+    <span>Demystifying LLMs · Part 1</span>
     <span>2</span>
   </footer>
-</section>
-
-<!-- ═══════════════════════ PART 1 · WHAT IS AN LLM, REALLY? ═══════════════ -->
-<section class="slide layout-section inverse">
-  <div class="slide-content">
-    <p class="section-num">01</p>
-    <h2>What is an LLM, really?</h2>
-  </div>
 </section>
 
 <!-- Zip -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · What it is</p>
+    <p class="kicker">Part 1 · How an LLM writes</p>
     <h2>An LLM is a zip file of human knowledge</h2>
     <div class="stage">
       <div class="panel">
@@ -115,15 +108,15 @@
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>4</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>3</span>
   </footer>
 </section>
 
 <!-- Tokens -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · What it is</p>
+    <p class="kicker">Part 1 · How an LLM writes</p>
     <h2>Knowledge reaches the LLM as tokens</h2>
     <div class="stage">
       <div class="panels-3">
@@ -151,15 +144,15 @@
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>5</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>4</span>
   </footer>
 </section>
 
 <!-- Training -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · What it is</p>
+    <p class="kicker">Part 1 · How an LLM writes</p>
     <h2>Training: predict the next token</h2>
     <div class="stage">
       <div class="panels-2">
@@ -186,15 +179,15 @@
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>6</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>5</span>
   </footer>
 </section>
 
 <!-- Attention -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · What it is</p>
+    <p class="kicker">Part 1 · How an LLM writes</p>
     <h2>Attention: every token looks at the others</h2>
     <div class="stage">
       <div class="panel panel-figure">
@@ -208,15 +201,15 @@
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>7</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>6</span>
   </footer>
 </section>
 
 <!-- Generation -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · What it is</p>
+    <p class="kicker">Part 1 · How an LLM writes</p>
     <h2>Inference: one token at a time</h2>
     <div class="stage">
       <div class="split split-wide-left split-stretch">
@@ -246,15 +239,15 @@
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>8</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>7</span>
   </footer>
 </section>
 
 <!-- Distribution -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · What it is</p>
+    <p class="kicker">Part 1 · How an LLM writes</p>
     <h2>Zoom on one step: the next token is drawn, not chosen</h2>
     <div class="stage">
       <div class="split split-wide-left split-stretch">
@@ -283,15 +276,15 @@
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>9</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>8</span>
   </footer>
 </section>
 
 <!-- Autocomplete -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · What it is</p>
+    <p class="kicker">Part 1 · How an LLM writes</p>
     <h2>At this point: a machine that dreams documents</h2>
     <div class="stage">
       <p class="legend"><span class="dim-key">what you write</span> · <span class="hl-key">what the LLM dreams</span></p>
@@ -324,15 +317,15 @@ Where is Berlin?</span></div>
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>10</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>9</span>
   </footer>
 </section>
 
 <!-- Judge the document -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · What it is</p>
+    <p class="kicker">Part 1 · How an LLM writes</p>
     <h2>Judge the document, not the mechanism</h2>
     <div class="stage">
       <div class="panels-2 panels-lg">
@@ -352,15 +345,15 @@ Where is Berlin?</span></div>
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>11</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>10</span>
   </footer>
 </section>
 
 <!-- Intelligence as compression -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · What it is</p>
+    <p class="kicker">Part 1 · How an LLM writes</p>
     <h2>Why compression looks like intelligence</h2>
     <div class="stage">
       <dl class="defs">
@@ -373,23 +366,23 @@ Where is Berlin?</span></div>
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>12</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>11</span>
   </footer>
 </section>
 
 <!-- Statement -->
 <section class="slide layout-statement">
   <div class="slide-content">
-    <p class="kicker">Becoming an assistant</p>
-    <p>We compressed human knowledge into an LLM that only dreams documents. <span class="ask">How do we make it an assistant?</span></p>
+    <p class="kicker">How it becomes a chatbot</p>
+    <p>Ask a raw LLM “Where is Paris?” and it writes “Where is Rome?”. <span class="ask">How does it learn to answer?</span></p>
   </div>
 </section>
 
 <!-- In-context pattern matching -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · Becoming an assistant</p>
+    <p class="kicker">Part 1 · How it becomes a chatbot</p>
     <h2>In-context pattern matching</h2>
     <div class="stage">
       <div class="split">
@@ -410,15 +403,15 @@ fleur,</span> <span class="hl">flower</span></div>
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>14</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>13</span>
   </footer>
 </section>
 
 <!-- Fine-tuning -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · Becoming an assistant</p>
+    <p class="kicker">Part 1 · How it becomes a chatbot</p>
     <h2>Fine-tuning: keep training, on documents we choose</h2>
     <div class="stage">
       <div class="flow">
@@ -442,15 +435,15 @@ fleur,</span> <span class="hl">flower</span></div>
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>15</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>14</span>
   </footer>
 </section>
 
 <!-- Instruction tuning -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · Becoming an assistant</p>
+    <p class="kicker">Part 1 · How it becomes a chatbot</p>
     <h2>Instruction tuning: documents that teach a role</h2>
     <div class="stage">
       <div class="split">
@@ -472,15 +465,15 @@ Assistant: Rome.</div>
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>16</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>15</span>
   </footer>
 </section>
 
 <!-- RL verifiable -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · Becoming an assistant</p>
+    <p class="kicker">Part 1 · How it becomes a chatbot</p>
     <h2>Reinforcement learning: a quiz with an answer key</h2>
     <div class="stage">
       <div class="split split-wide-left">
@@ -503,15 +496,15 @@ attempt 4   Melbourne   <span class="dim">✗</span></div>
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>17</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>16</span>
   </footer>
 </section>
 
 <!-- RLHF -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · Becoming an assistant</p>
+    <p class="kicker">Part 1 · How it becomes a chatbot</p>
     <h2>RLHF: when only a human can judge</h2>
     <div class="stage" style="gap: var(--space-4)">
       <div class="msg"><span class="role">Prompt</span>Explain tokens to a child.</div>
@@ -533,15 +526,15 @@ attempt 4   Melbourne   <span class="dim">✗</span></div>
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>18</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>17</span>
   </footer>
 </section>
 
 <!-- Reasoning -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · Becoming an assistant</p>
+    <p class="kicker">Part 1 · How it becomes a chatbot</p>
     <h2>System 2 thinking: write the reasoning first</h2>
     <div class="stage">
       <div class="split">
@@ -567,15 +560,15 @@ If I am his father, he is my son.</span>
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>19</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>18</span>
   </footer>
 </section>
 
 <!-- Boxes: model in chatbot system -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · The chatbot</p>
+    <p class="kicker">Part 1 · How it becomes a chatbot</p>
     <h2>The chatbot is software wrapped around the LLM</h2>
     <div class="stage">
       <div class="split split-wide-left">
@@ -600,15 +593,15 @@ If I am his father, he is my son.</span>
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>20</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>19</span>
   </footer>
 </section>
 
 <!-- Stateless -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · The chatbot</p>
+    <p class="kicker">Part 1 · How it becomes a chatbot</p>
     <h2>The whole conversation goes back in, every time</h2>
     <div class="stage" style="gap: var(--space-4)">
       <div class="code">llm(system . user1)                                            = <span class="hl">assistant1</span>
@@ -626,23 +619,23 @@ llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>21</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>20</span>
   </footer>
 </section>
 
-<!-- Statement: keep in mind -->
+<!-- Statement: watch out -->
 <section class="slide layout-statement">
   <div class="slide-content">
-    <p class="kicker">Keep in mind</p>
-    <p>A chatbot is software around a frozen LLM that dreams tokens. <span class="ask">What should you keep in mind when you use one?</span></p>
+    <p class="kicker">What to watch out for</p>
+    <p>It now answers like an assistant, but still writes token by token from what it read in training. <span class="ask">Where does that trip it up?</span></p>
   </div>
 </section>
 
 <!-- Language disparity -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · Keep in mind</p>
+    <p class="kicker">Part 1 · What to watch out for</p>
     <h2>Chatbots are at their best in English</h2>
     <div class="stage">
       <div class="split split-wide-right split-top split-natural">
@@ -661,15 +654,15 @@ llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>23</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>22</span>
   </footer>
 </section>
 
 <!-- Tokens as a unit -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · Keep in mind</p>
+    <p class="kicker">Part 1 · What to watch out for</p>
     <h2>Tokens are the unit of everything</h2>
     <div class="stage">
       <dl class="defs defs-lg">
@@ -682,15 +675,15 @@ llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>24</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>23</span>
   </footer>
 </section>
 
 <!-- Strawberry -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · Keep in mind</p>
+    <p class="kicker">Part 1 · What to watch out for</p>
     <h2>How many r’s in “strawberry”?</h2>
     <div class="stage">
       <div class="panel">
@@ -708,15 +701,15 @@ llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>25</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>24</span>
   </footer>
 </section>
 
 <!-- Context window -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · Keep in mind</p>
+    <p class="kicker">Part 1 · What to watch out for</p>
     <h2>The context window: a hard limit on the conversation</h2>
     <div class="stage">
       <div class="seg seg-lg">
@@ -742,15 +735,15 @@ llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>26</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>25</span>
   </footer>
 </section>
 
 <!-- Knowledge cutoff -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · Keep in mind</p>
+    <p class="kicker">Part 1 · What to watch out for</p>
     <h2>Knowledge cutoff: the LLM stops at a date</h2>
     <div class="stage">
       <figure class="figure figure-contain"><img src="assets/knowledge-cutoff.svg" alt="Timeline: training data up to the cutoff, release, today; the gap keeps growing"></figure>
@@ -763,15 +756,15 @@ llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>27</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>26</span>
   </footer>
 </section>
 
 <!-- Reflexive writing + hallucination -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · Keep in mind</p>
+    <p class="kicker">Part 1 · What to watch out for</p>
     <h2>Reflexive writing, not a knowledge base</h2>
     <div class="stage">
       <p class="lead"><strong>Not a search engine</strong>: no lookup, no record retrieved. “Reflexive writing”, driven by the prompt.</p>
@@ -800,15 +793,15 @@ llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>28</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>27</span>
   </footer>
 </section>
 
 <!-- Not predictable -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · Keep in mind</p>
+    <p class="kicker">Part 1 · What to watch out for</p>
     <h2>Some answers cannot be predicted</h2>
     <div class="stage">
       <p class="lead">Behind the chatbot, the LLM is a frozen snapshot that predicts the next token. Some answers are not in it.</p>
@@ -821,15 +814,15 @@ llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>29</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>28</span>
   </footer>
 </section>
 
 <!-- You do all the rest -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">Part 1 · Conclusion</p>
+    <p class="kicker">Part 1 · What to watch out for</p>
     <h2>A chatbot only writes: you do all the rest</h2>
     <div class="stage">
       <div class="msg"><span class="role">The task</span>Turn the three Q3 reports into a one-page memo, with exact figures.</div>
@@ -849,13 +842,55 @@ llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl
           <h3>Writes the memo</h3>
         </div>
       </div>
-      <p class="takeaway">You fetch, carry, compute and check. <em>Next: what if software did the rest?</em></p>
+      <p class="takeaway">You fetch, carry, compute and check: <em>the LLM only did the writing</em>.</p>
     </div>
   </div>
   <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
+    <span>Demystifying LLMs · Part 1</span>
+    <span>29</span>
+  </footer>
+</section>
+
+<!-- Summary -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · Conclusion</p>
+    <h2>Part 1 in one slide: it writes, it never acts</h2>
+    <div class="stage">
+      <dl class="defs defs-lg">
+        <div class="def def-wide"><dt>An LLM</dt><dd>A lossy zip file of human text, read as tokens</dd></div>
+        <div class="def def-wide"><dt>It writes</dt><dd><span class="chips chips-flat"><span class="chip">The</span><span class="chip">cat</span><span class="chip">sat</span><span class="chip">on</span><span class="chip">the</span><span class="chip target">mat</span></span></dd></div>
+        <div class="def def-wide"><dt>An assistant</dt><dd>The same LLM, trained further on chosen documents</dd></div>
+        <div class="def def-wide"><dt>A chatbot</dt><dd>Software that sends it the whole conversation</dd></div>
+        <div class="def def-wide"><dt>It never acts</dt><dd>No file opened, no figure computed, no email sent</dd></div>
+      </dl>
+      <p class="takeaway">It writes remarkably well. <em>Next: software that acts on what it writes.</em></p>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs · Part 1</span>
     <span>30</span>
   </footer>
+</section>
+
+
+<!-- Closing -->
+<section class="slide layout-closing inverse">
+  <div class="slide-content">
+    <p class="kicker">Thank you</p>
+    <h2>Questions &amp; discussion</h2>
+    <p class="lead">Next, in Part 2: agents, the software that does the rest, and where this is heading.</p>
+    <div class="contact">
+      <div>
+        <strong>Contact</strong>
+        [Author Name] · [Email]
+      </div>
+      <div>
+        <strong>Affiliation</strong>
+        [Affiliation]
+      </div>
+    </div>
+  </div>
 </section>
 
 </body>
