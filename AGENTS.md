@@ -9,6 +9,7 @@ The whole system is static HTML + CSS + SVG. Its palette sensibility is inspired
 - **Print-exactness.** One `.slide` = one PDF page, pixel-identical to screen. The `@page` / print rules in `styles/base.css` §1 and the slide geometry tokens (`--slide-w`, `--slide-h`) are load-bearing — leave them alone.
 - **Tokens, not hex.** Colors and fonts reach HTML and `base.css` only through `var(--…)`. Hex values live in theme files and inside standalone `.svg` figures (§6). This is what makes a deck re-themeable by swapping one `<link>`.
 - **Slides fit.** A slide that overflows is rewritten or split. Verify visually (§8) before calling it done.
+- **No co-author.** Never add a `Co-Authored-By:` line or any AI attribution to commit messages.
 
 ## 2. Repository
 
