@@ -107,11 +107,17 @@ The "structure" slides (opening, closing, agenda, sections, statement) have a fi
 The following rules are for *content* slides, with free structure:
 
 1. Clarity for the audience is more important than visual aspect.
-2. Usage of colors must make sense through all the slides.
-3. All visual addition must be justified. Aesthetic must serve the comprehension.
-4. The slide contents must be dense and must occupy all the available space. Dense is different than overcrowded. Margin must be justified and must be shared between components. Unnatural word wrap should be avoided.
+2. Usage of colors must make sense through all the slides. A color carries a meaning: no accent on a word only to decorate it.
+3. All visual addition must be justified. Aesthetic must serve the comprehension. Cards, boxes, badges and highlights included: each one must help understand the concept, or it goes. The lore line is one fact with a bold accent prefix (`<p><strong><em>Lore:</em></strong> …</p>`), no badge.
+4. The slide contents must be dense and must occupy all the available space. Dense is different than overcrowded. Margin must be justified and must be shared between components. Unnatural word wrap should be avoided. Density comes from content that explains the concept (a real example, the mechanism, the consequence), never from frames: a slide that looks empty once its boxes are removed needs more content, not boxes.
 5. Don't force yourself into HTML slides, SVG is perfectly fine when it serves the comprehension.
-6. No sensational term, no slop, only factual explanation.
+6. No sensational term, no slop, only factual explanation. A metaphor is stated as a metaphor ("Think of an LLM as…", not "An LLM is…"). Numbers are real, and the text and the visuals use the same units. No concept is used before the slide that introduces it.
+
+To improve a content slide:
+
+1. **Remove the extra.** Strip every card, box, badge, highlight and line that does not serve the concept (rule 3). What remains shows how much real content the slide has.
+2. **Check the purpose again.** State the one concept the slide must make the audience understand, and where it sits in the narrative (what the previous slides introduced, what the next ones will).
+3. **Rewrite it.** Rebuild the slide around that purpose with content that explains it (rule 4), then render, look, fix, and show it.
 
 ## 8. QA
 
