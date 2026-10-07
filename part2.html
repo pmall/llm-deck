@@ -113,10 +113,10 @@
           <div class="msg msg-assistant"><span class="role">Assistant</span>Yes, rain, 11 °C. Plan indoors.</div>
         </div>
         <ul class="points">
-          <li>The assistant only writes messages</li>
-          <li>So a message can be <strong>an instruction</strong>: “call this tool, with these arguments”</li>
-          <li>The chatbot system runs it and posts the result back <strong>as a new message</strong>: the LLM executes nothing</li>
-          <li>The forecast is <strong>fetched</strong>, not predicted: live context, not training data</li>
+          <li>The assistant only writes messages.</li>
+          <li>So a message can be <strong>an instruction</strong>: “call this tool, with these arguments”.</li>
+          <li>The chatbot system runs it and posts the result back <strong>as a new message</strong>: the LLM executes nothing.</li>
+          <li>The forecast is <strong>fetched</strong>, not predicted: live context, not training data.</li>
         </ul>
       </div>
       <div class="lore"><span class="tag">Lore</span><p>Function calling (2023), then MCP (Nov 2024): a common plug for tools.</p></div>
@@ -162,10 +162,10 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
       <div class="split">
         <figure class="figure figure-contain"><img src="assets/react-verify.svg" alt="The ReAct loop with a check against the criteria before answering"></figure>
         <ul class="points">
-          <li>Observing is not checking: a tool call can succeed and the result still be wrong</li>
-          <li>One more step in the loop: compare the result to <strong>explicit criteria</strong> (tests, specs, a checklist)</li>
-          <li>Reasoning alone: plausible plans. Tools alone: unchecked actions. With checks: <strong>tested results</strong></li>
-          <li>It stops when the criteria are met, not after a fixed number of steps</li>
+          <li>Observing is not checking: a tool call can succeed and the result still be wrong.</li>
+          <li>One more step in the loop: compare the result to <strong>explicit criteria</strong> (tests, specs, a checklist).</li>
+          <li>Reasoning alone: plausible plans. Tools alone: unchecked actions. With checks: <strong>tested results</strong>.</li>
+          <li>It stops when the criteria are met, not after a fixed number of steps.</li>
         </ul>
       </div>
       <div class="lore"><span class="tag">Lore</span><p>AutoGPT (2023) made the loop go viral, before LLMs were reliable enough to check their own work.</p></div>
@@ -190,10 +190,10 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
 $ run tests
 <span class="hl">PASS  44 passed</span></div>
         <ul class="points">
-          <li>Code gives <strong>deterministic feedback</strong>: compilers, unit tests, linters</li>
-          <li>Verification is free, instant, unambiguous: the test passes or fails</li>
-          <li>Why coding agents matured first, and fuzzier tasks lag behind</li>
-          <li>Lesson: give the agent a way to check itself</li>
+          <li>Code gives <strong>deterministic feedback</strong>: compilers, unit tests, linters.</li>
+          <li>Verification is free, instant, unambiguous: the test passes or fails.</li>
+          <li>Why coding agents matured first, and fuzzier tasks lag behind.</li>
+          <li>Lesson: give the agent a way to check itself.</li>
         </ul>
       </div>
       <div class="lore"><span class="tag">Lore</span><p>SWE-bench (2023) turned “fix a real GitHub issue” into the benchmark; “vibe coding” (Karpathy, Feb 2025) named the practice.</p></div>
@@ -291,9 +291,9 @@ $ run tests
 <span class="hl">write_file("outputs/memo.md")</span>    <span class="dim">→ ok</span>
 <span class="dim">agent ›</span> Done: outputs/memo.md, one page, each point sourced.</div>
       <ul class="points">
-        <li>Your five steps are now six tool calls, <strong>no human in between</strong></li>
-        <li>List, read, write, run: the basic tools of any agent, checking included</li>
-        <li>The deliverable is <strong>a file in the workspace</strong>, not a message in the chat</li>
+        <li>Your five steps are now six tool calls, <strong>no human in between</strong>.</li>
+        <li>List, read, write, run: the basic tools of any agent, checking included.</li>
+        <li>The deliverable is <strong>a file in the workspace</strong>, not a message in the chat.</li>
       </ul>
     </div>
   </div>
@@ -316,10 +316,10 @@ $ run tests
 ├─ data/       <span class="dim">the documents to work on</span>
 └─ outputs/    <span class="dim">what the agent produces</span></div>
         <ul class="points">
-          <li>The same read and write tools work on <strong>the agent’s own notes</strong></li>
-          <li>It keeps a memory for the project, and you work <em>with</em> it, in the same files</li>
-          <li>Teach it like an <strong>intern</strong>: explain once, correct, let it write the lesson down</li>
-          <li>Memory outlives the context window</li>
+          <li>The same read and write tools work on <strong>the agent’s own notes</strong>.</li>
+          <li>It keeps a memory for the project, and you work <em>with</em> it, in the same files.</li>
+          <li>Teach it like an <strong>intern</strong>: explain once, correct, let it write the lesson down.</li>
+          <li>Memory outlives the context window.</li>
         </ul>
       </div>
       <div class="lore"><span class="tag">Lore</span><p><code>AGENTS.md</code> / <code>CLAUDE.md</code> files; “Claude plays Pokémon” kept notes to carry on. This deck was built the same way.</p></div>
@@ -350,9 +350,9 @@ $ run tests
         </div>
       </div>
       <ul class="points">
-        <li><code>read_file</code> puts the source into the context: <strong>grounding</strong>, for free</li>
-        <li>Too many files? Search first, read only what matters: <strong>retrieval</strong> (RAG)</li>
-        <li>The window is limited and context rot is real: selection matters</li>
+        <li><code>read_file</code> puts the source into the context: <strong>grounding</strong>, for free.</li>
+        <li>Too many files? Search first, read only what matters: <strong>retrieval</strong> (RAG).</li>
+        <li>The window is limited and context rot is real: selection matters.</li>
       </ul>
     </div>
   </div>
@@ -412,9 +412,9 @@ $ run tests
           <div class="tile">3D &amp; CAD<span class="tag">reversible</span></div>
         </div>
         <ul class="points">
-          <li>Anything with an API: email, calendar, CRM, tickets, publishing, even 3D and CAD</li>
-          <li>Same tool-calling mechanism, but now the request <em>changes something</em></li>
-          <li>What matters: <strong>reversible vs. irreversible</strong>, and what you leave unsupervised</li>
+          <li>Anything with an API: email, calendar, CRM, tickets, publishing, even 3D and CAD.</li>
+          <li>Same tool-calling mechanism, but now the request <em>changes something</em>.</li>
+          <li>What matters: <strong>reversible vs. irreversible</strong>, and what you leave unsupervised.</li>
         </ul>
       </div>
     </div>
@@ -441,10 +441,10 @@ $ run tests
         <div class="node"><strong>Fix</strong><span>then make and look again</span></div>
       </div>
       <ul class="points">
-        <li>LLMs already interpret images: screenshots, charts, renders, video frames</li>
-        <li>On its own, an LLM describes. <strong>In an agent loop</strong>, it iterates and self-corrects on what it sees</li>
-        <li>Enables visual content made by iteration: layouts, diagrams, 3D, even short films frame by frame</li>
-        <li>Seeing a screen is also what makes computer use possible</li>
+        <li>LLMs already interpret images: screenshots, charts, renders, video frames.</li>
+        <li>On its own, an LLM describes. <strong>In an agent loop</strong>, it iterates and self-corrects on what it sees.</li>
+        <li>Enables visual content made by iteration: layouts, diagrams, 3D, even short films frame by frame.</li>
+        <li>Seeing a screen is also what makes computer use possible.</li>
       </ul>
       <div class="lore"><span class="tag">Lore</span><p>This very deck is checked that way: render each slide to an image, look, fix.</p></div>
     </div>
@@ -479,10 +479,10 @@ $ run tests
         </div>
       </div>
       <ul class="points">
-        <li><strong>No API?</strong> The agent uses software like a person: read, point, click, type</li>
-        <li>Unlocks the long tail: legacy apps, web interfaces, anything never integrated</li>
-        <li>Slower, more fragile, costlier: interfaces change, the agent must re-orient</li>
-        <li>Not a superpower: a fallback for what was never machine-readable</li>
+        <li><strong>No API?</strong> The agent uses software like a person: read, point, click, type.</li>
+        <li>Unlocks the long tail: legacy apps, web interfaces, anything never integrated.</li>
+        <li>Slower, more fragile, costlier: interfaces change, the agent must re-orient.</li>
+        <li>Not a superpower: a fallback for what was never machine-readable.</li>
       </ul>
       <div class="lore"><span class="tag">Lore</span><p>Anthropic computer use (Oct 2024), OpenAI Operator (Jan 2025).</p></div>
     </div>
@@ -509,10 +509,10 @@ $ run tests
         <div class="node node-accent"><strong>Context</strong><span>only the open folder</span></div>
       </div>
       <ul class="points">
-        <li>Procedures, domain rules and templates, loaded <strong>on the fly</strong></li>
-        <li>Retrieval injects <strong>data</strong>; skills inject <strong>instructions</strong>: the how, not the what</li>
-        <li>E.g. report format, pre-publication checklist, filing conventions, monthly close, tone rules</li>
-        <li>Loaded only when relevant: short standing instructions, less context rot</li>
+        <li>Procedures, domain rules and templates, loaded <strong>on the fly</strong>.</li>
+        <li>Retrieval injects <strong>data</strong>; skills inject <strong>instructions</strong>: the how, not the what.</li>
+        <li>E.g. report format, pre-publication checklist, filing conventions, monthly close, tone rules.</li>
+        <li>Loaded only when relevant: short standing instructions, less context rot.</li>
       </ul>
     </div>
   </div>
@@ -562,9 +562,9 @@ $ run tests
       <div class="split split-wide-left">
         <figure class="figure figure-contain"><img src="assets/orchestration.svg" alt="An orchestrator delegating to four workers, each with its own context"></figure>
         <ul class="points">
-        <li><strong>Orchestrator / workers</strong>: planners, coders, reviewers</li>
-        <li>Each worker: a clean context, a narrow job. A direct answer to context rot</li>
-        <li>Workers hand back a result, not their whole context</li>
+        <li><strong>Orchestrator / workers</strong>: planners, coders, reviewers.</li>
+        <li>Each worker: a clean context, a narrow job. A direct answer to context rot.</li>
+        <li>Workers hand back a result, not their whole context.</li>
       </ul>
       </div>
       <div class="lore"><span class="tag">Lore</span><p>Anthropic’s multi-agent research system (2025): lead agent plus parallel sub-agents.</p></div>
@@ -636,9 +636,9 @@ $ run tests
     <div class="stage">
       <div class="split split-wide-left">
         <ul class="points">
-          <li>Chat answers last seconds; tool use, minutes; agents, hours; swarms, days</li>
-          <li>The length of tasks LLMs complete reliably <strong>keeps growing</strong></li>
-          <li>Longer tasks lean on everything so far: the loop, self-verification, files as memory, orchestration, clean contexts</li>
+          <li>Chat answers last seconds; tool use, minutes; agents, hours; swarms, days.</li>
+          <li>The length of tasks LLMs complete reliably <strong>keeps growing</strong>.</li>
+          <li>Longer tasks lean on everything so far: the loop, self-verification, files as memory, orchestration, clean contexts.</li>
         </ul>
         <figure class="figure figure-contain">
           <div class="figure-ph">illustration placeholder · task duration (seconds → minutes → hours → days) rising over time, one point per milestone</div>

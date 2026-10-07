@@ -112,9 +112,9 @@
     <div class="stage">
       <div class="chips chips-sm"><span class="chip">…</span><span class="chip">Die</span><span class="chip"> Kat</span><span class="chip">ze</span><span class="chip"> sch</span><span class="chip">lä</span><span class="chip">ft</span><span class="chip"> auf</span><span class="chip"> dem</span><span class="chip"> Sofa</span><span class="chip">.</span><span class="chip"> Le</span><span class="chip"> chat</span><span class="chip"> dort</span><span class="chip"> sur</span><span class="chip"> le</span><span class="chip"> can</span><span class="chip">ap</span><span class="chip">é</span><span class="chip">.</span><span class="chip"> It</span><span class="chip"> was</span><span class="chip"> late</span><span class="chip"> on</span><span class="chip"> the</span><span class="chip"> edge</span><span class="chip"> of</span><span class="chip"> town</span><span class="chip">.</span><span class="chip"> The</span><span class="chip"> cat</span><span class="chip"> sat</span><span class="chip"> on</span><span class="chip"> the</span><span class="chip"> mat</span><span class="chip"> while</span><span class="chip"> the</span><span class="chip"> rain</span><span class="chip"> fell</span><span class="chip">.</span><span class="chip"> </span><span class="chip">你</span><span class="chip">好</span><span class="chip">，</span><span class="chip">我</span><span class="chip">是</span><span class="chip">学</span><span class="chip">生</span><span class="chip">。</span><span class="chip"> Пр</span><span class="chip">ив</span><span class="chip">ет</span><span class="chip">,</span><span class="chip"> м</span><span class="chip">ир</span><span class="chip">!</span><span class="chip"> 🙂</span><span class="chip">↵</span><span class="chip">def</span><span class="chip"> count</span><span class="chip">_words</span><span class="chip">…</span></div>
       <ul class="points">
-        <li><strong>One vocabulary of about 100,000 tokens</strong> covers every language, emoji and code (GPT-4, 2023)</li>
+        <li><strong>One vocabulary of about 100,000 tokens</strong> covers every language, emoji and code (GPT-4, 2023).</li>
         <li>No rule on spaces or syllables. <strong>Frequent fragments</strong> of the training text become tokens.</li>
-        <li>The LLM reads <strong>only tokens</strong> and never sees letters or words</li>
+        <li>The LLM reads <strong>only tokens</strong> and never sees letters or words.</li>
       </ul>
     </div>
   </div>
@@ -141,9 +141,9 @@
         </div>
       </div>
       <ul class="points">
-        <li>Take a <strong>passage</strong> from the training text</li>
-        <li>Have the LLM <strong>predict each token</strong> from the ones before it</li>
-        <li>Repeat trillions of times. <strong>No labels needed</strong>: the answer is in the text</li>
+        <li>Take a <strong>passage</strong> from the training text.</li>
+        <li>Have the LLM <strong>predict each token</strong> from the ones before it.</li>
+        <li>Repeat trillions of times. <strong>No labels needed</strong>: the answer is in the text.</li>
       </ul>
     </div>
   </div>
@@ -161,8 +161,8 @@
     <div class="stage">
       <figure class="figure figure-contain"><img src="assets/attention.svg" alt="Attention from apple: ate and lunch pull toward the fruit, phone pulls toward the company"></figure>
       <ul class="points">
-        <li>Every token adds context to the other tokens</li>
-        <li>Training learns <strong>how strongly each token influences the others</strong></li>
+        <li>Every token adds context to the other tokens.</li>
+        <li>Training learns <strong>how strongly each token influences the others</strong>.</li>
       </ul>
       <div class="lore"><p><strong><em>Lore:</em></strong> “Attention Is All You Need” (2017) introduced the Transformer, the “T” in GPT.</p></div>
     </div>
@@ -181,8 +181,8 @@
     <div class="stage">
       <figure class="figure figure-contain"><img src="assets/autoregressive.svg" alt="llm(The cat) gives sat, which drops into the next call: llm(The cat sat) gives on, then the, then mat"></figure>
       <ul class="points">
-        <li>One call reads <strong>the whole text so far</strong> and predicts <strong>the next token</strong></li>
-        <li>That token is added to the text, and the whole text goes back in for the next call</li>
+        <li>One call reads <strong>the whole text so far</strong> and predicts <strong>the next token</strong>.</li>
+        <li>That token is added to the text, and the whole text goes back in for the next call.</li>
       </ul>
     </div>
   </div>
@@ -209,7 +209,7 @@
         <p class="bars-rest">+ 99,996 other tokens, sharing the remaining 17%</p>
       </div>
       <ul class="points">
-        <li>One call gives <strong>each of the 100,000 tokens a probability</strong></li>
+        <li>One call gives <strong>each of the 100,000 tokens a probability</strong>.</li>
         <li>The next token is <strong>drawn at random</strong> from these probabilities. Run it twice and the text may differ.</li>
       </ul>
     </div>
@@ -241,8 +241,8 @@ def is_negative(n):
         <div class="code code-wrap"><span class="dim">What is the capital of France?</span><span class="hl"> What is the capital of Italy? What is the capital of Spain? What is the capital of Japan? What is the capital of Egypt? What is the capital of Chile? What is the capital of…</span></div>
       </div>
       <ul class="points">
-        <li>Start any document and it <strong>dreams the rest</strong></li>
-        <li>A question is <strong>continued</strong> rather than answered</li>
+        <li>Start any document and it <strong>dreams the rest</strong>.</li>
+        <li>A question is <strong>continued</strong> rather than answered.</li>
       </ul>
     </div>
   </div>
@@ -261,7 +261,7 @@ def is_negative(n):
       <figure class="figure figure-contain"><img src="assets/judge-document.svg" alt="A parrot writing token by token leads to the document, judged on one question: is it good?"></figure>
       <ul class="points">
         <li>“It only predicts the next token” is true. It says <strong>nothing about the quality</strong> of the document.</li>
-        <li><strong>The rest of this workshop holds</strong> whatever the mechanism</li>
+        <li><strong>The rest of this workshop holds</strong> whatever the mechanism.</li>
       </ul>
       <div class="lore"><p><strong><em>Lore:</em></strong> “Stochastic parrots” (Bender et al., 2021) is the best-known version of the worry.</p></div>
     </div>
@@ -579,8 +579,8 @@ I am his father, so he is my son.
         </div>
       </div>
       <ul class="points">
-        <li>It only receives three numbers: <strong>the letters are not there to count</strong></li>
-        <li>Yet the chatbot answers “2 r’s”, <strong>with full confidence</strong></li>
+        <li>It only receives three numbers: <strong>the letters are not there to count</strong>.</li>
+        <li>Yet the chatbot answers “2 r’s”, <strong>with full confidence</strong>.</li>
       </ul>
       <div class="lore"><span class="tag">Lore</span><p>The 2024 meme every new LLM gets tested on. OpenAI’s reasoning project was reportedly code-named “Strawberry”.</p></div>
     </div>
@@ -604,8 +604,8 @@ I am his father, so he is my son.
       </div>
       <div class="split" style="align-items: stretch">
         <ul class="points" style="justify-content: center">
-          <li>The most tokens the LLM can process at once: the conversation <strong>and</strong> its answer</li>
-          <li>What does not fit does not exist for the LLM</li>
+          <li>The most tokens the LLM can process at once: the conversation <strong>and</strong> its answer.</li>
+          <li>What does not fit does not exist for the LLM.</li>
         </ul>
         <div class="panel panel-featured" style="justify-content: center">
           <span class="panel-label">Windows keep growing</span>
@@ -633,10 +633,10 @@ I am his father, so he is my son.
     <div class="stage">
       <figure class="figure figure-contain"><img src="assets/knowledge-cutoff.svg" alt="Timeline: training data up to the cutoff, release, today; the gap keeps growing"></figure>
       <ul class="points">
-        <li>Training data stops at a <strong>fixed date</strong>: the LLM is frozen there</li>
-        <li>It does not know what happened since, not even today’s date</li>
-        <li>Ask the chatbot anyway, and it admits it, or guesses with the same fluency</li>
-        <li>Anything newer must be added to the conversation: by you, or by a tool</li>
+        <li>Training data stops at a <strong>fixed date</strong>: the LLM is frozen there.</li>
+        <li>It does not know what happened since, not even today’s date.</li>
+        <li>Ask the chatbot anyway, and it admits it, or guesses with the same fluency.</li>
+        <li>Anything newer must be added to the conversation: by you, or by a tool.</li>
       </ul>
     </div>
   </div>
@@ -715,11 +715,11 @@ I am his father, so he is my son.
         <div class="panel">
           <span class="panel-label">You · five steps</span>
           <ul class="points">
-            <li>Open each report, copy it, paste it into the chat</li>
-            <li>Ask for the memo</li>
-            <li>Copy the answer into a document</li>
-            <li>Recheck every figure with a calculator</li>
-            <li>Paste the mistakes back, ask again</li>
+            <li>Open each report, copy it, paste it into the chat.</li>
+            <li>Ask for the memo.</li>
+            <li>Copy the answer into a document.</li>
+            <li>Recheck every figure with a calculator.</li>
+            <li>Paste the mistakes back, ask again.</li>
           </ul>
         </div>
         <div class="panel panel-featured">

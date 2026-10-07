@@ -123,7 +123,7 @@ Text:
 6. **Text carries what the figure cannot**: the mechanism, the consequence, the reason. It never restates the figure and never names colors ("in purple").
 7. **Every word is literally accurate.** Vague or approximate words are shortcuts for a mechanism not yet worked out.
 8. **No concept before the slide that introduces it.** Notation and undefined terms are shortcuts for an explanation never given.
-9. **Slides are not prose.** One short clause, or two short sentences. No chains of "X: Y" or "X, Y". Vary the rhythm between bullets. Cause before effect, in plain words. No unnatural word wrap.
+9. **Slides are not prose.** One short clause, or two short sentences. No chains of "X: Y" or "X, Y". Vary the rhythm between bullets. Cause before effect, in plain words. No unnatural word wrap. Every bullet is a sentence and ends with a period.
 10. **Titles state the idea plainly.** No riddles, no distinctions the audience cannot see. A metaphor is stated as one ("Think of an LLM as…"). No sensational term, no slop.
 11. **Emphasis is black bold** (`<strong>`). A color carries a meaning across the whole deck and never decorates a word.
 
