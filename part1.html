@@ -238,15 +238,7 @@ def is_positive(n):
 def is_negative(n):
     return n < 0
 …</span></div>
-        <div class="code code-wrap"><span class="dim">Where is Paris?</span>
-<span class="hl">Where is Rome?
-Where is Madrid?
-Where is Berlin?
-Where is Lisbon?
-Where is Vienna?
-Where is Prague?
-Where is Athens?
-…</span></div>
+        <div class="code code-wrap"><span class="dim">What is the capital of France?</span><span class="hl"> What is the capital of Italy? What is the capital of Spain? What is the capital of Japan? What is the capital of Egypt? What is the capital of Chile? What is the capital of…</span></div>
       </div>
       <ul class="points">
         <li>Start any document and it <strong>dreams the rest</strong></li>
@@ -314,31 +306,36 @@ Where is Athens?
 <section class="slide layout-statement">
   <div class="slide-content">
     <p class="kicker">How it becomes a chatbot</p>
-    <p>Ask a raw LLM “Where is Paris?” and it writes “Where is Rome?”. <span class="ask">How does it learn to answer?</span></p>
+    <p>Ask a raw LLM “What is the capital of France?” and it writes “What is the capital of Italy?”. <span class="ask">How does it learn to answer?</span></p>
   </div>
 </section>
 
-<!-- In-context pattern matching -->
+<!-- Pattern matching -->
 <section class="slide layout-custom">
   <div class="slide-content">
     <p class="kicker">Part 1 · How it becomes a chatbot</p>
-    <h2>In-context pattern matching</h2>
+    <h2>Emergent property: the LLM picks up patterns</h2>
     <div class="stage">
-      <div class="split">
-        <div class="panel">
-          <span class="panel-label">Dim: the prompt · gold: what the LLM writes</span>
-          <div class="code code-lg"><span class="dim">chat,   cat
-maison, house
-arbre,  tree
-fleur,</span> <span class="hl">flower</span></div>
-        </div>
-        <ul class="points">
-          <li>Show a few examples in the prompt: the LLM spots the <strong>pattern</strong> and applies it to the next case</li>
-          <li>No retraining, no instruction: the pattern is in the text, and continuing the text is all it does</li>
-          <li>It is <strong>emergent</strong>: nobody built this in, it appeared as LLMs scaled up</li>
-        </ul>
+      <div class="panels-2">
+        <div class="code"><span class="dim">What is the capital of Italy? Rome.
+What is the capital of Spain? Madrid.
+What is the capital of Japan? Tokyo.
+What is the capital of Turkey? Ankara.
+What is the capital of Egypt? Cairo.
+What is the capital of France?</span><span class="hl"> Paris.</span></div>
+        <div class="code"><span class="dim">What is a dish from Italy? 🍕 Pizza.
+What is a dish from Spain? 🥘 Paella.
+What is a dish from Japan? 🍣 Sushi.
+What is a dish from Turkey? 🥙 Kebab.
+What is a dish from Egypt? 🧆 Falafel.
+What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
       </div>
-      <div class="lore"><span class="tag">Lore</span><p>GPT-3 (2020), “Language Models are Few-Shot Learners”, the paper that made this the headline.</p></div>
+      <ul class="points">
+        <li>Unexpected: the LLM <strong>spots patterns</strong> in the prompt and continues them.</li>
+        <li>Nobody designed this ability. It <strong>emerged</strong> on its own as LLMs grew larger.</li>
+        <li>A prompt with a few examples steers the LLM. This is <strong>few-shot prompting</strong>.</li>
+      </ul>
+      <div class="lore"><p><strong><em>Lore:</em></strong> “Language Models are Few-Shot Learners”, the GPT-3 paper (2020).</p></div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -348,29 +345,24 @@ fleur,</span> <span class="hl">flower</span></div>
 </section>
 
 <!-- Fine-tuning -->
-<section class="slide layout-custom">
+<section class="slide layout-two-images">
   <div class="slide-content">
     <p class="kicker">Part 1 · How it becomes a chatbot</p>
-    <h2>Fine-tuning: keep training, on documents we choose</h2>
+    <h2>Fine-tuning: one concept takes the lead</h2>
     <div class="stage">
-      <div class="flow">
-        <div class="node"><strong>Pre-training</strong><span>trillions of tokens of web text</span><span class="note-sm">gives the knowledge</span></div>
-        <span class="arrow">→</span>
-        <div class="node node-accent"><strong>Fine-tuning</strong><span>a small, curated set of documents</span><span class="note-sm">gives the behaviour</span></div>
-        <span class="arrow">→</span>
-        <div class="node node-dark"><strong>Same model</strong><span>now behaving differently</span></div>
+      <div class="cols">
+        <div class="col">
+          <figure class="figure figure-contain"><img src="assets/document-heap.svg" alt="A bunch of mixed pages, every size and angle, piled together."></figure>
+        </div>
+        <div class="col">
+          <figure class="figure figure-contain"><img src="assets/document-sets.svg" alt="Ten neat sets of identical pages, one per concept; the medicine set is teal."></figure>
+        </div>
       </div>
       <ul class="points">
-        <li>The same exercise (predict the next token) on a much smaller, <strong>curated</strong> dataset: thousands of examples, not trillions of tokens</li>
-        <li>We choose the documents, so we choose what the LLM becomes, for example by fine-tuning on:</li>
+        <li>Pre-training absorbs <strong>everything</strong> people wrote, as much as possible.</li>
+        <li>Fine-tuning picks <strong>one coherent set</strong> of documents and continues the training on it.</li>
+        <li>The LLM keeps its knowledge, but that set now <strong>steers how it writes</strong>.</li>
       </ul>
-      <div class="panels-5">
-        <div class="panel panel-muted option"><p>Assistant conversations</p></div>
-        <div class="panel panel-muted option"><p>Encyclopedias</p></div>
-        <div class="panel panel-muted option"><p>School books</p></div>
-        <div class="panel panel-muted option"><p>Legal or medical texts</p></div>
-        <div class="panel panel-muted option"><p>Code</p></div>
-      </div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -383,24 +375,24 @@ fleur,</span> <span class="hl">flower</span></div>
 <section class="slide layout-custom">
   <div class="slide-content">
     <p class="kicker">Part 1 · How it becomes a chatbot</p>
-    <h2>Instruction tuning: documents that teach a role</h2>
+    <h2>Instruction tuning: from autocomplete to assistant</h2>
     <div class="stage">
-      <div class="split">
-        <div class="panel">
-          <span class="panel-label">One of thousands of documents we wrote</span>
-          <div class="code">User: What is the capital of France?
-Assistant: The capital of France is Paris.
-User: And of Italy?
-Assistant: Rome.</div>
-        </div>
-        <ul class="points">
-          <li>The fine-tuning data: <strong>conversations</strong> of a user and an ideal assistant, first written by paid people, now often generated by other LLMs</li>
-          <li>Fed to the LLM like any text, it learns the pattern (after <code>User:</code> comes <code>Assistant:</code>), which is pattern matching again</li>
-          <li>Now it answers instead of continuing, with a stable persona and tone</li>
-          <li>The base model never refused to help: it had no notion of being asked</li>
-        </ul>
+      <div class="panels-2">
+        <div class="code code-wrap"><span class="dim">&lt;user&gt;</span> What is the capital of France?<span class="dim">&lt;end&gt;</span>
+<span class="dim">&lt;assistant&gt;</span><span class="hl"> The capital of France is Paris, on the Seine.</span><span class="dim">&lt;end&gt;</span>
+<span class="dim">&lt;user&gt;</span> What should I visit there first?<span class="dim">&lt;end&gt;</span>
+<span class="dim">&lt;assistant&gt;</span><span class="hl"> The Louvre. Book ahead to see the Mona Lisa.</span><span class="dim">&lt;end&gt;</span></div>
+        <div class="code code-wrap"><span class="dim">&lt;user&gt;</span> Can you translate “good morning” into Italian?<span class="dim">&lt;end&gt;</span>
+<span class="dim">&lt;assistant&gt;</span><span class="hl"> Of course: “Buongiorno”.</span><span class="dim">&lt;end&gt;</span>
+<span class="dim">&lt;user&gt;</span> Thanks! And in Japanese?<span class="dim">&lt;end&gt;</span>
+<span class="dim">&lt;assistant&gt;</span><span class="hl"> “Ohayō gozaimasu”, or simply “Ohayō” with friends.</span><span class="dim">&lt;end&gt;</span></div>
       </div>
-      <div class="lore"><span class="tag">Lore</span><p>InstructGPT → ChatGPT, 30 Nov 2022: the same model family, now speaking in turns.</p></div>
+      <ul class="points">
+        <li>Researchers manufactured <strong>millions of user–assistant conversations</strong> to train on.</li>
+        <li>Special tokens name <strong>who speaks</strong> and close <strong>each turn</strong>, like in a theatre script.</li>
+        <li>The LLM picks up the pattern and turns from an autocomplete into <strong>an assistant</strong>.</li>
+      </ul>
+      <div class="lore"><p><strong><em>Lore:</em></strong> ChatGPT (30 Nov 2022) was a GPT-3.5 model tuned on conversations like these.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -413,23 +405,23 @@ Assistant: Rome.</div>
 <section class="slide layout-custom">
   <div class="slide-content">
     <p class="kicker">Part 1 · How it becomes a chatbot</p>
-    <h2>Reinforcement learning: a quiz with an answer key</h2>
+    <h2>Reinforcement learning: reward the right answers</h2>
     <div class="stage">
-      <div class="split split-wide-left">
-        <div class="panel">
-          <span class="panel-label">Question · answer key: Canberra</span>
-          <div class="code code-lg">What is the capital of Australia?
+      <div class="split">
+        <div class="code"><span class="dim">&lt;user&gt;</span> What is the capital of Australia?<span class="dim">&lt;end&gt;</span>
 
-attempt 1   Sydney      <span class="dim">✗</span>
-attempt 2   Canberra    <span class="hl">✓</span>
-attempt 3   Canberra    <span class="hl">✓</span>
-attempt 4   Melbourne   <span class="dim">✗</span></div>
-        </div>
+<span class="dim">&lt;assistant&gt;</span> Sydney.<span class="dim">&lt;end&gt;</span>       <span class="dim">✗</span>
+<span class="dim">&lt;assistant&gt;</span> Canberra.<span class="dim">&lt;end&gt;</span>     <span class="hl">✓</span>
+<span class="dim">&lt;assistant&gt;</span> Canberra.<span class="dim">&lt;end&gt;</span>     <span class="hl">✓</span>
+<span class="dim">&lt;assistant&gt;</span> Melbourne.<span class="dim">&lt;end&gt;</span>    <span class="dim">✗</span>
+<span class="dim">&lt;assistant&gt;</span> Canberra.<span class="dim">&lt;end&gt;</span>     <span class="hl">✓</span>
+<span class="dim">&lt;assistant&gt;</span> Sydney.<span class="dim">&lt;end&gt;</span>       <span class="dim">✗</span></div>
         <ul class="points">
-          <li>Questions with a <strong>known answer</strong>: the LLM tries several times, and each answer is checked automatically</li>
-          <li>Right answers are <strong>reinforced</strong>, wrong ones are not: it gets reliable on what it knows</li>
-          <li>It also learns to say “I don’t know” when unsure, so fewer <strong>hallucinations</strong> on well-known facts</li>
-          <li>Works wherever answers can be checked, maths and code too</li>
+          <li>The LLM answers the same question many times.</li>
+          <li><strong>A program checks</strong> each answer against a known one: Canberra.</li>
+          <li>Training then makes the right answers <strong>more likely</strong> and the wrong ones less likely.</li>
+          <li>Nobody writes the answers. The LLM finds them, and training keeps what works.</li>
+          <li>Only questions with a checkable answer qualify, like maths and code.</li>
         </ul>
       </div>
     </div>
@@ -440,28 +432,22 @@ attempt 4   Melbourne   <span class="dim">✗</span></div>
   </footer>
 </section>
 
-<!-- RLHF -->
+<!-- Human feedback -->
 <section class="slide layout-custom">
   <div class="slide-content">
     <p class="kicker">Part 1 · How it becomes a chatbot</p>
-    <h2>RLHF: when only a human can judge</h2>
-    <div class="stage" style="gap: var(--space-4)">
-      <div class="msg"><span class="role">Prompt</span>Explain tokens to a child.</div>
-      <div class="panels-2">
-        <div class="panel">
-          <span class="panel-label">Answer A</span>
-          <p class="answer">Tokens are sub-word units produced by a byte-pair-encoding tokeniser.</p>
-        </div>
-        <div class="panel panel-featured">
-          <span class="panel-label">Answer B · picked by the human ✓</span>
-          <p class="answer">Tokens are the little pieces of text a computer reads, like Lego bricks.</p>
-        </div>
-      </div>
+    <h2>Human feedback: people’s picks replace the answer key</h2>
+    <div class="stage">
+      <div class="code code-lg"><span class="dim">&lt;user&gt;</span> Explain tokens to a child.<span class="dim">&lt;end&gt;</span>
+
+<span class="dim">&lt;assistant&gt;</span> Tokens are sub-word units of a BPE vocabulary.<span class="dim">&lt;end&gt;</span>     <span class="dim">✗</span>
+<span class="dim">&lt;assistant&gt;</span> Tokens are little pieces of words, like Lego bricks.<span class="dim">&lt;end&gt;</span>     <span class="hl">✓</span></div>
       <ul class="points">
-        <li>Tone, helpfulness and safety cannot be checked by a program: humans <strong>pick the better of two answers</strong>, and the preferences train a reward signal</li>
-        <li>The catch: people like being agreed with, so the LLM can learn to flatter: <strong>sycophancy</strong></li>
+        <li>No program can check clarity or tone. <strong>A person</strong> compares two answers and picks the better one.</li>
+        <li>Thousands of picks train a <strong>scoring model</strong>. It then grades answers the way the answer key did.</li>
+        <li>People prefer answers that agree with them, so the LLM learns to <strong>flatter</strong>.</li>
       </ul>
-      <div class="lore"><span class="tag">Lore</span><p>April 2025: a ChatGPT update was rolled back after users found it far too flattering.</p></div>
+      <div class="lore"><p><strong><em>Lore:</em></strong> April 2025: OpenAI rolled back a ChatGPT update that flattered users far too much.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -474,28 +460,26 @@ attempt 4   Melbourne   <span class="dim">✗</span></div>
 <section class="slide layout-custom">
   <div class="slide-content">
     <p class="kicker">Part 1 · How it becomes a chatbot</p>
-    <h2>System 2 thinking: write the reasoning first</h2>
+    <h2>Reasoning: the LLM writes its thinking before the answer</h2>
     <div class="stage">
       <div class="split">
-        <div class="stack">
-          <div class="msg"><span class="role">Question</span>A man looks at a portrait: “Brothers and sisters I have none, but that man’s father is my father’s son.” Who is in the portrait?</div>
-          <div class="code code-sm"><span class="dim">Thinking…
-No brothers or sisters: an only child.
-So “my father’s son” can only be me.
+        <div class="code code-sm code-wrap"><span class="dim">&lt;user&gt;</span> A man looks at a portrait: “Brothers and sisters I have none, but that man’s father is my father’s son.” Who is in the portrait?<span class="dim">&lt;end&gt;</span>
+<span class="dim">&lt;assistant&gt;&lt;think&gt;</span>
+No brothers or sisters, so I am an only child.
+“My father’s son” can only be me.
 So “that man’s father” is me.
-Easy: the portrait shows me. Wait.
-then I would be my own father. No.
-If I am his father, he is my son.</span>
-<span class="hl">Answer: his son.</span></div>
-        </div>
+So the portrait shows me? Wait.
+Then I would be my own father. No.
+I am his father, so he is my son.
+<span class="dim">&lt;/think&gt;</span><span class="hl"> His son.</span><span class="dim">&lt;end&gt;</span></div>
         <ul class="points">
-          <li>LLMs learn to write <strong>scratchpad reasoning</strong> before answering. The visible answer is the tip of a much longer hidden process</li>
-          <li><strong>Why it works:</strong> each token is one pass of the LLM, a fixed amount of computation. More tokens, more thinking</li>
-          <li>The text it writes becomes x: intermediate steps are kept, then rephrased, checked, corrected, or replaced by another strategy</li>
-          <li>Trained by RL on verifiable answers: thinking that leads to the right answer is reinforced</li>
+          <li>Each token is one pass through the LLM, a fixed amount of computation. <strong>More tokens give more computation</strong> to the answer.</li>
+          <li>Each written step goes back in with the text. Later steps can <strong>check and correct</strong> it.</li>
+          <li>Reinforcement learning with an answer key rewards the thinking that reaches the right answer.</li>
+          <li>Chatbots often hide the thinking and show only the answer.</li>
         </ul>
       </div>
-      <div class="lore"><span class="tag">Lore</span><p>DeepSeek-R1 (Jan 2025): reasoning from RL in an open LLM. It shook the industry and the stock market.</p></div>
+      <div class="lore"><p><strong><em>Lore:</em></strong> DeepSeek-R1 (Jan 2025) learned to reason this way in the open. It shook the industry and the stock market.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -504,62 +488,24 @@ If I am his father, he is my son.</span>
   </footer>
 </section>
 
-<!-- Boxes: model in chatbot system -->
+<!-- Chatting -->
 <section class="slide layout-custom">
   <div class="slide-content">
     <p class="kicker">Part 1 · How it becomes a chatbot</p>
-    <h2>The chatbot is software wrapped around the LLM</h2>
+    <h2>Chatting: one turn at a time</h2>
     <div class="stage">
-      <div class="split split-wide-left">
-        <div class="box box-chat">
-          <span class="box-tag">Chatbot system</span>
-          <div class="box-model box">
-            <span class="box-tag">The LLM · after post-training</span>
-            <span class="formula">llm(x) = y</span>
-            <span class="formula-sub">same interface, a much more capable function</span>
-          </div>
-          <div class="box-row">
-            <div class="box-mini"><strong>History</strong>every message so far</div>
-            <div class="box-mini"><strong>Append</strong>message after message</div>
-          </div>
-        </div>
-        <div class="callouts">
-          <div class="callout"><h3>The LLM</h3><p>Still text in, distribution out, but shaped by post-training into an assistant that reasons</p></div>
-          <div class="callout"><h3>The chatbot system</h3><p>Keeps the history, appends each message, calls the LLM again, and stops when it is your turn</p></div>
-          <div class="callout"><h3>You</h3><p>Type the next message, and see only the last answer</p></div>
-        </div>
-      </div>
+      <figure class="figure figure-contain"><img src="assets/chat-turns.svg" alt="llm(user: What is the capital of France?) gives assistant: Paris.; that turn and the new user turn And of Italy? go back in and give Rome.; then And of Spain? is added and gives Madrid."></figure>
+      <ul class="points">
+        <li>Each time you send a message, the chatbot sends <strong>the whole conversation</strong> to the LLM.</li>
+        <li>The LLM writes the assistant’s turn token by token, until the end token.</li>
+        <li>The LLM <strong>remembers nothing</strong> between turns. The conversation it receives is its only memory.</li>
+        <li>A hidden first turn, the <strong>system prompt</strong>, gives the assistant its instructions.</li>
+      </ul>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs · Part 1</span>
     <span>19</span>
-  </footer>
-</section>
-
-<!-- Stateless -->
-<section class="slide layout-custom">
-  <div class="slide-content">
-    <p class="kicker">Part 1 · How it becomes a chatbot</p>
-    <h2>The whole conversation goes back in, every time</h2>
-    <div class="stage" style="gap: var(--space-4)">
-      <div class="code">llm(system . user1)                                            = <span class="hl">assistant1</span>
-llm(system . user1 . assistant1 . user2)                       = <span class="hl">assistant2</span>
-llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl">assistant3</span></div>
-      <ul class="points">
-        <li>The LLM sees only x: it <strong>remembers nothing</strong> between two messages</li>
-        <li>So the chat system <strong>re-sends the full history</strong> on every message: the conversation is rebuilt from scratch each time</li>
-        <li>“Memory” features only add saved notes to x</li>
-      </ul>
-      <div class="panel panel-muted">
-        <span class="panel-label">KV cache</span>
-        <p>Reprocessing the whole history each time would be slow and costly. The LLM stores its computed attention states: <strong>only new tokens are processed</strong>, and cached tokens are billed at a fraction of the price.</p>
-      </div>
-    </div>
-  </div>
-  <footer class="slide-footer">
-    <span>Demystifying LLMs · Part 1</span>
-    <span>20</span>
   </footer>
 </section>
 
@@ -594,7 +540,7 @@ llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs · Part 1</span>
-    <span>22</span>
+    <span>21</span>
   </footer>
 </section>
 
@@ -615,7 +561,7 @@ llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs · Part 1</span>
-    <span>23</span>
+    <span>22</span>
   </footer>
 </section>
 
@@ -641,7 +587,7 @@ llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs · Part 1</span>
-    <span>24</span>
+    <span>23</span>
   </footer>
 </section>
 
@@ -675,7 +621,7 @@ llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs · Part 1</span>
-    <span>25</span>
+    <span>24</span>
   </footer>
 </section>
 
@@ -696,7 +642,7 @@ llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs · Part 1</span>
-    <span>26</span>
+    <span>25</span>
   </footer>
 </section>
 
@@ -733,7 +679,7 @@ llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs · Part 1</span>
-    <span>27</span>
+    <span>26</span>
   </footer>
 </section>
 
@@ -754,7 +700,7 @@ llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs · Part 1</span>
-    <span>28</span>
+    <span>27</span>
   </footer>
 </section>
 
@@ -786,7 +732,7 @@ llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs · Part 1</span>
-    <span>29</span>
+    <span>28</span>
   </footer>
 </section>
 
@@ -808,7 +754,7 @@ llm(system . user1 . assistant1 . user2 . assistant2 . user3)  = <span class="hl
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs · Part 1</span>
-    <span>30</span>
+    <span>29</span>
   </footer>
 </section>
 
