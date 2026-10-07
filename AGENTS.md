@@ -104,20 +104,40 @@ In HTML, figure slots are marked with a `.figure-ph` placeholder — replace wit
 
 The "structure" slides (opening, closing, agenda, sections, statement) have a fixed design and these rules do not apply to them.
 
-The following rules are for *content* slides, with free structure:
+The following rules are for *content* slides, with free structure.
 
-1. Clarity for the audience is more important than visual aspect.
-2. Usage of colors must make sense through all the slides. A color carries a meaning: no accent on a word only to decorate it.
-3. All visual addition must be justified. Aesthetic must serve the comprehension. Cards, boxes, badges and highlights included: each one must help understand the concept, or it goes. The lore line is one fact with a bold accent prefix (`<p><strong><em>Lore:</em></strong> …</p>`), no badge.
-4. The slide contents must be dense and must occupy all the available space. Dense is different than overcrowded. Margin must be justified and must be shared between components. Unnatural word wrap should be avoided. Density comes from content that explains the concept (a real example, the mechanism, the consequence), never from frames: a slide that looks empty once its boxes are removed needs more content, not boxes.
-5. Don't force yourself into HTML slides, SVG is perfectly fine when it serves the comprehension.
-6. No sensational term, no slop, only factual explanation. A metaphor is stated as a metaphor ("Think of an LLM as…", not "An LLM is…"). Numbers are real, and the text and the visuals use the same units. No concept is used before the slide that introduces it.
+**The principle: no shortcuts.** Every element on a slide carries content. An element whose only job is to explain another element is a shortcut: it hides that the other element is not clear yet. Remove the shortcut and fix the element it was propping up.
 
-To improve a content slide:
+**A slide that does not fit these rules is not forced — it is reconsidered.** Bad slides are usually unclear on what they explain. Restate the one concept the slide must make the audience understand, and where it sits in the narrative (what the previous slides introduced, what the next ones will), then rebuild the slide around it. Rephrasing the purpose solves most problems that patching the slide does not.
 
-1. **Remove the extra.** Strip every card, box, badge, highlight and line that does not serve the concept (rule 3). What remains shows how much real content the slide has.
-2. **Check the purpose again.** State the one concept the slide must make the audience understand, and where it sits in the narrative (what the previous slides introduced, what the next ones will).
-3. **Rewrite it.** Rebuild the slide around that purpose with content that explains it (rule 4), then render, look, fix, and show it.
+Illustrations:
+
+1. **An illustration explains itself.** No title, label, legend or card heading: the content names itself ("Newton’s three laws" inside the box, not "NEWTON" above it).
+2. **One concept per illustration**, designed for a novice who just saw the previous slide. If it needs explaining, rethink it from the concept, not from the figure. A hard idea split over two slides beats one confused figure. HTML or SVG, whichever serves comprehension: anything with real geometry is an SVG figure (§6).
+3. **Structure carries meaning.** Alignment, order and position show the mechanism (an output sits exactly above the slot it fills next). Spacing is even: nothing stuck together, nothing floating.
+4. **A frame exists only if it carries meaning.** Cards, boxes, badges, highlights: if removing one leaves the content readable, it goes.
+5. **The same example runs across slides.** Continuity replaces re-explaining.
+
+Text:
+
+6. **Text carries what the figure cannot**: the mechanism, the consequence, the reason. It never restates the figure and never names colors ("in purple").
+7. **Every word is literally accurate.** Vague or approximate words are shortcuts for a mechanism not yet worked out.
+8. **No concept before the slide that introduces it.** Notation and undefined terms are shortcuts for an explanation never given.
+9. **Slides are not prose.** One short clause, or two short sentences. No chains of "X: Y" or "X, Y". Vary the rhythm between bullets. Cause before effect, in plain words. No unnatural word wrap.
+10. **Titles state the idea plainly.** No riddles, no distinctions the audience cannot see. A metaphor is stated as one ("Think of an LLM as…"). No sensational term, no slop.
+11. **Emphasis is black bold** (`<strong>`). A color carries a meaning across the whole deck and never decorates a word.
+
+Content:
+
+12. **Density comes from content** — longer examples, a real case — never from frames or filler. Dense is not overcrowded: the slide fills its space, and margins are shared between components.
+13. **Understanding beats precision.** A recent, recognizable example with approximate but realistic numbers, consistent across slides, in the same units in text and visuals.
+14. **Side points stay side points.** One clause, never their own illustration or slide.
+15. **Lore is one line**, connected to the slide: `<p><strong><em>Lore:</em></strong> …</p>`, no badge.
+
+Process:
+
+16. **One slide at a time.** Render, look, fix, show.
+17. **Apply requests literally.** Ask when in doubt instead of reinterpreting.
 
 ## 8. QA
 

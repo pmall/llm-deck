@@ -1,0 +1,61 @@
+<svg viewBox="0 44 1152 274" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A parrot writing token by token leads to a document. The document is judged on one question: is it good, meaning useful, correct and fit for the task?">
+
+  <!-- THEME COPY — kujaku (styles/themes/kujaku.css). Swap to re-theme. -->
+  <style>
+    .bg-base          { fill: #F5F7F7; }
+    .bg-surface       { fill: #FFFFFF; }
+    .bg-muted         { fill: #E3EBEB; }
+    .text-primary     { fill: #17323A; }
+    .text-secondary   { fill: #51707A; }
+    .text-on-accent   { fill: #FFFFFF; }
+    .accent-primary   { fill: #0E7C7B; }
+    .accent-secondary { fill: #7A5195; }
+    .accent-tertiary  { fill: #C2A14D; }
+    .stroke-primary   { stroke: #0E7C7B; }
+    .stroke-secondary { stroke: #7A5195; }
+    .stroke-tertiary  { stroke: #C2A14D; }
+    .stroke-strong    { stroke: #17323A; }
+    .stroke-subtle    { stroke: #D3DFDF; }
+  </style>
+  <!-- parrot -->
+  <path d="M 74 226 L 78 306 L 96 312 L 108 226 Z" class="accent-secondary"/>
+  <ellipse cx="100" cy="170" rx="40" ry="64" transform="rotate(-15 100 170)" class="accent-primary"/>
+  <ellipse cx="88" cy="178" rx="20" ry="46" transform="rotate(-15 88 178)" class="accent-secondary"/>
+  <circle cx="122" cy="100" r="34" class="accent-primary"/>
+  <path d="M 148 86 C 176 84 184 112 166 128 C 164 116 158 110 146 112 Z" class="accent-tertiary"/>
+  <circle cx="130" cy="92" r="9" class="bg-surface"/><circle cx="132" cy="92" r="4.5" class="text-primary"/>
+  <path d="M 24 238 L 196 238" class="stroke-strong" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <path d="M 96 226 q -4 12 -12 12 M 112 224 q 0 12 -8 14" class="stroke-strong" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M 189.9 120.4 L 209.8 122.2 M 184.9 134.1 L 201.3 145.5 M 173.8 143.4 L 182.3 161.5" class="stroke-strong" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  <rect x="240" y="172" width="62" height="36" rx="5" class="bg-muted"/>
+  <text x="271" y="197" text-anchor="middle" font-family="monospace" font-size="22" font-weight="400" class="text-primary">The</text>
+  <rect x="308" y="172" width="62" height="36" rx="5" class="bg-muted"/>
+  <text x="339" y="197" text-anchor="middle" font-family="monospace" font-size="22" font-weight="400" class="text-primary">cat</text>
+  <rect x="376" y="172" width="62" height="36" rx="5" class="bg-muted"/>
+  <text x="407" y="197" text-anchor="middle" font-family="monospace" font-size="22" font-weight="400" class="text-primary">sat</text>
+  <rect x="444" y="172" width="34" height="36" rx="5" class="bg-muted"/>
+  <text x="461" y="197" text-anchor="middle" font-family="monospace" font-size="22" font-weight="400" class="text-primary">…</text>
+  <path d="M 524 190 L 602 190" class="stroke-strong" stroke-width="3" fill="none"/>
+  <path d="M 590 178 L 604 190 L 590 202" class="stroke-strong" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- the produced document -->
+  <rect x="650" y="50" width="200" height="260" rx="8" class="bg-surface stroke-strong" stroke-width="2.5"/>
+  <rect x="674" y="76" width="120" height="12" rx="4" class="text-primary"/>
+  <rect x="674" y="108" width="150" height="7" rx="3" class="text-secondary"/>
+  <rect x="674" y="126" width="140" height="7" rx="3" class="text-secondary"/>
+  <rect x="674" y="144" width="152" height="7" rx="3" class="text-secondary"/>
+  <rect x="674" y="162" width="120" height="7" rx="3" class="text-secondary"/>
+  <rect x="674" y="180" width="146" height="7" rx="3" class="text-secondary"/>
+  <rect x="674" y="198" width="150" height="7" rx="3" class="text-secondary"/>
+  <rect x="674" y="216" width="96" height="7" rx="3" class="text-secondary"/>
+  <rect x="674" y="234" width="148" height="7" rx="3" class="text-secondary"/>
+  <rect x="674" y="252" width="138" height="7" rx="3" class="text-secondary"/>
+  <rect x="674" y="270" width="110" height="7" rx="3" class="text-secondary"/>
+  <rect x="674" y="288" width="80" height="7" rx="3" class="text-secondary"/>
+  <text x="900" y="120" text-anchor="start" font-family="sans-serif" font-size="32" font-weight="700" class="text-primary">Is it good?</text>
+  <rect x="902" y="148" width="28" height="28" rx="5" class="stroke-primary" stroke-width="3" fill="none"/>
+  <text x="944" y="172" text-anchor="start" font-family="sans-serif" font-size="26" font-weight="400" class="text-primary">useful</text>
+  <rect x="902" y="198" width="28" height="28" rx="5" class="stroke-primary" stroke-width="3" fill="none"/>
+  <text x="944" y="222" text-anchor="start" font-family="sans-serif" font-size="26" font-weight="400" class="text-primary">correct</text>
+  <rect x="902" y="248" width="28" height="28" rx="5" class="stroke-primary" stroke-width="3" fill="none"/>
+  <text x="944" y="272" text-anchor="start" font-family="sans-serif" font-size="26" font-weight="400" class="text-primary">fit for the task</text>
+</svg>
