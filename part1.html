@@ -612,17 +612,17 @@ I am his father, so he is my son.
   </footer>
 </section>
 
-<!-- Reflexive writing -->
+<!-- Hallucination -->
 <section class="slide layout-custom">
   <div class="slide-content">
     <p class="kicker">Part 1 · What to watch out for</p>
-    <h2>Reflexive writing: no knowledge base behind an LLM</h2>
+    <h2>Hallucination: fluent text, no fact behind it</h2>
     <div class="stage">
-      <figure class="figure figure-contain"><img src="assets/chat-reflex.svg" alt="Two chats: the capital of France answered right, and an invented airline court case confirmed as real"></figure>
+      <figure class="figure figure-contain"><img src="assets/chat-hallucination.svg" alt="A chat where an invented airline court case is cited, then confirmed as real"></figure>
       <ul class="points">
-        <li>No table of facts sits inside the LLM. It writes every answer <strong>by reflex</strong>.</li>
-        <li>An invented answer is a <strong>hallucination</strong>. It is how an LLM works, not a bug.</li>
-        <li>Hallucinations hit <strong>precise, rare facts</strong> like case names, dates and citations.</li>
+        <li>The LLM writes the most plausible text. <strong>Nothing in it checks facts.</strong></li>
+        <li>Names, dates, figures and citations are <strong>the most at risk</strong>.</li>
+        <li>A wrong answer sounds <strong>as confident</strong> as a right one.</li>
       </ul>
       <div class="lore"><p><strong><em>Lore:</em></strong> In 2023, lawyers filed a brief citing this case and five others invented by ChatGPT (<em>Mata v. Avianca</em>).</p></div>
     </div>
@@ -630,26 +630,6 @@ I am his father, so he is my son.
   <footer class="slide-footer">
     <span>Demystifying LLMs · Part 1</span>
     <span>25</span>
-  </footer>
-</section>
-
-<!-- Not predictable -->
-<section class="slide layout-custom">
-  <div class="slide-content">
-    <p class="kicker">Part 1 · What to watch out for</p>
-    <h2>Some answers cannot be predicted</h2>
-    <div class="stage">
-      <figure class="figure figure-contain"><img src="assets/chat-predict.svg" alt="Two chats: Paris and an invented court case on the left; the weather and an email the assistant cannot answer on the right"></figure>
-      <ul class="points">
-        <li>Paris and the Varghese case are both <strong>predictions</strong>. One is right, one is invented.</li>
-        <li>Tomorrow’s forecast and your inbox were <strong>never in the training text</strong>.</li>
-        <li>No prediction can produce them. They must be <strong>fetched</strong> from a weather service or your mailbox.</li>
-      </ul>
-    </div>
-  </div>
-  <footer class="slide-footer">
-    <span>Demystifying LLMs · Part 1</span>
-    <span>26</span>
   </footer>
 </section>
 
@@ -670,7 +650,47 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs · Part 1</span>
+    <span>26</span>
+  </footer>
+</section>
+
+<!-- Not a knowledge base -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · What to watch out for</p>
+    <h2>Not a knowledge base: an LLM stores no records</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="assets/chat-orders.svg" alt="A chat where the LLM invents the status of order #48213; the orders database shows it is delayed"></figure>
+      <ul class="points">
+        <li>An LLM stores <strong>no records</strong>. It cannot look up your order.</li>
+        <li>It writes a plausible status instead, <strong>by reflex</strong>.</li>
+        <li>The fix is to <strong>search the database</strong> that holds the records.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs · Part 1</span>
     <span>27</span>
+  </footer>
+</section>
+
+<!-- Live data -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · What to watch out for</p>
+    <h2>Live data: the answer changes by the minute</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="assets/chat-train.svg" alt="A chat where the LLM says the 18:04 train to Lyon is on time; the live departures board shows it delayed 25 minutes"></figure>
+      <ul class="points">
+        <li>Train times, weather and share prices <strong>change by the minute</strong>.</li>
+        <li>Even a model trained this morning <strong>would be wrong</strong> by tonight.</li>
+        <li>The fix is to <strong>query a live service</strong> that holds the current value.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs · Part 1</span>
+    <span>28</span>
   </footer>
 </section>
 
@@ -683,14 +703,14 @@ I am his father, so he is my son.
       <figure class="figure figure-contain"><img src="assets/chat-closed.svg" alt="A chat in a closed frame; cut links to the weather service and your mailbox on the left, and to sending an email and saving a file on the right"></figure>
       <ul class="points">
         <li>A chatbot reads the conversation and writes into it. <strong>Nothing else.</strong></li>
-        <li>It cannot <strong>fetch</strong> the forecast or open your mailbox.</li>
+        <li>It cannot <strong>fetch</strong> a web page, a record or a live value.</li>
         <li>It cannot <strong>act</strong> either. No email sent, no file saved.</li>
       </ul>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs · Part 1</span>
-    <span>28</span>
+    <span>29</span>
   </footer>
 </section>
 
@@ -712,7 +732,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs · Part 1</span>
-    <span>29</span>
+    <span>30</span>
   </footer>
 </section>
 

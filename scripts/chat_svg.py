@@ -80,29 +80,75 @@ def two_chats(path, label, left, right):
     svg(path, FIG_W, max(ha, hb) + 2, label, a + b, marks=True)
 
 
-FRANCE = [("user", ["What is the capital of France?"], None),
-          ("assistant", ["Paris, on the Seine."], True)]
-VARGHESE = [("user", ["Cite an airline injury case."], None),
-            ("assistant", ["Varghese v. China Southern", "Airlines (2019)."], False)]
+CHAT_X = (FIG_W - 1150) // 2 + 10  # left column of a chat-plus-panel figure
+PANEL_X, PANEL_W = CHAT_X + 600, 540
 
-two_chats("chat-reflex.svg",
-          "Two chats. Left: What is the capital of France? Paris, on the Seine (right). Are you sure? "
-          "Yes, it has been the capital for centuries (right). Right: Cite an airline injury case. "
-          "Varghese v. China Southern Airlines, 2019 (invented). Is it a real case? Yes, it is on Westlaw (invented).",
-          FRANCE + [("user", ["Are you sure?"], None),
-                    ("assistant", ["Yes. It has been the capital", "for centuries."], True)],
-          VARGHESE + [("user", ["Is it a real case?"], None),
-                      ("assistant", ["Yes. It is on Westlaw."], False)])
 
-two_chats("chat-predict.svg",
-          "Two chats. Left: the capital of France, Paris (right), and an airline injury case, Varghese v. China Southern "
-          "Airlines (invented). Right: Will it rain in Rome tomorrow? I can't see the weather. What did my boss email me? "
-          "I can't access your email. Paste it here and I will read it.",
-          FRANCE + VARGHESE,
-          [("user", ["Will it rain in Rome tomorrow?"], None),
-           ("assistant", ["I can’t see the weather."], "na"),
-           ("user", ["What did my boss email me?"], None),
-           ("assistant", ["I can’t access your email.", "Paste it here and I will read it."], "na")])
+def single_chat(path, label, turns):
+    body, h = chat((FIG_W - 560) // 2, 560, 2, turns)
+    svg(path, FIG_W, h + 2, label, body, marks=True)
+
+
+def chat_and_panel(path, label, turns, panel, panel_h):
+    """A short chat on the left, a panel (the real source) on the right, centered vertically."""
+    ch, h = chat(CHAT_X, 540, 0, turns)
+    H = max(h, panel_h) + 4
+    body = f'  <g transform="translate(0,{(H - h) / 2:.0f})">\n{ch}  </g>\n'
+    body += f'  <g transform="translate(0,{(H - panel_h) / 2:.0f})">\n{panel}  </g>\n'
+    svg(path, FIG_W, H, label, body, marks=True)
+
+
+single_chat("chat-hallucination.svg",
+            "A chat: Cite an airline injury case. Varghese v. China Southern Airlines, 2019 (invented). "
+            "Is it a real case? Yes. It is on Westlaw (invented).",
+            [("user", ["Cite an airline injury case."], None),
+             ("assistant", ["Varghese v. China Southern", "Airlines (2019)."], False),
+             ("user", ["Is it a real case?"], None),
+             ("assistant", ["Yes. It is on Westlaw."], False)])
+
+# Not a knowledge base: the order status lives in a database table.
+ROWS, RH, TOP = [("#48211", "Delivered", "Oct 2"), ("#48212", "Shipped", "Oct 3"),
+                 ("#48213", "Delayed", "Oct 4"), ("#48214", "Preparing", "Oct 5")], 46, 40
+cols = [PANEL_X + 22, PANEL_X + 190, PANEL_X + 400]
+t = (f'  <text class="text-primary" x="{PANEL_X}" y="24" font-family="sans-serif" font-size="22" font-weight="700">Orders database</text>\n'
+     f'  <rect class="bg-muted" x="{PANEL_X}" y="{TOP}" width="{PANEL_W}" height="{RH}" rx="10"/>\n')
+for x, head in zip(cols, ["Order", "Status", "Updated"]):
+    t += f'  <text class="text-secondary" x="{x}" y="{TOP + 30}" font-family="sans-serif" font-size="19" font-weight="700">{head}</text>\n'
+for i, row in enumerate(ROWS):
+    y = TOP + RH * (i + 1)
+    hit = row[0] == "#48213"
+    if hit:
+        t += f'  <rect class="bg-surface stroke-strong" x="{PANEL_X}" y="{y + 3}" width="{PANEL_W}" height="{RH - 6}" rx="8" stroke-width="2.5"/>\n'
+    else:
+        t += f'  <line class="stroke-subtle" x1="{PANEL_X}" y1="{y + RH}" x2="{PANEL_X + PANEL_W}" y2="{y + RH}" stroke-width="1.5"/>\n'
+    for x, cell in zip(cols, row):
+        w = ' font-weight="700"' if hit else ''
+        t += f'  <text class="text-primary" x="{x}" y="{y + 30}" font-family="sans-serif" font-size="20"{w}>{cell}</text>\n'
+chat_and_panel("chat-orders.svg",
+               "A chat: Where is my order #48213? It shipped on October 3. It arrives tomorrow (invented). "
+               "Next to it, the orders database: order #48213 is Delayed, updated Oct 4.",
+               [("user", ["Where is my order #48213?"], None),
+                ("assistant", ["It shipped on October 3.", "It arrives tomorrow."], False)],
+               t, TOP + RH * 5)
+
+# Live data: the departures board.
+B_ROWS, BH, BTOP = [("17:58", "Marseille", "On time"), ("18:04", "Lyon", "Delayed 25 min"),
+                    ("18:12", "Dijon", "On time"), ("18:20", "Grenoble", "On time")], 46, 62
+bcols = [PANEL_X + 24, PANEL_X + 120, PANEL_X + 330]
+board = (f'  <rect class="text-primary" x="{PANEL_X}" y="0" width="{PANEL_W}" height="{BTOP + BH * 4 + 14}" rx="14"/>\n'
+         f'  <text class="accent-tertiary" x="{PANEL_X + 24}" y="40" font-family="monospace" font-size="22" font-weight="700">DEPARTURES</text>\n')
+for i, (tm, dest, st) in enumerate(B_ROWS):
+    y = BTOP + BH * i + 32
+    c = "accent-tertiary" if st != "On time" else "text-on-accent"
+    w = ' font-weight="700"' if st != "On time" else ''
+    for x, cell, cls in zip(bcols, (tm, dest, st), ("text-on-accent", "text-on-accent", c)):
+        board += f'  <text class="{cls}" x="{x}" y="{y}" font-family="monospace" font-size="21"{w}>{cell}</text>\n'
+chat_and_panel("chat-train.svg",
+               "A chat: Is my 18:04 train to Lyon on time? Yes, it leaves on time (wrong). "
+               "Next to it, a live departures board: 18:04 Lyon, Delayed 25 min.",
+               [("user", ["Is my 18:04 train to Lyon on time?"], None),
+                ("assistant", ["Yes, it leaves on time."], False)],
+               board, BTOP + BH * 4 + 14)
 
 # Knowledge cutoff: the timeline, with one inline exchange under each event.
 CW = FIG_W
@@ -172,9 +218,9 @@ FX = (VW - FW) // 2
 OUT_L, OUT_R = INSET, VW - INSET - 230
 body = (f'  <rect class="bg-surface stroke-strong" x="{FX}" y="2" width="{FW}" height="{VH - 4}" rx="16" stroke-width="2.5"/>\n')
 turns, end = chat(FX + 20, FW - 40, 18, [
-    ("user", ["Will it rain in Rome tomorrow?"], None),
-    ("assistant", ["I can’t see the weather."], None),
-    ("user", ["Then email my team about it."], None),
+    ("user", ["Is my 18:04 train on time?"], None),
+    ("assistant", ["I can’t see live train times."], None),
+    ("user", ["Then email my team I’ll be late."], None),
     ("assistant", ["I can’t send emails. Here’s a draft."], None)])
 body += turns
 
@@ -197,11 +243,12 @@ def cut_link(x1, x2, cy):
             f'  <polygon class="bg-muted" points="{x2},{cy} {x2 - d * 14},{cy - 9} {x2 - d * 14},{cy + 9}"/>\n')
 
 
-for cy, left, right in [(80, "Weather service", "Send an email"), (210, "Your mailbox", "Save a file")]:
+for cy, left in [(50, "Web search"), (145, "Orders database"), (240, "Live train times")]:
     body += outside(OUT_L, cy, left) + cut_link(OUT_L + 236, FX - 6, cy)
+for cy, right in [(95, "Send an email"), (195, "Save a file")]:
     body += outside(OUT_R, cy, right) + cut_link(FX + FW + 6, OUT_R - 6, cy)
 svg("chat-closed.svg", VW, VH,
-    "A chat in a closed frame: Will it rain in Rome tomorrow? I can't see the weather. Then email my team about it. "
+    "A chat in a closed frame: Is my 18:04 train on time? I can't see live train times. Then email my team I'll be late. "
     "I can't send emails. Here's a draft. Outside the frame, cut links: the weather service and your mailbox on the "
-    "left, pointing in; send an email and save a file on the right, pointing out.", body)
+    "left (web search, orders database, live train times), pointing in; send an email and save a file on the right, pointing out.", body)
 print("ok")

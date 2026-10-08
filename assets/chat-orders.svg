@@ -1,0 +1,51 @@
+<svg viewBox="0 0 1477 274" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A chat: Where is my order #48213? It shipped on October 3. It arrives tomorrow (invented). Next to it, the orders database: order #48213 is Delayed, updated Oct 4.">
+  <style>
+    .bg-base          { fill: #F5F7F7; }
+    .bg-surface       { fill: #FFFFFF; }
+    .bg-muted         { fill: #E3EBEB; }
+    .text-primary     { fill: #17323A; }
+    .text-secondary   { fill: #51707A; }
+    .text-on-accent   { fill: #FFFFFF; }
+    .accent-primary   { fill: #0E7C7B; }
+    .accent-secondary { fill: #7A5195; }
+    .accent-tertiary  { fill: #C2A14D; }
+    .stroke-primary   { stroke: #0E7C7B; }
+    .stroke-secondary { stroke: #7A5195; }
+    .stroke-tertiary  { stroke: #C2A14D; }
+    .stroke-strong    { stroke: #17323A; }
+    .stroke-subtle    { stroke: #D3DFDF; }
+  </style>
+  <style>.mark-ok { fill: #2E8B57; } .mark-bad { fill: #C0392B; }</style>
+  <g transform="translate(0,64)">
+  <rect class="bg-surface stroke-primary" x="412" y="0" width="301" height="53" rx="14" stroke-width="2"/>
+  <text class="text-primary" x="430" y="33" font-family="sans-serif" font-size="20">Where is my order #48213?</text>
+  <rect class="accent-secondary" x="173" y="67" width="290" height="80" rx="14"/>
+  <text class="text-on-accent" x="191" y="100" font-family="sans-serif" font-size="20">It shipped on October 3.</text>
+  <text class="text-on-accent" x="191" y="127" font-family="sans-serif" font-size="20">It arrives tomorrow.</text>
+  <circle class="mark-bad" cx="493" cy="107" r="16"/>
+  <path d="M487,101 L499,113 M499,101 L487,113" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(0,2)">
+  <text class="text-primary" x="773" y="24" font-family="sans-serif" font-size="22" font-weight="700">Orders database</text>
+  <rect class="bg-muted" x="773" y="40" width="540" height="46" rx="10"/>
+  <text class="text-secondary" x="795" y="70" font-family="sans-serif" font-size="19" font-weight="700">Order</text>
+  <text class="text-secondary" x="963" y="70" font-family="sans-serif" font-size="19" font-weight="700">Status</text>
+  <text class="text-secondary" x="1173" y="70" font-family="sans-serif" font-size="19" font-weight="700">Updated</text>
+  <line class="stroke-subtle" x1="773" y1="132" x2="1313" y2="132" stroke-width="1.5"/>
+  <text class="text-primary" x="795" y="116" font-family="sans-serif" font-size="20">#48211</text>
+  <text class="text-primary" x="963" y="116" font-family="sans-serif" font-size="20">Delivered</text>
+  <text class="text-primary" x="1173" y="116" font-family="sans-serif" font-size="20">Oct 2</text>
+  <line class="stroke-subtle" x1="773" y1="178" x2="1313" y2="178" stroke-width="1.5"/>
+  <text class="text-primary" x="795" y="162" font-family="sans-serif" font-size="20">#48212</text>
+  <text class="text-primary" x="963" y="162" font-family="sans-serif" font-size="20">Shipped</text>
+  <text class="text-primary" x="1173" y="162" font-family="sans-serif" font-size="20">Oct 3</text>
+  <rect class="bg-surface stroke-strong" x="773" y="181" width="540" height="40" rx="8" stroke-width="2.5"/>
+  <text class="text-primary" x="795" y="208" font-family="sans-serif" font-size="20" font-weight="700">#48213</text>
+  <text class="text-primary" x="963" y="208" font-family="sans-serif" font-size="20" font-weight="700">Delayed</text>
+  <text class="text-primary" x="1173" y="208" font-family="sans-serif" font-size="20" font-weight="700">Oct 4</text>
+  <line class="stroke-subtle" x1="773" y1="270" x2="1313" y2="270" stroke-width="1.5"/>
+  <text class="text-primary" x="795" y="254" font-family="sans-serif" font-size="20">#48214</text>
+  <text class="text-primary" x="963" y="254" font-family="sans-serif" font-size="20">Preparing</text>
+  <text class="text-primary" x="1173" y="254" font-family="sans-serif" font-size="20">Oct 5</text>
+  </g>
+</svg>
