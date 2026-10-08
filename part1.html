@@ -661,9 +661,10 @@ I am his father, so he is my son.
     <div class="stage">
       <figure class="figure figure-contain"><img src="assets/knowledge-cutoff.svg" alt="Timeline: the Paris Olympics of 2024 sit before the knowledge cutoff, in the training text; the World Cup final of July 2026 sits after it and was never in the training text"></figure>
       <ul class="points">
-        <li>Training stops at a date. <strong>Nothing written after it</strong> reaches the LLM.</li>
-        <li>Asked about a later event, it <strong>answers by reflex with older facts</strong>.</li>
-        <li>Newer facts must be <strong>added to the conversation</strong>, by you or by a web search.</li>
+        <li>The <strong>pre-training text</strong> stops at the cutoff date. Fine-tuning adds no recent facts.</li>
+        <li>Everything that happened since then <strong>is missing</strong>.</li>
+        <li>One pre-training feeds <strong>several assistant versions</strong> over a year or more.</li>
+        <li>The fix is a <strong>web search</strong>. It brings the recent facts into the conversation.</li>
       </ul>
     </div>
   </div>
