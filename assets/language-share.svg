@@ -1,0 +1,40 @@
+<svg viewBox="0 0 560 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Donut chart of the languages in an LLM's training text: English about 80%, German, French and Spanish about 2% each, over 100 other languages about 14%">
+  <style>
+    .bg-base          { fill: #F5F7F7; }
+    .bg-surface       { fill: #FFFFFF; }
+    .bg-muted         { fill: #E3EBEB; }
+    .text-primary     { fill: #17323A; }
+    .text-secondary   { fill: #51707A; }
+    .text-on-accent   { fill: #FFFFFF; }
+    .accent-primary   { fill: #0E7C7B; }
+    .accent-secondary { fill: #7A5195; }
+    .accent-tertiary  { fill: #C2A14D; }
+    .stroke-primary   { stroke: #0E7C7B; }
+    .stroke-secondary { stroke: #7A5195; }
+    .stroke-tertiary  { stroke: #C2A14D; }
+    .stroke-strong    { stroke: #17323A; }
+    .stroke-subtle    { stroke: #D3DFDF; }
+  </style>
+  <g transform="rotate(-90 340 240)" fill="none" stroke-width="70">
+    <circle class="stroke-primary" cx="340" cy="240" r="150" pathLength="100" stroke-dasharray="79.6 100" stroke-dashoffset="0"/>
+    <circle class="stroke-subtle" cx="340" cy="240" r="150" pathLength="100" stroke-dasharray="1.6 100" stroke-dashoffset="-80"/>
+    <circle class="stroke-subtle" cx="340" cy="240" r="150" pathLength="100" stroke-dasharray="1.6 100" stroke-dashoffset="-82"/>
+    <circle class="stroke-subtle" cx="340" cy="240" r="150" pathLength="100" stroke-dasharray="1.6 100" stroke-dashoffset="-84"/>
+    <circle class="stroke-subtle" cx="340" cy="240" r="150" pathLength="100" stroke-dasharray="13.6 100" stroke-dashoffset="-86"/>
+  </g>
+  <text class="text-primary" x="340" y="228" text-anchor="middle" font-family="sans-serif" font-size="30">English</text>
+  <text class="accent-primary" x="340" y="282" text-anchor="middle" font-family="sans-serif" font-size="54" font-weight="700">≈ 80%</text>
+  <g class="stroke-strong" fill="none" stroke-width="1.5">
+    <polyline points="168,172 140,190 134,190"/>
+    <polyline points="178,151 140,150 134,150"/>
+    <polyline points="190,131 140,110 134,110"/>
+    <polyline points="261,73 222,40 214,40"/>
+  </g>
+  <g class="text-primary" font-family="sans-serif" font-size="20" text-anchor="end">
+    <text x="128" y="197">German ≈ 2%</text>
+    <text x="128" y="157">French ≈ 2%</text>
+    <text x="128" y="117">Spanish ≈ 2%</text>
+    <text x="208" y="34">Over 100 other</text>
+    <text x="208" y="58">languages ≈ 14%</text>
+  </g>
+</svg>

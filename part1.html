@@ -521,21 +521,18 @@ I am his father, so he is my son.
 <section class="slide layout-custom">
   <div class="slide-content">
     <p class="kicker">Part 1 · What to watch out for</p>
-    <h2>Chatbots are at their best in English</h2>
+    <h2>LLMs are at their best in English</h2>
     <div class="stage">
-      <div class="split split-wide-right split-top split-natural">
-        <div class="stack">
-          <div class="stat-big">80%</div>
-          <p class="takeaway">of pre-training data is English, roughly</p>
-          <p class="note-sm">The web is mostly English, and the data inherits it.</p>
-        </div>
-        <div class="stack stack-tight">
-          <div class="panel"><h3>Quality gap</h3><p>Richer prose, vocabulary and facts in English</p></div>
-          <div class="panel"><h3>Cultural default</h3><p>Norms, references and examples skew English-speaking</p></div>
-          <div class="panel"><h3>Local knowledge</h3><p>National rules, procedures and jargon are thinner</p></div>
-        </div>
+      <div class="split split-wide-right">
+        <figure class="figure figure-contain"><img src="assets/language-share.svg" alt="Donut chart: English about 80% of the training text, German, French and Spanish about 2% each, over 100 other languages about 14%"></figure>
+        <ul class="points">
+          <li><strong>English dominates</strong> the web pages, books and code an LLM learns from.</li>
+          <li>More English text gives the LLM <strong>richer answers in English</strong>.</li>
+          <li>Fewer French texts give it <strong>thinner facts</strong> about French rules, procedures and jargon.</li>
+          <li>English‑speaking sources shape its <strong>norms, references and examples</strong>.</li>
+          <li>Asking in English, then translating, gives <strong>better answers</strong> in a less common language.</li>
+        </ul>
       </div>
-      <p class="takeaway">Ask in English, then translate: <em>the smaller the language, the bigger the gain</em>.</p>
     </div>
   </div>
   <footer class="slide-footer">
@@ -548,15 +545,19 @@ I am his father, so he is my son.
 <section class="slide layout-custom">
   <div class="slide-content">
     <p class="kicker">Part 1 · What to watch out for</p>
-    <h2>Tokens are the unit of everything</h2>
+    <h2>Tokens: the unit of size and cost</h2>
     <div class="stage">
       <dl class="defs defs-lg">
         <div class="def def-wide"><dt>1 token</dt><dd>≈ ¾ of an English word, about four characters</dd></div>
         <div class="def def-wide"><dt>1,000 tokens</dt><dd>≈ 750 words, a page and a half</dd></div>
-        <div class="def def-wide"><dt>100,000 tokens</dt><dd>≈ a short novel</dd></div>
-        <div class="def def-wide"><dt>1,000,000 tokens</dt><dd><strong>≈ 4 Harry Potter books</strong></dd></div>
+        <div class="def def-wide"><dt>100,000 tokens</dt><dd>≈ a 300-page novel</dd></div>
+        <div class="def def-wide"><dt>1,000,000 tokens</dt><dd>≈ ten novels</dd></div>
       </dl>
-      <p class="takeaway">Tokens measure a text’s size, its cost and the time to produce it. <em>Chatbot usage limits and API prices are counted in tokens</em>.</p>
+      <ul class="points">
+        <li>Chatbot usage limits are <strong>counted in tokens</strong>.</li>
+        <li>API prices are quoted <strong>per million tokens</strong>. Sent and written tokens have <strong>separate prices</strong>.</li>
+        <li>A written token costs about <strong>five times more</strong> than a sent one.</li>
+      </ul>
     </div>
   </div>
   <footer class="slide-footer">
@@ -569,20 +570,15 @@ I am his father, so he is my son.
 <section class="slide layout-custom">
   <div class="slide-content">
     <p class="kicker">Part 1 · What to watch out for</p>
-    <h2>How many r’s in “strawberry”?</h2>
+    <h2>Spelling: an LLM does not see letters</h2>
     <div class="stage">
-      <div class="panel">
-        <span class="panel-label">“strawberry”, as the LLM receives it</span>
-        <div class="spell">
-          <span class="spell-key">1 · Cut into tokens</span><span class="chip" style="grid-column: span 3">st<span class="r">r</span></span><span class="chip" style="grid-column: span 2">aw</span><span class="chip" style="grid-column: span 5">be<span class="r">r</span><span class="r">r</span>y</span>
-          <span class="spell-key">2 · The LLM receives</span><span class="chip tok" style="grid-column: span 3">496</span><span class="chip tok" style="grid-column: span 2">675</span><span class="chip tok" style="grid-column: span 5">15717</span>
-        </div>
-      </div>
+      <figure class="figure figure-contain"><img src="assets/spelling-vectors.svg" alt="The word strawberry is cut into the tokens str, aw and berry; each token becomes a vector of numbers"></figure>
       <ul class="points">
-        <li>It only receives three numbers: <strong>the letters are not there to count</strong>.</li>
-        <li>Yet the chatbot answers “2 r’s”, <strong>with full confidence</strong>.</li>
+        <li>Each token enters the LLM as a <strong>vector</strong> of thousands of numbers.</li>
+        <li>No letter is written in these numbers. <strong>There are no r’s to count.</strong></li>
+        <li>Spelling backwards, rhymes and anagrams trip it up <strong>for the same reason</strong>.</li>
       </ul>
-      <div class="lore"><span class="tag">Lore</span><p>The 2024 meme every new LLM gets tested on. OpenAI’s reasoning project was reportedly code-named “Strawberry”.</p></div>
+      <div class="lore"><p><strong><em>Lore:</em></strong> In 2024, chatbots kept saying “strawberry” has 2 r’s. It became a meme.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -597,26 +593,17 @@ I am his father, so he is my son.
     <p class="kicker">Part 1 · What to watch out for</p>
     <h2>The context window: a hard limit on the conversation</h2>
     <div class="stage">
-      <div class="seg seg-lg">
-        <span class="s-a" style="--f:5">The conversation so far</span>
-        <span class="s-b" style="--f:3">The answer being written</span>
-        <span class="s-free" style="--f:3">Room left</span>
-      </div>
-      <div class="split" style="align-items: stretch">
-        <ul class="points" style="justify-content: center">
-          <li>The most tokens the LLM can process at once: the conversation <strong>and</strong> its answer.</li>
-          <li>What does not fit does not exist for the LLM.</li>
+            <div class="split">
+        <figure class="figure figure-contain"><img src="assets/context-window.svg" alt="Context window: a frame holding a short conversation about Paris and the Louvre, then room left"></figure>
+        <ul class="points">
+          <li>The window is the most tokens the LLM can read at once.</li>
+          <li>Text outside the context window <strong>does not exist</strong> for the LLM.</li>
+          <li>Windows grew from a few thousand tokens in 2022 to <strong>a million</strong> today.</li>
+          <li>Older LLMs <strong>lost details</strong> as the window filled up. This was called <strong>context rot</strong>.</li>
+          <li>Recent LLMs <strong>use the whole window</strong> far better.</li>
         </ul>
-        <div class="panel panel-featured" style="justify-content: center">
-          <span class="panel-label">Windows keep growing</span>
-          <h3>A few thousand tokens in 2022, a million today</h3>
-        </div>
       </div>
-      <div class="panel">
-        <span class="panel-label">Context rot</span>
-        <p>The longer the conversation, the more LLMs used to <strong>lose track of what was in it</strong>, silently. Recent LLMs handle long contexts far better, but a big window is still not a perfect memory.</p>
-      </div>
-      <div class="lore"><span class="tag">Lore</span><p>Claude Opus 4.6 was asked to list every spell in the first four Harry Potter books (about 733K tokens): it found 49 of the 50.</p></div>
+      <div class="lore"><p><strong><em>Lore:</em></strong> Claude Opus 4.6 was asked to list every spell in the first four Harry Potter books (about 733K tokens). It found 49 of the 50.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -625,61 +612,24 @@ I am his father, so he is my son.
   </footer>
 </section>
 
-<!-- Knowledge cutoff -->
+<!-- Reflexive writing -->
 <section class="slide layout-custom">
   <div class="slide-content">
     <p class="kicker">Part 1 · What to watch out for</p>
-    <h2>Knowledge cutoff: the LLM stops at a date</h2>
+    <h2>Reflexive writing: no knowledge base behind an LLM</h2>
     <div class="stage">
-      <figure class="figure figure-contain"><img src="assets/knowledge-cutoff.svg" alt="Timeline: training data up to the cutoff, release, today; the gap keeps growing"></figure>
+      <figure class="figure figure-contain"><img src="assets/chat-reflex.svg" alt="Two chats: the capital of France answered right, and an invented airline court case confirmed as real"></figure>
       <ul class="points">
-        <li>Training data stops at a <strong>fixed date</strong>: the LLM is frozen there.</li>
-        <li>It does not know what happened since, not even today’s date.</li>
-        <li>Ask the chatbot anyway, and it admits it, or guesses with the same fluency.</li>
-        <li>Anything newer must be added to the conversation: by you, or by a tool.</li>
+        <li>No table of facts sits inside the LLM. It writes every answer <strong>by reflex</strong>.</li>
+        <li>An invented answer is a <strong>hallucination</strong>. It is how an LLM works, not a bug.</li>
+        <li>Hallucinations hit <strong>precise, rare facts</strong> like case names, dates and citations.</li>
       </ul>
+      <div class="lore"><p><strong><em>Lore:</em></strong> In 2023, lawyers filed a brief citing this case and five others invented by ChatGPT (<em>Mata v. Avianca</em>).</p></div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs · Part 1</span>
     <span>25</span>
-  </footer>
-</section>
-
-<!-- Reflexive writing + hallucination -->
-<section class="slide layout-custom">
-  <div class="slide-content">
-    <p class="kicker">Part 1 · What to watch out for</p>
-    <h2>Reflexive writing, not a knowledge base</h2>
-    <div class="stage">
-      <p class="lead"><strong>Not a search engine</strong>: no lookup, no record retrieved. “Reflexive writing”, driven by the prompt.</p>
-      <div class="panels-2">
-        <div class="panel">
-          <span class="panel-label">Obvious continuation → looks like knowledge</span>
-          <p><code>The capital of France is …</code></p>
-          <div class="bars">
-            <div class="bar pick"><span>Paris</span><span class="track"><span class="fill" style="--w:96%"></span></span><span class="val">~99%</span></div>
-          </div>
-        </div>
-        <div class="panel">
-          <span class="panel-label">Open continuation → looks like creativity</span>
-          <p><code>I drank a delicious cup of …</code></p>
-          <div class="bars">
-            <div class="bar"><span>coffee</span><span class="track"><span class="fill" style="--w:42%"></span></span><span class="val"></span></div>
-            <div class="bar"><span>tea</span><span class="track"><span class="fill" style="--w:28%"></span></span><span class="val"></span></div>
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-featured">
-        <span class="panel-label">Hallucination</span>
-        <p>When there is no obvious continuation, it still writes one: <strong>plausible, confident, and factually wrong</strong>. Nothing in the chatbot checks that it is true.</p>
-      </div>
-      <div class="lore"><span class="tag">Lore</span><p>2023: lawyers filed a brief citing court cases invented by ChatGPT (<em>Mata v. Avianca</em>).</p></div>
-    </div>
-  </div>
-  <footer class="slide-footer">
-    <span>Demystifying LLMs · Part 1</span>
-    <span>26</span>
   </footer>
 </section>
 
@@ -689,13 +639,32 @@ I am his father, so he is my son.
     <p class="kicker">Part 1 · What to watch out for</p>
     <h2>Some answers cannot be predicted</h2>
     <div class="stage">
-      <p class="lead">Behind the chatbot, the LLM is a frozen snapshot that predicts the next token. Some answers are not in it.</p>
-      <div class="panels-3">
-        <div class="panel"><span class="panel-label">Not written yet</span><h3>Saturday’s forecast, today’s prices</h3><p>After the cutoff: not in the training data</p></div>
-        <div class="panel"><span class="panel-label">Never seen</span><h3>Your files, your inbox, your database</h3><p>Private: never in the training data</p></div>
-        <div class="panel"><span class="panel-label">Not guessable</span><h3>An exact total, the r’s in “strawberry”</h3><p>Needs computing, not predicting</p></div>
-      </div>
-      <p class="takeaway">The answer has to be <em>fetched or computed</em>, not predicted.</p>
+      <figure class="figure figure-contain"><img src="assets/chat-predict.svg" alt="Two chats: Paris and an invented court case on the left; the weather and an email the assistant cannot answer on the right"></figure>
+      <ul class="points">
+        <li>Paris and the Varghese case are both <strong>predictions</strong>. One is right, one is invented.</li>
+        <li>Tomorrow’s forecast and your inbox were <strong>never in the training text</strong>.</li>
+        <li>No prediction can produce them. They must be <strong>fetched</strong> from a weather service or your mailbox.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs · Part 1</span>
+    <span>26</span>
+  </footer>
+</section>
+
+<!-- Knowledge cutoff -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Part 1 · What to watch out for</p>
+    <h2>Knowledge cutoff: an LLM stops at a date</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="assets/knowledge-cutoff.svg" alt="Timeline: the Paris Olympics of 2024 sit before the knowledge cutoff, in the training text; the World Cup final of July 2026 sits after it and was never in the training text"></figure>
+      <ul class="points">
+        <li>Training stops at a date. <strong>Nothing written after it</strong> reaches the LLM.</li>
+        <li>Asked about a later event, it <strong>answers by reflex with older facts</strong>.</li>
+        <li>Newer facts must be <strong>added to the conversation</strong>, by you or by a web search.</li>
+      </ul>
     </div>
   </div>
   <footer class="slide-footer">
@@ -708,26 +677,14 @@ I am his father, so he is my son.
 <section class="slide layout-custom">
   <div class="slide-content">
     <p class="kicker">Part 1 · What to watch out for</p>
-    <h2>A chatbot only writes: you do all the rest</h2>
+    <h2>A chatbot cannot leave the conversation</h2>
     <div class="stage">
-      <div class="msg"><span class="role">The task</span>Turn the three Q3 reports into a one-page memo, with exact figures.</div>
-      <div class="split split-wide-left">
-        <div class="panel">
-          <span class="panel-label">You · five steps</span>
-          <ul class="points">
-            <li>Open each report, copy it, paste it into the chat.</li>
-            <li>Ask for the memo.</li>
-            <li>Copy the answer into a document.</li>
-            <li>Recheck every figure with a calculator.</li>
-            <li>Paste the mistakes back, ask again.</li>
-          </ul>
-        </div>
-        <div class="panel panel-featured">
-          <span class="panel-label">The LLM · one step</span>
-          <h3>Writes the memo</h3>
-        </div>
-      </div>
-      <p class="takeaway">You fetch, carry, compute and check: <em>the LLM only did the writing</em>.</p>
+      <figure class="figure figure-contain"><img src="assets/chat-closed.svg" alt="A chat in a closed frame; cut links to the weather service and your mailbox on the left, and to sending an email and saving a file on the right"></figure>
+      <ul class="points">
+        <li>A chatbot reads the conversation and writes into it. <strong>Nothing else.</strong></li>
+        <li>It cannot <strong>fetch</strong> the forecast or open your mailbox.</li>
+        <li>It cannot <strong>act</strong> either. No email sent, no file saved.</li>
+      </ul>
     </div>
   </div>
   <footer class="slide-footer">

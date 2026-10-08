@@ -1,6 +1,4 @@
-<svg viewBox="0 0 1150 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Timeline: training data up to the cutoff, release months later, then use for a year or more; the gap between the cutoff and today keeps growing">
-
-  <!-- THEME COPY — kujaku (styles/themes/kujaku.css). Swap to re-theme. -->
+<svg viewBox="0 0 1477 237" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Timeline: the Paris Olympics of 2024 sit before the knowledge cutoff; the World Cup final of July 2026 sits after it. Under the Olympics: Where were the 2024 Olympics? Paris (right). Under the World Cup: Who won the 2026 World Cup? Argentina (wrong: Argentina won the 2022 final).">
   <style>
     .bg-base          { fill: #F5F7F7; }
     .bg-surface       { fill: #FFFFFF; }
@@ -17,37 +15,27 @@
     .stroke-strong    { stroke: #17323A; }
     .stroke-subtle    { stroke: #D3DFDF; }
   </style>
-  <defs>
-    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" class="accent-secondary"/>
-    </marker>
-  </defs>
-  <!-- time axis -->
-  <line x1="20" y1="150" x2="1120" y2="150" class="stroke-strong" stroke-width="2" fill="none"/>
-  <polygon points="1130,150 1116,143 1116,157" class="text-primary"/>
-  <text x="1130" y="180" text-anchor="end" font-family="sans-serif" font-size="14" font-weight="400" class="text-secondary">time</text>
-
-  <!-- what the model knows -->
-  <rect x="20" y="94" width="520" height="50" rx="6" class="accent-primary"/>
-  <text x="280" y="126" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="700" class="text-on-accent">Training data: what the LLM knows</text>
-
-  <!-- what it cannot know -->
-  <rect x="540" y="94" width="500" height="50" rx="6" class="bg-muted"/>
-  <text x="790" y="126" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="700" class="text-primary">Nothing after the cutoff</text>
-
-  <!-- markers -->
-  <line x1="540" y1="80" x2="540" y2="164" class="stroke-strong" stroke-width="3" fill="none"/>
-  <text x="540" y="190" text-anchor="middle" font-family="sans-serif" font-size="17" font-weight="700" class="text-primary">cutoff</text>
-  <line x1="700" y1="144" x2="700" y2="164" class="stroke-strong" stroke-width="3" fill="none"/>
-  <text x="700" y="190" text-anchor="middle" font-family="sans-serif" font-size="17" font-weight="700" class="text-primary">release</text>
-  <text x="700" y="212" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="400" class="text-secondary">months later</text>
-  <line x1="1040" y1="80" x2="1040" y2="164" class="stroke-secondary" stroke-width="3" fill="none"/>
-  <text x="1040" y="190" text-anchor="middle" font-family="sans-serif" font-size="17" font-weight="700" class="accent-secondary">today</text>
-  <text x="1040" y="212" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="400" class="text-secondary">a year or more in use</text>
-  <line x1="1046" y1="66" x2="1100" y2="66" class="stroke-secondary" stroke-width="3" fill="none" marker-end="url(#ah)"/>
-  <text x="1040" y="72" text-anchor="end" font-family="sans-serif" font-size="14" font-weight="400" class="accent-secondary">keeps moving</text>
-
-  <!-- the gap -->
-  <path d="M 545 236 L 545 246 L 1035 246 L 1035 236" class="stroke-secondary" stroke-width="2" fill="none"/>
-  <text x="790" y="272" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" class="accent-secondary">the gap grows every day</text>
+  <style>.mark-ok { fill: #2E8B57; } .mark-bad { fill: #C0392B; }</style>
+  <line class="stroke-primary" x1="14" y1="102" x2="738" y2="102" stroke-width="12" stroke-linecap="round"/>
+  <line class="stroke-subtle" x1="738" y1="102" x2="1437" y2="102" stroke-width="12"/>
+  <polygon class="bg-muted" points="1437,84 1473,102 1437,120"/>
+  <line class="stroke-strong" x1="738" y1="38" x2="738" y2="166" stroke-width="3"/>
+  <text class="text-primary" x="738" y="22" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="700">Knowledge cutoff</text>
+  <circle class="accent-primary" cx="369" cy="102" r="18"/>
+  <text class="text-primary" x="369" y="62" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="700">Paris Olympics, 2024</text>
+  <circle class="bg-surface stroke-strong" cx="1107" cy="102" r="18" stroke-width="3"/>
+  <text class="text-primary" x="1107" y="110" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="700">?</text>
+  <text class="text-primary" x="1107" y="62" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="700">World Cup final, July 2026</text>
+  <rect class="bg-surface stroke-primary" x="125" y="182" width="343" height="53" rx="14" stroke-width="2"/>
+  <text class="text-primary" x="143" y="215" font-family="sans-serif" font-size="20">Where were the 2024 Olympics?</text>
+  <rect class="accent-secondary" x="480" y="182" width="142" height="53" rx="14"/>
+  <text class="text-on-accent" x="498" y="215" font-family="sans-serif" font-size="20">Paris.</text>
+  <circle class="mark-ok" cx="652" cy="208" r="16"/>
+  <path d="M645,208 L650,214 L660,202" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect class="bg-surface stroke-primary" x="808" y="182" width="343" height="53" rx="14" stroke-width="2"/>
+  <text class="text-primary" x="826" y="215" font-family="sans-serif" font-size="20">Who won the 2026 World Cup?</text>
+  <rect class="accent-secondary" x="1163" y="182" width="142" height="53" rx="14"/>
+  <text class="text-on-accent" x="1181" y="215" font-family="sans-serif" font-size="20">Argentina.</text>
+  <circle class="mark-bad" cx="1335" cy="208" r="16"/>
+  <path d="M1329,202 L1341,214 M1341,202 L1329,214" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round"/>
 </svg>

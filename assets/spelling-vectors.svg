@@ -1,0 +1,37 @@
+<svg viewBox="0 0 1150 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The word strawberry is cut into the tokens str, aw and berry; each token becomes a vector of numbers">
+  <style>
+    .bg-base          { fill: #F5F7F7; }
+    .bg-surface       { fill: #FFFFFF; }
+    .bg-muted         { fill: #E3EBEB; }
+    .text-primary     { fill: #17323A; }
+    .text-secondary   { fill: #51707A; }
+    .text-on-accent   { fill: #FFFFFF; }
+    .accent-primary   { fill: #0E7C7B; }
+    .accent-secondary { fill: #7A5195; }
+    .accent-tertiary  { fill: #C2A14D; }
+    .stroke-primary   { stroke: #0E7C7B; }
+    .stroke-secondary { stroke: #7A5195; }
+    .stroke-tertiary  { stroke: #C2A14D; }
+    .stroke-strong    { stroke: #17323A; }
+    .stroke-subtle    { stroke: #D3DFDF; }
+  </style>
+  <text class="text-primary" x="150" y="162" text-anchor="middle" font-family="monospace" font-size="40">strawberry</text>
+  <path class="stroke-subtle" d="M300,150 C350,150 350,60 400,60" fill="none" stroke-width="3"/>
+  <rect class="bg-muted" x="400" y="28" width="160" height="64" rx="8"/>
+  <text class="text-primary" x="480" y="71" text-anchor="middle" font-family="monospace" font-size="32">str</text>
+  <text class="accent-secondary" x="600" y="71" text-anchor="middle" font-family="monospace" font-size="32">→</text>
+  <rect class="accent-primary" x="640" y="28" width="500" height="64" rx="8"/>
+  <text class="text-on-accent" x="890" y="70" text-anchor="middle" font-family="monospace" font-size="26">[ 0.21, −0.84, 0.03, 0.66, … ]</text>
+  <path class="stroke-subtle" d="M300,150 C350,150 350,150 400,150" fill="none" stroke-width="3"/>
+  <rect class="bg-muted" x="400" y="118" width="160" height="64" rx="8"/>
+  <text class="text-primary" x="480" y="161" text-anchor="middle" font-family="monospace" font-size="32">aw</text>
+  <text class="accent-secondary" x="600" y="161" text-anchor="middle" font-family="monospace" font-size="32">→</text>
+  <rect class="accent-primary" x="640" y="118" width="500" height="64" rx="8"/>
+  <text class="text-on-accent" x="890" y="160" text-anchor="middle" font-family="monospace" font-size="26">[ −0.35, 0.18, 0.92, −0.07, … ]</text>
+  <path class="stroke-subtle" d="M300,150 C350,150 350,240 400,240" fill="none" stroke-width="3"/>
+  <rect class="bg-muted" x="400" y="208" width="160" height="64" rx="8"/>
+  <text class="text-primary" x="480" y="251" text-anchor="middle" font-family="monospace" font-size="32">berry</text>
+  <text class="accent-secondary" x="600" y="251" text-anchor="middle" font-family="monospace" font-size="32">→</text>
+  <rect class="accent-primary" x="640" y="208" width="500" height="64" rx="8"/>
+  <text class="text-on-accent" x="890" y="250" text-anchor="middle" font-family="monospace" font-size="26">[ 0.77, −0.29, −0.44, 0.13, … ]</text>
+</svg>
