@@ -153,18 +153,22 @@
   </div>
 </section>
 
-<!-- part1 slide 4 · TODO (outline): not in the outline; kept because training and inference are shown in tokens -->
+<!-- part1 slide 4, reworked: links the human text of the zip slide to tokens -->
 <section class="slide layout-custom">
   <div class="slide-content">
     <p class="kicker">From zero to chatbot</p>
-    <h2>Knowledge reaches the LLM as tokens</h2>
+    <h2>Tokens: human text cut into pieces</h2>
     <div class="stage">
-      <div class="chips chips-sm"><span class="chip">…</span><span class="chip">Die</span><span class="chip"> Kat</span><span class="chip">ze</span><span class="chip"> sch</span><span class="chip">lä</span><span class="chip">ft</span><span class="chip"> auf</span><span class="chip"> dem</span><span class="chip"> Sofa</span><span class="chip">.</span><span class="chip"> Le</span><span class="chip"> chat</span><span class="chip"> dort</span><span class="chip"> sur</span><span class="chip"> le</span><span class="chip"> can</span><span class="chip">ap</span><span class="chip">é</span><span class="chip">.</span><span class="chip"> It</span><span class="chip"> was</span><span class="chip"> late</span><span class="chip"> on</span><span class="chip"> the</span><span class="chip"> edge</span><span class="chip"> of</span><span class="chip"> town</span><span class="chip">.</span><span class="chip"> The</span><span class="chip"> cat</span><span class="chip"> sat</span><span class="chip"> on</span><span class="chip"> the</span><span class="chip"> mat</span><span class="chip"> while</span><span class="chip"> the</span><span class="chip"> rain</span><span class="chip"> fell</span><span class="chip">.</span><span class="chip"> </span><span class="chip">你</span><span class="chip">好</span><span class="chip">，</span><span class="chip">我</span><span class="chip">是</span><span class="chip">学</span><span class="chip">生</span><span class="chip">。</span><span class="chip"> Пр</span><span class="chip">ив</span><span class="chip">ет</span><span class="chip">,</span><span class="chip"> м</span><span class="chip">ир</span><span class="chip">!</span><span class="chip"> 🙂</span><span class="chip">↵</span><span class="chip">def</span><span class="chip"> count</span><span class="chip">_words</span><span class="chip">…</span></div>
       <ul class="points">
-        <li><strong>One vocabulary of about 100,000 tokens</strong> covers every language, emoji and code (GPT-4, 2023).</li>
-        <li>No rule on spaces or syllables. <strong>Frequent fragments</strong> of the training text become tokens.</li>
-        <li>The LLM reads <strong>only tokens</strong> and never sees letters or words.</li>
+        <li>Before training, human text is cut into slices of a few characters called <strong>tokens</strong>.</li>
+        <li>One vocabulary of about 100,000 tokens covers <strong>all languages at once</strong>.</li>
+        <li>Where to cut is <strong>statistically optimized</strong> for prediction.</li>
       </ul>
+      <div class="split split-wide-right">
+        <div class="figure figure-contain"><img src="assets/docs-to-tokens.svg" alt="A pile of documents of human text, cut into tokens"></div>
+        <div class="chips chips-xs"><span class="chip">…</span><span class="chip">Die</span><span class="chip"> Kat</span><span class="chip">ze</span><span class="chip"> sch</span><span class="chip">lä</span><span class="chip">ft</span><span class="chip"> auf</span><span class="chip"> dem</span><span class="chip"> Sofa</span><span class="chip">.</span><span class="chip"> Le</span><span class="chip"> chat</span><span class="chip"> dort</span><span class="chip"> sur</span><span class="chip"> le</span><span class="chip"> can</span><span class="chip">ap</span><span class="chip">é</span><span class="chip">.</span><span class="chip"> The</span><span class="chip"> cat</span><span class="chip"> sat</span><span class="chip"> on</span><span class="chip"> the</span><span class="chip"> mat</span><span class="chip"> while</span><span class="chip"> the</span><span class="chip"> rain</span><span class="chip"> fell</span><span class="chip">.</span><span class="chip">你</span><span class="chip">好</span><span class="chip">，</span><span class="chip">我</span><span class="chip">是</span><span class="chip">学</span><span class="chip">生</span><span class="chip">。</span><span class="chip"> Пр</span><span class="chip">ив</span><span class="chip">ет</span><span class="chip">,</span><span class="chip"> м</span><span class="chip">ир</span><span class="chip">!</span><span class="chip"> 🙂</span><span class="chip">↵</span><span class="chip">def</span><span class="chip"> count</span><span class="chip">_words</span><span class="chip">…</span></div>
+      </div>
+      <div class="lore"><p><strong><em>Lore:</em></strong> In 2024, chatbots claiming that “strawberry” has two r’s became a meme.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
