@@ -76,11 +76,11 @@ The 19 layouts cover the common cases and should be used as-is ~99% of the time.
 
 **Custom content slides.** When the content has its own shape (a formula, a dialogue, a flow, nested boxes, a timeline), build a `.slide.layout-custom` from the components in `base.css` §7 — `.split`, `.panel`, `.code`, `.chips`, `.bars`, `.chat`/`.msg`, `.flow`/`.node`, `.box`, `.layers`, `.timeline`, `.lore`…, with the usual kicker + `h2`, the footer, and nothing past the footer. Diagrams that are really structured text (lists, trees, code, a row of boxes) stay in HTML/CSS. Anything with real geometry — cycles, branching arrows, positioned shapes, charts — is a standalone SVG figure (§6): don't force it into `.flow`/`.node`.
 
-**Statement slides.** `big-statement` slides are the only transitions inside a part, and follow fixed rules:
+**Transitions.** Every section opens with a `section-divider` slide (`layout-section inverse`), and these are the only transitions in the deck:
 
-1. A statement opens a section *within* a part — never the first section (the section divider opens it), never right after a divider, never two in a row.
-2. Shape: one sentence stating what the previous section established, then the question (`<span class="ask">`) the next section answers.
-3. Its kicker is the section's name, identical to the `Part N · <section>` kicker of the slides that follow.
+1. Its number is the section's number in the agenda (`01`, `02`…).
+2. Its title is the section's name, identical to the agenda title and to the kicker of the slides that follow.
+3. No lead line, no footer.
 
 Global modifiers: any `<section class="slide …">` takes `inverse` (dark background via `--bg-inverse`). Optional `.slide-footer` shows deck title + page number — keep page numbers in sync.
 
@@ -102,7 +102,7 @@ In HTML, figure slots are marked with a `.figure-ph` placeholder — replace wit
 
 ## 7. Content
 
-The "structure" slides (opening, closing, agenda, sections, statement) have a fixed design and these rules do not apply to them.
+The "structure" slides (opening, closing, agenda, section dividers) have a fixed design and these rules do not apply to them.
 
 The following rules are for *content* slides, with free structure.
 
