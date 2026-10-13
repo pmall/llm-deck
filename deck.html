@@ -12,7 +12,7 @@
   them. "NEW SLIDE" placeholders are
   still to be written. Parked slides sit after the closing slide.
 
-  Part 1: Opening (What is intelligence?) · From zero to chatbot ·
+  Part 1: From compression to chatbots (opens on intelligence as compression) ·
           Making the chatbot better · hinge (frozen versus live) ·
           The environment
   Part 2: What they don't see yet · Conclusion (The new job)
@@ -53,31 +53,26 @@
     <ol class="agenda-list">
       <li class="agenda-item">
         <span class="agenda-num">01</span>
-        <span class="agenda-title">What is intelligence?</span>
-        <span class="agenda-note">Compression · the zip archive · existing versus plausible</span>
+        <span class="agenda-title">From compression to chatbots</span>
+        <span class="agenda-note">Compression · tokenization · training · patterns · assistant dialogues · the chatbot</span>
       </li>
       <li class="agenda-item">
         <span class="agenda-num">02</span>
-        <span class="agenda-title">From zero to chatbot</span>
-        <span class="agenda-note">Training · autocomplete · patterns · assistant dialogues · the chatbot</span>
-      </li>
-      <li class="agenda-item">
-        <span class="agenda-num">03</span>
         <span class="agenda-title">Making the chatbot better</span>
         <span class="agenda-note">Hallucination · reinforcement learning · thinking · alignment · no hands</span>
       </li>
       <li class="agenda-item">
-        <span class="agenda-num">04</span>
+        <span class="agenda-num">03</span>
         <span class="agenda-title">The environment</span>
         <span class="agenda-note">The three-party conversation · tool calls · the loop</span>
       </li>
       <li class="agenda-item">
-        <span class="agenda-num">05</span>
+        <span class="agenda-num">04</span>
         <span class="agenda-title">What they don’t see yet</span>
         <span class="agenda-note">Self-verification · computer use · long tasks · swarms</span>
       </li>
       <li class="agenda-item">
-        <span class="agenda-num">06</span>
+        <span class="agenda-num">05</span>
         <span class="agenda-title">The new job</span>
         <span class="agenda-note">The universal interface · building the environment</span>
       </li>
@@ -90,29 +85,28 @@
 </section>
 
 
-<!-- ══════ PART 1 · OPENING · What is intelligence? ══════ -->
+<!-- ══════ PART 1 · SECTION 1 · From compression to chatbots ══════ -->
 
 <!-- section divider -->
 <section class="slide layout-section inverse">
   <div class="slide-content">
     <p class="section-num">01</p>
-    <h2>What is intelligence?</h2>
+    <h2>From compression to chatbots</h2>
   </div>
 </section>
 <!-- part1 slide 11 · TODO (outline): intelligence is hard to define, here also artificial -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">What is intelligence?</p>
+    <p class="kicker">From compression to chatbots</p>
     <h2>Intelligence as compression</h2>
     <div class="stage">
       <ul class="points">
+        <li>Researchers such as Marcus Hutter define <strong>intelligence as compression</strong>.</li>
         <li>Information theory equates compressing observations with <strong>predicting</strong> them.</li>
         <li>Predicting beyond simple repetitions takes <strong>understanding</strong>.</li>
         <li>Understanding <strong>generalizes</strong> to what was never observed.</li>
-        <li>Researchers such as Marcus Hutter define <strong>intelligence as compression</strong>.</li>
       </ul>
       <div class="figure figure-contain"><img src="assets/newton-orbits.svg" alt="Scattered observations of the planets, compressed into Newton’s laws, which give every orbit, Neptune’s included"></div>
-      <div class="lore"><p><strong><em>Lore:</em></strong> Claude is widely assumed to be named after Claude Shannon, who founded information theory.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -124,8 +118,8 @@
 <!-- part1 slide 3 · TODO (outline): existing versus plausible: a real archive gives back the documents that exist, the model any document that could exist (already in the takeaway); basis of the hallucination slide -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">What is intelligence?</p>
-    <h2>Think of an LLM as a lossy zip file of human knowledge</h2>
+    <p class="kicker">From compression to chatbots</p>
+    <h2>LLM as a lossy zip file of human knowledge</h2>
     <div class="stage">
       <div class="figure figure-contain"><img src="assets/compression.svg" alt="A messy heap of pages of human text compressed into one small file, which writes new pages"></div>
       <ul class="points">
@@ -133,7 +127,6 @@
         <li>Metaphorically, this zip file contains the infinity of all <strong>plausible</strong> documents.</li>
         <li>Compressing human text a hundredfold leaves no choice but some form of <strong>understanding</strong>.</li>
       </ul>
-      <div class="lore"><p><strong><em>Lore:</em></strong> Ted Chiang, The New Yorker (2023): “ChatGPT is a blurry JPEG of the web”.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -142,33 +135,39 @@
   </footer>
 </section>
 
-
-<!-- ══════ SECTION 1 · From zero to chatbot ══════ -->
-
-<!-- section divider -->
-<section class="slide layout-section inverse">
-  <div class="slide-content">
-    <p class="section-num">02</p>
-    <h2>From zero to chatbot</h2>
-  </div>
-</section>
-
-<!-- part1 slide 4, reworked: links the human text of the zip slide to tokens -->
+<!-- part1 slide 6, reworked: attention as a concept, how compression forces understanding (relationships between words); key slide of the deck, never drop -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">From zero to chatbot</p>
-    <h2>Tokens: human text cut into pieces</h2>
+    <p class="kicker">From compression to chatbots</p>
+    <h2>Attention: words take their meaning from each other</h2>
     <div class="stage">
+      <figure class="figure figure-contain"><img src="assets/attention.svg" alt="Attention from apple: ate and lunch pull toward the fruit, phone pulls toward the company"></figure>
       <ul class="points">
-        <li>Before training, human text is cut into slices of a few characters called <strong>tokens</strong>.</li>
-        <li>One vocabulary of about 100,000 tokens covers <strong>all languages at once</strong>.</li>
-        <li>Where to cut is <strong>statistically optimized</strong> for prediction.</li>
+        <li>Every sentence ever written could never fit in a 1 TB zip file.</li>
+        <li>A finite vocabulary can carry <strong>infinite meanings</strong>.</li>
       </ul>
-      <div class="split split-wide-right">
-        <div class="figure figure-contain"><img src="assets/docs-to-tokens.svg" alt="A pile of documents of human text, cut into tokens"></div>
-        <div class="chips chips-xs"><span class="chip">…</span><span class="chip">Die</span><span class="chip"> Kat</span><span class="chip">ze</span><span class="chip"> sch</span><span class="chip">lä</span><span class="chip">ft</span><span class="chip"> auf</span><span class="chip"> dem</span><span class="chip"> Sofa</span><span class="chip">.</span><span class="chip"> Le</span><span class="chip"> chat</span><span class="chip"> dort</span><span class="chip"> sur</span><span class="chip"> le</span><span class="chip"> can</span><span class="chip">ap</span><span class="chip">é</span><span class="chip">.</span><span class="chip"> The</span><span class="chip"> cat</span><span class="chip"> sat</span><span class="chip"> on</span><span class="chip"> the</span><span class="chip"> mat</span><span class="chip"> while</span><span class="chip"> the</span><span class="chip"> rain</span><span class="chip"> fell</span><span class="chip">.</span><span class="chip">你</span><span class="chip">好</span><span class="chip">，</span><span class="chip">我</span><span class="chip">是</span><span class="chip">学</span><span class="chip">生</span><span class="chip">。</span><span class="chip"> Пр</span><span class="chip">ив</span><span class="chip">ет</span><span class="chip">,</span><span class="chip"> м</span><span class="chip">ир</span><span class="chip">!</span><span class="chip"> 🙂</span><span class="chip">↵</span><span class="chip">def</span><span class="chip"> count</span><span class="chip">_words</span><span class="chip">…</span></div>
-      </div>
-      <div class="lore"><p><strong><em>Lore:</em></strong> In 2024, chatbots claiming that “strawberry” has two r’s became a meme.</p></div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>6</span>
+  </footer>
+</section>
+
+
+
+<!-- new: text is mapped to a fixed vocabulary of tokens, independently of the LLM (no LLM on this slide) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">From compression to chatbots</p>
+    <h2>Tokenization: a finite vocabulary for statistics</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="assets/vocab-list.svg" alt="A blob of human text in many languages and code, written with tokens; the token cat turns up in several places. Next to it, an excerpt of the fixed list of tokens (care, carpet, cat, catch, cats) with the same cat entry highlighted"></figure>
+      <ul class="points">
+        <li>All human text is mapped to one <strong>vocabulary</strong> of about 256,000 tokens.</li>
+        <li>Tokens are <strong>frequent small slices</strong> of text rather than words.</li>
+        <li>Each token appears often enough to give <strong>reliable statistics</strong>.</li>
+      </ul>
     </div>
   </div>
   <footer class="slide-footer">
@@ -180,7 +179,7 @@
 <!-- part1 slide 5 -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">From zero to chatbot</p>
+    <p class="kicker">From compression to chatbots</p>
     <h2>Training: predict the next token</h2>
     <div class="stage">
       <div class="split split-wide-left">
@@ -194,9 +193,9 @@
         </div>
       </div>
       <ul class="points">
-        <li>Take a <strong>passage</strong> from the training text.</li>
-        <li>Have the LLM <strong>predict each token</strong> from the ones before it.</li>
-        <li>Repeat trillions of times. <strong>No labels needed</strong>: the answer is in the text.</li>
+        <li>The LLM <strong>predicts each token</strong> of the training text from the tokens before it.</li>
+        <li>The real next token is already in the text, so <strong>no labels</strong> are needed.</li>
+        <li>This is repeated over <strong>trillions of tokens</strong>.</li>
       </ul>
     </div>
   </div>
@@ -206,18 +205,18 @@
   </footer>
 </section>
 
-<!-- part1 slide 6 · TODO (outline): not in the outline; keep or drop -->
+<!-- part1 slide 7 -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">From zero to chatbot</p>
-    <h2>Attention: every token looks at the others</h2>
+    <p class="kicker">From compression to chatbots</p>
+    <h2>Inference: one token at a time</h2>
     <div class="stage">
-      <figure class="figure figure-contain"><img src="assets/attention.svg" alt="Attention from apple: ate and lunch pull toward the fruit, phone pulls toward the company"></figure>
+      <figure class="figure figure-contain"><img src="assets/autoregressive.svg" alt="llm(The cat) gives sat, which drops into the next call: llm(The cat sat) gives on, then the, then mat"></figure>
       <ul class="points">
-        <li>Every token adds context to the other tokens.</li>
-        <li>Training learns <strong>how strongly each token influences the others</strong>.</li>
+        <li>One call reads <strong>the whole text so far</strong> and predicts <strong>the next token</strong>.</li>
+        <li>The new token is added to the text before the <strong>next call</strong>.</li>
+        <li>A long message takes <strong>one call per token</strong>.</li>
       </ul>
-      <div class="lore"><p><strong><em>Lore:</em></strong> “Attention Is All You Need” (2017) introduced the Transformer, the “T” in GPT.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
@@ -226,16 +225,26 @@
   </footer>
 </section>
 
-<!-- part1 slide 7 -->
+<!-- part1 slide 8 -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">From zero to chatbot</p>
-    <h2>Inference: one token at a time</h2>
+    <p class="kicker">From compression to chatbots</p>
+    <h2>Zoom on one step: the LLM outputs probabilities</h2>
     <div class="stage">
-      <figure class="figure figure-contain"><img src="assets/autoregressive.svg" alt="llm(The cat) gives sat, which drops into the next call: llm(The cat sat) gives on, then the, then mat"></figure>
+      <div class="stack">
+        <div class="gen-row"><span class="fn">llm(</span><div class="chips chips-sm chips-flat"><span class="chip">The</span><span class="chip">cat</span><span class="chip">sat</span><span class="chip">on</span><span class="chip">the</span></div><span class="fn">)</span><span class="fn-arrow">=</span></div>
+        <div class="bars bars-wide">
+          <div class="bar"><span>mat</span><span class="track"><span class="fill" style="--w:45%"></span></span><span class="val">45%</span></div>
+          <div class="bar"><span>floor</span><span class="track"><span class="fill" style="--w:18%"></span></span><span class="val">18%</span></div>
+          <div class="bar"><span>sofa</span><span class="track"><span class="fill" style="--w:12%"></span></span><span class="val">12%</span></div>
+          <div class="bar"><span>bed</span><span class="track"><span class="fill" style="--w:8%"></span></span><span class="val">8%</span></div>
+        </div>
+        <p class="bars-rest">+ 255,996 other tokens, sharing the remaining 17%</p>
+      </div>
       <ul class="points">
-        <li>One call reads <strong>the whole text so far</strong> and predicts <strong>the next token</strong>.</li>
-        <li>That token is added to the text, and the whole text goes back in for the next call.</li>
+        <li>One call gives <strong>each of the 256,000 tokens a probability</strong>.</li>
+        <li>The next token is <strong>drawn at random</strong> from these probabilities.</li>
+        <li>This random draw can make two runs on the same text <strong>differ</strong>.</li>
       </ul>
     </div>
   </div>
@@ -245,38 +254,10 @@
   </footer>
 </section>
 
-<!-- part1 slide 8 -->
-<section class="slide layout-custom">
-  <div class="slide-content">
-    <p class="kicker">From zero to chatbot</p>
-    <h2>Zoom on one step: the LLM outputs probabilities</h2>
-    <div class="stage">
-      <div class="stack">
-        <div class="gen-row"><span class="fn">llm(</span><div class="chips chips-sm chips-flat"><span class="chip">The</span><span class="chip">cat</span><span class="chip">sat</span><span class="chip">on</span><span class="chip">the</span></div><span class="fn">)</span><span class="fn-arrow">=</span></div>
-        <div class="bars bars-big bars-wide">
-          <div class="bar"><span>mat</span><span class="track"><span class="fill" style="--w:45%"></span></span><span class="val">45%</span></div>
-          <div class="bar"><span>floor</span><span class="track"><span class="fill" style="--w:18%"></span></span><span class="val">18%</span></div>
-          <div class="bar"><span>sofa</span><span class="track"><span class="fill" style="--w:12%"></span></span><span class="val">12%</span></div>
-          <div class="bar"><span>bed</span><span class="track"><span class="fill" style="--w:8%"></span></span><span class="val">8%</span></div>
-        </div>
-        <p class="bars-rest">+ 99,996 other tokens, sharing the remaining 17%</p>
-      </div>
-      <ul class="points">
-        <li>One call gives <strong>each of the 100,000 tokens a probability</strong>.</li>
-        <li>The next token is <strong>drawn at random</strong> from these probabilities. Run it twice and the text may differ.</li>
-      </ul>
-    </div>
-  </div>
-  <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>11</span>
-  </footer>
-</section>
-
 <!-- part1 slide 9 · TODO (outline): the base model is an autocomplete: continues a document, no instructions, no conversation -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">From zero to chatbot</p>
+    <p class="kicker">From compression to chatbots</p>
     <h2>At this point: an autocomplete that dreams documents</h2>
     <div class="stage">
       <div class="panels-3">
@@ -294,8 +275,27 @@ def is_negative(n):
         <div class="code code-wrap"><span class="dim">What is the capital of France?</span><span class="hl"> What is the capital of Italy? What is the capital of Spain? What is the capital of Japan? What is the capital of Egypt? What is the capital of Chile? What is the capital of…</span></div>
       </div>
       <ul class="points">
-        <li>Start any document and it <strong>dreams the rest</strong>.</li>
+        <li>The LLM <strong>dreams the rest</strong> of any document it is given.</li>
         <li>A question is <strong>continued</strong> rather than answered.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>11</span>
+  </footer>
+</section>
+
+<!-- part1 slide 10 · TODO (outline): side point: diffusion language models already generate whole passages at once, the rest of the talk would still hold -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">From compression to chatbots</p>
+    <h2>Judge the document, not the mechanism</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="assets/judge-document.svg" alt="A parrot writing token by token leads to the document, judged on one question: is it good?"></figure>
+      <ul class="points">
+        <li>“It only predicts the next token” says <strong>nothing about the quality</strong> of the document.</li>
+        <li><strong>The rest of this workshop holds</strong> whatever the mechanism.</li>
       </ul>
     </div>
   </div>
@@ -305,30 +305,10 @@ def is_negative(n):
   </footer>
 </section>
 
-<!-- part1 slide 10 · TODO (outline): side point: diffusion language models already generate whole passages at once, the rest of the talk would still hold -->
-<section class="slide layout-custom">
-  <div class="slide-content">
-    <p class="kicker">From zero to chatbot</p>
-    <h2>Judge the document, not the mechanism</h2>
-    <div class="stage">
-      <figure class="figure figure-contain"><img src="assets/judge-document.svg" alt="A parrot writing token by token leads to the document, judged on one question: is it good?"></figure>
-      <ul class="points">
-        <li>“It only predicts the next token” is true. It says <strong>nothing about the quality</strong> of the document.</li>
-        <li><strong>The rest of this workshop holds</strong> whatever the mechanism.</li>
-      </ul>
-      <div class="lore"><p><strong><em>Lore:</em></strong> “Stochastic parrots” (Bender et al., 2021) is the best-known version of the worry.</p></div>
-    </div>
-  </div>
-  <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>13</span>
-  </footer>
-</section>
-
 <!-- part1 slide 13 -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">From zero to chatbot</p>
+    <p class="kicker">From compression to chatbots</p>
     <h2>Emergent property: the LLM picks up patterns</h2>
     <div class="stage">
       <div class="panels-2">
@@ -346,23 +326,22 @@ What is a dish from Egypt? 🧆 Falafel.
 What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
       </div>
       <ul class="points">
-        <li>Unexpected: the LLM <strong>spots patterns</strong> in the prompt and continues them.</li>
-        <li>Nobody designed this ability. It <strong>emerged</strong> on its own as LLMs grew larger.</li>
-        <li>A prompt with a few examples steers the LLM. This is <strong>few-shot prompting</strong>.</li>
+        <li>The LLM <strong>spots patterns</strong> in the prompt and continues them.</li>
+        <li>This ability <strong>emerged</strong> on its own as LLMs grew larger.</li>
+        <li>Steering the LLM with a few examples is called <strong>few-shot prompting</strong>.</li>
       </ul>
-      <div class="lore"><p><strong><em>Lore:</em></strong> “Language Models are Few-Shot Learners”, the GPT-3 paper (2020).</p></div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>14</span>
+    <span>13</span>
   </footer>
 </section>
 
 <!-- part1 slide 14 · TODO (outline): reframe as: seen a pattern ≠ learned a pattern; pre-training holds every pattern, each seen a little; what if the model is trained on thousands of examples of one single pattern? -->
 <section class="slide layout-two-images">
   <div class="slide-content">
-    <p class="kicker">From zero to chatbot</p>
+    <p class="kicker">From compression to chatbots</p>
     <h2>Fine-tuning: one concept takes the lead</h2>
     <div class="stage">
       <div class="cols">
@@ -382,14 +361,14 @@ What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>15</span>
+    <span>14</span>
   </footer>
 </section>
 
 <!-- part1 slide 15 · TODO (outline): assistant dialogues are almost absent from the internet, so people write them; side point: the same mechanism with theater-like dialogues gives the assistant its personality -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">From zero to chatbot</p>
+    <p class="kicker">From compression to chatbots</p>
     <h2>Instruction tuning: from autocomplete to assistant</h2>
     <div class="stage">
       <div class="panels-2">
@@ -407,19 +386,18 @@ What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
         <li>Special tokens name <strong>who speaks</strong> and close <strong>each turn</strong>, like in a theatre script.</li>
         <li>The LLM picks up the pattern and turns from an autocomplete into <strong>an assistant</strong>.</li>
       </ul>
-      <div class="lore"><p><strong><em>Lore:</em></strong> ChatGPT (30 Nov 2022) was a GPT-3.5 model tuned on conversations like these.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>16</span>
+    <span>15</span>
   </footer>
 </section>
 
 <!-- part1 slide 19 · TODO (outline): the chatbot is the software that keeps the history and sends it back each turn; add the KV cache (only the new message is processed); system prompt already a bullet here -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">From zero to chatbot</p>
+    <p class="kicker">From compression to chatbots</p>
     <h2>Chatting: one turn at a time</h2>
     <div class="stage">
       <figure class="figure figure-contain"><img src="assets/chat-turns.svg" alt="llm(user: What is the capital of France?) gives assistant: Paris.; that turn and the new user turn And of Italy? go back in and give Rome.; then And of Spain? is added and gives Madrid."></figure>
@@ -433,14 +411,14 @@ What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>17</span>
+    <span>16</span>
   </footer>
 </section>
 
-<!-- part1 slide 24 · TODO (outline): add compaction: near the limit, the chatbot summarizes the conversation and continues from the summary; outline lore: strawberry R’s -->
+<!-- part1 slide 24 · TODO (outline): add compaction: near the limit, the chatbot summarizes the conversation and continues from the summary; outline lore: strawberry R’s; TODO (from the removed tokens-implications slide): one million tokens ≈ ten novels, usage limits and API prices counted per million tokens -->
 <section class="slide layout-custom">
   <div class="slide-content">
-    <p class="kicker">From zero to chatbot</p>
+    <p class="kicker">From compression to chatbots</p>
     <h2>The context window: a hard limit on the conversation</h2>
     <div class="stage">
             <div class="split">
@@ -453,39 +431,14 @@ What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
           <li>Recent LLMs <strong>use the whole window</strong> far better.</li>
         </ul>
       </div>
-      <div class="lore"><p><strong><em>Lore:</em></strong> Claude Opus 4.6 was asked to list every spell in the first four Harry Potter books (about 733K tokens). It found 49 of the 50.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>18</span>
+    <span>17</span>
   </footer>
 </section>
 
-<!-- part1 slide 22 · TODO (outline): not in the outline -->
-<section class="slide layout-custom">
-  <div class="slide-content">
-    <p class="kicker">From zero to chatbot</p>
-    <h2>Tokens: the unit of size and cost</h2>
-    <div class="stage">
-      <dl class="defs defs-lg">
-        <div class="def def-wide"><dt>1 token</dt><dd>≈ ¾ of an English word, about four characters</dd></div>
-        <div class="def def-wide"><dt>1,000 tokens</dt><dd>≈ 750 words, a page and a half</dd></div>
-        <div class="def def-wide"><dt>100,000 tokens</dt><dd>≈ a 300-page novel</dd></div>
-        <div class="def def-wide"><dt>1,000,000 tokens</dt><dd>≈ ten novels</dd></div>
-      </dl>
-      <ul class="points">
-        <li>Chatbot usage limits are <strong>counted in tokens</strong>.</li>
-        <li>API prices are quoted <strong>per million tokens</strong>. Sent and written tokens have <strong>separate prices</strong>.</li>
-        <li>A written token costs about <strong>five times more</strong> than a sent one.</li>
-      </ul>
-    </div>
-  </div>
-  <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>19</span>
-  </footer>
-</section>
 
 
 <!-- ══════ SECTION 2 · Making the chatbot better ══════ -->
@@ -493,7 +446,7 @@ What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
 <!-- section divider -->
 <section class="slide layout-section inverse">
   <div class="slide-content">
-    <p class="section-num">03</p>
+    <p class="section-num">02</p>
     <h2>Making the chatbot better</h2>
   </div>
 </section>
@@ -510,12 +463,11 @@ What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
         <li>Names, dates, figures and citations are <strong>the most at risk</strong>.</li>
         <li>A wrong answer sounds <strong>as confident</strong> as a right one.</li>
       </ul>
-      <div class="lore"><p><strong><em>Lore:</em></strong> In 2023, lawyers filed a brief citing this case and five others invented by ChatGPT (<em>Mata v. Avianca</em>).</p></div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>21</span>
+    <span>19</span>
   </footer>
 </section>
 
@@ -546,7 +498,7 @@ What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>22</span>
+    <span>20</span>
   </footer>
 </section>
 
@@ -565,12 +517,11 @@ What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
         <li>Thousands of picks train a <strong>scoring model</strong>. It then grades answers the way the answer key did.</li>
         <li>People prefer answers that agree with them, so the LLM learns to <strong>flatter</strong>.</li>
       </ul>
-      <div class="lore"><p><strong><em>Lore:</em></strong> April 2025: OpenAI rolled back a ChatGPT update that flattered users far too much.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>23</span>
+    <span>21</span>
   </footer>
 </section>
 
@@ -597,12 +548,11 @@ I am his father, so he is my son.
           <li>Chatbots often hide the thinking and show only the answer.</li>
         </ul>
       </div>
-      <div class="lore"><p><strong><em>Lore:</em></strong> DeepSeek-R1 (Jan 2025) learned to reason this way in the open. It shook the industry and the stock market.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>24</span>
+    <span>22</span>
   </footer>
 </section>
 
@@ -632,7 +582,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>25</span>
+    <span>23</span>
   </footer>
 </section>
 
@@ -653,7 +603,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>26</span>
+    <span>24</span>
   </footer>
 </section>
 
@@ -673,7 +623,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>27</span>
+    <span>25</span>
   </footer>
 </section>
 
@@ -693,7 +643,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>28</span>
+    <span>26</span>
   </footer>
 </section>
 
@@ -713,7 +663,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>29</span>
+    <span>27</span>
   </footer>
 </section>
 
@@ -735,7 +685,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>30</span>
+    <span>28</span>
   </footer>
 </section>
 
@@ -745,7 +695,7 @@ I am his father, so he is my son.
 <!-- section divider -->
 <section class="slide layout-section inverse">
   <div class="slide-content">
-    <p class="section-num">04</p>
+    <p class="section-num">03</p>
     <h2>The environment</h2>
   </div>
 </section>
@@ -761,7 +711,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>32</span>
+    <span>30</span>
   </footer>
 </section>
 
@@ -781,7 +731,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>33</span>
+    <span>31</span>
   </footer>
 </section>
 
@@ -805,12 +755,11 @@ I am his father, so he is my son.
           <li>The forecast is <strong>fetched</strong>, not predicted: live context, not training data.</li>
         </ul>
       </div>
-      <div class="lore"><span class="tag">Lore</span><p>Function calling (2023), then MCP (Nov 2024): a common plug for tools.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>34</span>
+    <span>32</span>
   </footer>
 </section>
 
@@ -830,12 +779,11 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
           <div class="panel panel-featured"><span class="panel-label">Agent</span><p>A tool call? Run it, append the result, call the LLM again. It stops only when the LLM <em>answers</em>.</p></div>
         </div>
       </div>
-      <div class="lore"><span class="tag">Lore</span><p>ReAct (Yao et al., 2022): reason + act, interleaved.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>35</span>
+    <span>33</span>
   </footer>
 </section>
 
@@ -856,7 +804,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>36</span>
+    <span>34</span>
   </footer>
 </section>
 
@@ -898,7 +846,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>37</span>
+    <span>35</span>
   </footer>
 </section>
 
@@ -925,7 +873,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>38</span>
+    <span>36</span>
   </footer>
 </section>
 
@@ -948,12 +896,11 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
           <li>Memory outlives the context window.</li>
         </ul>
       </div>
-      <div class="lore"><span class="tag">Lore</span><p><code>AGENTS.md</code> / <code>CLAUDE.md</code> files; “Claude plays Pokémon” kept notes to carry on. This deck was built the same way.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>39</span>
+    <span>37</span>
   </footer>
 </section>
 
@@ -984,7 +931,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>40</span>
+    <span>38</span>
   </footer>
 </section>
 
@@ -1018,7 +965,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>41</span>
+    <span>39</span>
   </footer>
 </section>
 
@@ -1047,7 +994,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>42</span>
+    <span>40</span>
   </footer>
 </section>
 
@@ -1072,12 +1019,11 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
         <li>Enables visual content made by iteration: layouts, diagrams, 3D, even short films frame by frame.</li>
         <li>Seeing a screen is also what makes computer use possible.</li>
       </ul>
-      <div class="lore"><span class="tag">Lore</span><p>This very deck is checked that way: render each slide to an image, look, fix.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>43</span>
+    <span>41</span>
   </footer>
 </section>
 
@@ -1106,7 +1052,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>44</span>
+    <span>42</span>
   </footer>
 </section>
 
@@ -1128,7 +1074,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>45</span>
+    <span>43</span>
   </footer>
 </section>
 
@@ -1138,7 +1084,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
 <!-- section divider -->
 <section class="slide layout-section inverse">
   <div class="slide-content">
-    <p class="section-num">05</p>
+    <p class="section-num">04</p>
     <h2>What they don’t see yet</h2>
   </div>
 </section>
@@ -1158,12 +1104,11 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
           <li>It stops when the criteria are met, not after a fixed number of steps.</li>
         </ul>
       </div>
-      <div class="lore"><span class="tag">Lore</span><p>AutoGPT (2023) made the loop go viral, before LLMs were reliable enough to check their own work.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>47</span>
+    <span>45</span>
   </footer>
 </section>
 
@@ -1186,12 +1131,11 @@ $ run tests
           <li>Lesson: give the agent a way to check itself.</li>
         </ul>
       </div>
-      <div class="lore"><span class="tag">Lore</span><p>SWE-bench (2023) turned “fix a real GitHub issue” into the benchmark; “vibe coding” (Karpathy, Feb 2025) named the practice.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>48</span>
+    <span>46</span>
   </footer>
 </section>
 
@@ -1224,12 +1168,11 @@ $ run tests
         <li>Slower, more fragile, costlier: interfaces change, the agent must re-orient.</li>
         <li>Not a superpower: a fallback for what was never machine-readable.</li>
       </ul>
-      <div class="lore"><span class="tag">Lore</span><p>Anthropic computer use (Oct 2024), OpenAI Operator (Jan 2025).</p></div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>49</span>
+    <span>47</span>
   </footer>
 </section>
 
@@ -1251,7 +1194,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>50</span>
+    <span>48</span>
   </footer>
 </section>
 
@@ -1271,12 +1214,11 @@ $ run tests
           <div class="figure-ph">illustration placeholder · task duration (seconds → minutes → hours → days) rising over time, one point per milestone</div>
         </figure>
       </div>
-      <div class="lore"><span class="tag">Lore</span><p>METR (2025): the task length at 50% success doubles roughly every seven months.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>51</span>
+    <span>49</span>
   </footer>
 </section>
 
@@ -1294,12 +1236,11 @@ $ run tests
         <li>Workers hand back a result, not their whole context.</li>
       </ul>
       </div>
-      <div class="lore"><span class="tag">Lore</span><p>Anthropic’s multi-agent research system (2025): lead agent plus parallel sub-agents.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>52</span>
+    <span>50</span>
   </footer>
 </section>
 
@@ -1329,7 +1270,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>53</span>
+    <span>51</span>
   </footer>
 </section>
 
@@ -1339,7 +1280,7 @@ $ run tests
 <!-- section divider -->
 <section class="slide layout-section inverse">
   <div class="slide-content">
-    <p class="section-num">06</p>
+    <p class="section-num">05</p>
     <h2>The new job</h2>
   </div>
 </section>
@@ -1374,7 +1315,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>55</span>
+    <span>53</span>
   </footer>
 </section>
 
@@ -1389,7 +1330,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>56</span>
+    <span>54</span>
   </footer>
 </section>
 
@@ -1425,7 +1366,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>57</span>
+    <span>55</span>
   </footer>
 </section>
 
@@ -1440,7 +1381,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>58</span>
+    <span>56</span>
   </footer>
 </section>
 
@@ -1485,7 +1426,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>60</span>
+    <span>58</span>
   </footer>
 </section>
 
@@ -1501,12 +1442,11 @@ $ run tests
         <li>No letter is written in these numbers. <strong>There are no r’s to count.</strong></li>
         <li>Spelling backwards, rhymes and anagrams trip it up <strong>for the same reason</strong>.</li>
       </ul>
-      <div class="lore"><p><strong><em>Lore:</em></strong> In 2024, chatbots kept saying “strawberry” has 2 r’s. It became a meme.</p></div>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>61</span>
+    <span>59</span>
   </footer>
 </section>
 

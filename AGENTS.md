@@ -74,7 +74,7 @@ Each file in `layouts/` is a copy-paste `<section>` snippet, standalone-previewa
 
 The 19 layouts cover the common cases and should be used as-is ~99% of the time. They are a starting point — when a slide genuinely needs a small deviation to serve the user's instruction, deviate. The styling vocabulary (`.kicker`, `.lead`, `.cards-*`, `.figure`, the `inverse` modifier) is composable. Consecutive slides on the same layout read as a rut — vary them.
 
-**Custom content slides.** When the content has its own shape (a formula, a dialogue, a flow, nested boxes, a timeline), build a `.slide.layout-custom` from the components in `base.css` §7 — `.split`, `.panel`, `.code`, `.chips`, `.bars`, `.chat`/`.msg`, `.flow`/`.node`, `.box`, `.layers`, `.timeline`, `.lore`…, with the usual kicker + `h2`, the footer, and nothing past the footer. Diagrams that are really structured text (lists, trees, code, a row of boxes) stay in HTML/CSS. Anything with real geometry — cycles, branching arrows, positioned shapes, charts — is a standalone SVG figure (§6): don't force it into `.flow`/`.node`.
+**Custom content slides.** When the content has its own shape (a formula, a dialogue, a flow, nested boxes, a timeline), build a `.slide.layout-custom` from the components in `base.css` §7 — `.split`, `.panel`, `.code`, `.chips`, `.bars`, `.chat`/`.msg`, `.flow`/`.node`, `.box`, `.layers`, `.timeline`…, with the usual kicker + `h2`, the footer, and nothing past the footer. Diagrams that are really structured text (lists, trees, code, a row of boxes) stay in HTML/CSS. Anything with real geometry — cycles, branching arrows, positioned shapes, charts — is a standalone SVG figure (§6): don't force it into `.flow`/`.node`.
 
 **Transitions.** Every section opens with a `section-divider` slide (`layout-section inverse`), and these are the only transitions in the deck:
 
@@ -123,7 +123,7 @@ Text:
 6. **Text carries what the figure cannot**: the mechanism, the consequence, the reason. It never restates the figure and never names colors ("in purple").
 7. **Every word is literally accurate.** Vague or approximate words are shortcuts for a mechanism not yet worked out.
 8. **No concept before the slide that introduces it.** Notation and undefined terms are shortcuts for an explanation never given.
-9. **Slides are not prose.** One short clause, or two short sentences. No chains of "X: Y" or "X, Y". Vary the rhythm between bullets. Cause before effect, in plain words. No unnatural word wrap. Every bullet is a sentence and ends with a period.
+9. **Slides are not prose.** One short clause, or two short sentences. No chains of "X: Y" or "X, Y". Vary the rhythm between bullets. Cause before effect, in plain words. No unnatural word wrap. Every bullet is a sentence and ends with a period. The voice is impersonal: the passive, never "we" ("Text is mapped to tokens", not "We map text to tokens").
 10. **Titles state the idea plainly.** No riddles, no distinctions the audience cannot see. A metaphor is stated as one ("Think of an LLM as…"). No sensational term, no slop.
 11. **Emphasis is black bold** (`<strong>`). A color carries a meaning across the whole deck and never decorates a word.
 
@@ -132,7 +132,7 @@ Content:
 12. **Density comes from content** — longer examples, a real case — never from frames or filler. Dense is not overcrowded: the slide fills its space, and margins are shared between components.
 13. **Understanding beats precision.** A recent, recognizable example with approximate but realistic numbers, consistent across slides, in the same units in text and visuals.
 14. **Side points stay side points.** One clause, never their own illustration or slide.
-15. **Lore is one line**, connected to the slide: `<p><strong><em>Lore:</em></strong> …</p>`, no badge.
+15. **No lore on slides.** Anecdotes and AI-history facts are oral notes for the speaker, kept in `oral-notes.md`, never in `deck.html`.
 
 Process:
 
