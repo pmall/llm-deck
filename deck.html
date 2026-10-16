@@ -101,10 +101,10 @@
     <h2>Intelligence as compression</h2>
     <div class="stage">
       <ul class="points">
-        <li>Researchers such as Marcus Hutter define <strong>intelligence as compression</strong>.</li>
         <li>Information theory equates compressing observations with <strong>predicting</strong> them.</li>
         <li>Predicting beyond simple repetitions takes <strong>understanding</strong>.</li>
         <li>Understanding <strong>generalizes</strong> to what was never observed.</li>
+        <li>Researchers such as Marcus Hutter define <strong>intelligence as compression</strong>.</li>
       </ul>
       <div class="figure figure-contain"><img src="assets/newton-orbits.svg" alt="Scattered observations of the planets, compressed into Newton’s laws, which give every orbit, Neptune’s included"></div>
     </div>
@@ -135,16 +135,17 @@
   </footer>
 </section>
 
-<!-- part1 slide 6, reworked: attention as a concept, how compression forces understanding (relationships between words); key slide of the deck, never drop -->
+<!-- part1 slide 6, reworked: attention as the mechanism behind the LLM's understanding; the audience guesses the next word from the words before it; key slide of the deck, never drop -->
 <section class="slide layout-custom">
   <div class="slide-content">
     <p class="kicker">From compression to chatbots</p>
-    <h2>Attention: words take their meaning from each other</h2>
+    <h2>Attention: some words weigh more than others</h2>
     <div class="stage">
-      <figure class="figure figure-contain"><img src="assets/attention.svg" alt="Attention from apple: ate and lunch pull toward the fruit, phone pulls toward the company"></figure>
+      <figure class="figure figure-contain"><img src="assets/attention.svg" alt="Guessing the next word: rain after umbrella and started, sour after milk, night and smelled; thicker lines for the words that weigh more"></figure>
       <ul class="points">
-        <li>Every sentence ever written could never fit in a 1 TB zip file.</li>
-        <li>A finite vocabulary can carry <strong>infinite meanings</strong>.</li>
+        <li>The next word is guessed from its <strong>relationships</strong> with the words before it.</li>
+        <li>Attention gives more <strong>weight</strong> to the strongest relationships.</li>
+        <li>Attention is the mechanism that lets the LLM <strong>understand</strong> text.</li>
       </ul>
     </div>
   </div>
@@ -195,7 +196,7 @@
       <ul class="points">
         <li>The LLM <strong>predicts each token</strong> of the training text from the tokens before it.</li>
         <li>The real next token is already in the text, so <strong>no labels</strong> are needed.</li>
-        <li>This is repeated over <strong>trillions of tokens</strong>.</li>
+        <li>Predicting <strong>trillions of tokens</strong> is how the LLM <strong>builds its understanding</strong>.</li>
       </ul>
     </div>
   </div>

@@ -8,11 +8,11 @@ Speaker notes kept off the slides (formerly the "Lore" lines). Slide numbers as 
 ## Slide 5 — LLM as a lossy zip file of human knowledge
 - Ted Chiang, The New Yorker (2023): “ChatGPT is a blurry JPEG of the web”.
 
-## Slide 6 — Attention: words take their meaning from each other
+## Slide 6 — Attention: some words weigh more than others
 - The core idea, said out loud: storing every sentence ever written could never fit in a 1 TB zip file; what fits is the relationships between words, which hold in every sentence. Each word takes its meaning from the words around it.
 - “Attention Is All You Need” (2017) introduced the Transformer, the “T” in GPT.
 - “You shall know a word by the company it keeps.” (J. R. Firth, linguist, 1957)
-- The figure shows attention in both directions (like a masked model); GPT-style LLMs only look at the words before. Fine for the concept.
+- Ask the room to guess each blank before revealing it: they predict from what they understand. Training (slide 8) goes the other way round: the LLM learns to understand by predicting.
 
 ## Slide 13 — Judge the document, not the mechanism
 - “Stochastic parrots” (Bender et al., 2021) is the best-known version of the worry.
