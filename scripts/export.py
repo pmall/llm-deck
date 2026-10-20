@@ -101,6 +101,19 @@ SLIDE_H = 720
 # <section class="slide ...">. Screenshots and page breaks key off this.
 SLIDE_SELECTOR = ".slide"
 
+# Render with the author's own browser so QA shows exactly what they see
+# (Brave draws JetBrains Mono wider than the headless shell, which moves
+# line wraps). Falls back to Playwright's headless shell when absent.
+DEFAULT_BROWSER = "/snap/brave/current/opt/brave.com/brave/brave"
+
+
+def _launch(p, args: argparse.Namespace):
+    """Launch --browser if it exists, else Playwright's headless shell."""
+    exe = getattr(args, "browser", "")
+    if exe and Path(exe).is_file():
+        return p.chromium.launch(executable_path=exe, headless=True)
+    return p.chromium.launch(headless=True)
+
 
 def _file_uri(path: Path) -> str:
     """Return a file:// URI for an absolute path (spaces/unicode-safe)."""
@@ -128,7 +141,7 @@ def cmd_png(args: argparse.Namespace) -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = _launch(p, args)
         page = browser.new_page(viewport={"width": SLIDE_W, "height": SLIDE_H})
         page.goto(_file_uri(input_path))
         _wait_ready(page)
@@ -166,7 +179,7 @@ def cmd_pdf(args: argparse.Namespace) -> int:
     out_file = out_dir / f"{args.prefix}deck.pdf"
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = _launch(p, args)
         page = browser.new_page(viewport={"width": SLIDE_W, "height": SLIDE_H})
         page.goto(_file_uri(input_path))
         _wait_ready(page)
@@ -273,7 +286,7 @@ def cmd_boxes(args: argparse.Namespace) -> int:
         selectors = list(DEFAULT_BOX_SELECTORS)
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = _launch(p, args)
         page = browser.new_page(viewport={"width": SLIDE_W, "height": SLIDE_H})
         page.goto(_file_uri(input_path))
         _wait_ready(page)
@@ -350,7 +363,18 @@ def build_parser() -> argparse.ArgumentParser:
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
+    def add_browser(p: argparse.ArgumentParser) -> None:
+        p.add_argument(
+            "--browser",
+            default=DEFAULT_BROWSER,
+            help=(
+                "Chromium-based browser binary to render with; empty string "
+                f"for the headless shell (default: {DEFAULT_BROWSER})."
+            ),
+        )
+
     def add_common(p: argparse.ArgumentParser) -> None:
+        add_browser(p)
         p.add_argument(
             "--input",
             default="deck.html",
@@ -377,6 +401,7 @@ def build_parser() -> argparse.ArgumentParser:
         "boxes",
         help="Read-only geometry report: slot rects per slide (no files written).",
     )
+    add_browser(boxes)
     boxes.add_argument(
         "--input",
         default="deck.html",

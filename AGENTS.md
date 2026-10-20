@@ -143,6 +143,8 @@ Process:
 
 Render with the uv-managed Playwright script — `scripts/export.py`.
 
+It renders with the author's Brave (`--browser`, default `/snap/brave/current/opt/brave.com/brave/brave`) so QA images match what the author sees pixel for pixel; Brave draws monospace text wider than the headless shell. `--browser ""` falls back to the headless shell.
+
 First-time setup on a machine (browser binary cached in `~/.cache/ms-playwright/`, shared across clones):
 
 ```sh
