@@ -17,7 +17,7 @@
     .stroke-strong    { stroke: #17323A; }
     .stroke-subtle    { stroke: #D3DFDF; }
   </style>
-  <!-- the word that gives the guess away (teal) and the guessed word (purple) -->
+  <!-- the words that give the guess away (teal) and the guessed word (purple) -->
   <rect x="20" y="150" width="72" height="46" rx="6" class="bg-muted"/>
   <text x="56" y="181" text-anchor="middle" font-family="monospace" font-size="24" class="text-primary">She</text>
   <rect x="104" y="150" width="87" height="46" rx="6" class="bg-muted"/>
@@ -30,8 +30,8 @@
   <text x="509" y="181" text-anchor="middle" font-family="monospace" font-size="24" class="text-primary">because</text>
   <rect x="586" y="150" width="58" height="46" rx="6" class="bg-muted"/>
   <text x="615" y="181" text-anchor="middle" font-family="monospace" font-size="24" class="text-primary">it</text>
-  <rect x="656" y="150" width="130" height="46" rx="6" class="bg-muted"/>
-  <text x="721" y="181" text-anchor="middle" font-family="monospace" font-size="24" class="text-primary">started</text>
+  <rect x="656" y="150" width="130" height="46" rx="6" class="accent-primary"/>
+  <text x="721" y="181" text-anchor="middle" font-family="monospace" font-size="24" class="text-on-accent">started</text>
   <rect x="798" y="150" width="58" height="46" rx="6" class="bg-muted"/>
   <text x="827" y="181" text-anchor="middle" font-family="monospace" font-size="24" class="text-primary">to</text>
   <rect x="868" y="150" width="87" height="46" rx="6" class="accent-secondary"/>
@@ -48,8 +48,8 @@
   <text x="444" y="267" text-anchor="middle" font-family="monospace" font-size="24" class="text-primary">so</text>
   <rect x="485" y="236" width="72" height="46" rx="6" class="bg-muted"/>
   <text x="521" y="267" text-anchor="middle" font-family="monospace" font-size="24" class="text-primary">she</text>
-  <rect x="569" y="236" width="87" height="46" rx="6" class="bg-muted"/>
-  <text x="612.5" y="267" text-anchor="middle" font-family="monospace" font-size="24" class="text-primary">fell</text>
+  <rect x="569" y="236" width="87" height="46" rx="6" class="accent-primary"/>
+  <text x="612.5" y="267" text-anchor="middle" font-family="monospace" font-size="24" class="text-on-accent">fell</text>
   <rect x="668" y="236" width="116" height="46" rx="6" class="accent-secondary"/>
   <text x="726" y="267" text-anchor="middle" font-family="monospace" font-size="24" class="text-on-accent">asleep</text>
   <rect x="20" y="322" width="58" height="46" rx="6" class="bg-muted"/>
@@ -66,8 +66,8 @@
   <text x="486" y="353" text-anchor="middle" font-family="monospace" font-size="24" class="text-primary">so</text>
   <rect x="527" y="322" width="58" height="46" rx="6" class="bg-muted"/>
   <text x="556" y="353" text-anchor="middle" font-family="monospace" font-size="24" class="text-primary">he</text>
-  <rect x="597" y="322" width="116" height="46" rx="6" class="bg-muted"/>
-  <text x="655" y="353" text-anchor="middle" font-family="monospace" font-size="24" class="text-primary">speaks</text>
+  <rect x="597" y="322" width="116" height="46" rx="6" class="accent-primary"/>
+  <text x="655" y="353" text-anchor="middle" font-family="monospace" font-size="24" class="text-on-accent">speaks</text>
   <rect x="725" y="322" width="116" height="46" rx="6" class="accent-secondary"/>
   <text x="783" y="353" text-anchor="middle" font-family="monospace" font-size="24" class="text-on-accent">French</text>
 </svg>

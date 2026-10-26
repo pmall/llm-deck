@@ -11,7 +11,7 @@ Speaker notes kept off the slides (formerly the "Lore" lines). Slide numbers as 
 ## Slide 6 — Next-word prediction: understanding comes first
 - Ask the room to guess each last word before revealing it: they predict from what they understand. Pre-training (slide 9) goes the other way round: the LLM learns to understand by predicting.
 
-## Slide 10 — Attention: the mechanism that records understanding
+## Slide 10 — Attention: words take their meaning from each other
 - The core idea, said out loud: storing every sentence ever written could never fit in a 1 TB zip file; what fits is the relationships between words, which hold in every sentence. Each word takes its meaning from the words around it.
 - “Attention Is All You Need” (2017) introduced the Transformer, the “T” in GPT.
 - “You shall know a word by the company it keeps.” (J. R. Firth, linguist, 1957)

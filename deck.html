@@ -54,7 +54,7 @@
       <li class="agenda-item">
         <span class="agenda-num">01</span>
         <span class="agenda-title">Predicting takes understanding</span>
-        <span class="agenda-note">Compression · the lossy zip · next-word prediction</span>
+        <span class="agenda-note">Compression · the lossy zip</span>
       </li>
       <li class="agenda-item">
         <span class="agenda-num">02</span>
@@ -140,28 +140,6 @@
   </footer>
 </section>
 
-<!-- part1 slide 6, reworked: people predict the next word because they understand the text; training (slide 8) flips it -->
-<section class="slide layout-custom">
-  <div class="slide-content">
-    <p class="kicker">Predicting takes understanding</p>
-    <h2>Next-word prediction: understanding comes first</h2>
-    <div class="stage">
-      <figure class="figure figure-contain"><img src="assets/next-word.svg" alt="Guessing the next word: rain after “She took her umbrella because it started to”, asleep after “The baby was tired, so she fell”, French after “He grew up in Paris, so he speaks”"></figure>
-      <ul class="points">
-        <li>The <strong>meaning</strong> of the previous words gives away the next word.</li>
-        <li>The right word comes even in sentences <strong>never read before</strong>.</li>
-        <li><strong>Understanding</strong> the text lets people <strong>predict</strong> its next word.</li>
-      </ul>
-    </div>
-  </div>
-  <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>6</span>
-  </footer>
-</section>
-
-
-
 <!-- ══════ PART 1 · SECTION 2 · The base model ══════ -->
 
 <!-- section divider -->
@@ -182,13 +160,13 @@
       <ul class="points">
         <li>All human text is encoded with one fixed vocabulary of about <strong>256,000 tokens</strong>.</li>
         <li>Tokens are <strong>frequent small slices</strong> of text rather than words.</li>
-        <li>The slices are cut so that each one <strong>comes back again and again</strong> in the text.</li>
+        <li>A <strong>rare word</strong> is split into several frequent tokens.</li>
       </ul>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>8</span>
+    <span>7</span>
   </footer>
 </section>
 
@@ -211,33 +189,33 @@
       <ul class="points">
         <li>The LLM <strong>predicts each token</strong> of the training text from the tokens before it.</li>
         <li>The real next token is already in the text, so <strong>no labels</strong> are needed.</li>
-        <li>Predicting trillions of tokens <strong>forces the LLM to understand</strong> text.</li>
+        <li>Reaching a high score at predicting forces the LLM to compute the <strong>meaning</strong> of text.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>8</span>
+  </footer>
+</section>
+
+<!-- new: causal attention, each token blends in the meaning of the previous tokens that count (mouse: animal vs device decides trap vs button); training sets the parameters; key slide of the deck, never drop -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The base model</p>
+    <h2>Attention: words take their meaning from each other</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="assets/attention.svg" alt="Predicting the next word: after “The farmer caught the mouse in a”, the empty slot blends in the meaning of caught and mouse, then predicts trap; after “The gamer clicked the left mouse”, it blends in clicked and mouse, then predicts button"></figure>
+      <ul class="points">
+        <li>Attention blends in the <strong>meaning</strong> of the previous tokens that count.</li>
+        <li>The meaning blended into the last position <strong>predicts</strong> the next token.</li>
+        <li>Training sets the <strong>parameters</strong> that decide which tokens count.</li>
       </ul>
     </div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
     <span>9</span>
-  </footer>
-</section>
-
-<!-- new: attention, the architecture that encodes the understanding training builds (relationships between words); key slide of the deck, never drop -->
-<section class="slide layout-custom">
-  <div class="slide-content">
-    <p class="kicker">The base model</p>
-    <h2>Attention: the mechanism that records understanding</h2>
-    <div class="stage">
-      <figure class="figure figure-contain"><img src="assets/attention.svg" alt="Attention from apple: ate and lunch pull toward the fruit, phone pulls toward the company"></figure>
-      <ul class="points">
-        <li>Attention <strong>relates</strong> each token to every other token of the text.</li>
-        <li>Training tunes how much <strong>weight</strong> each relationship gets.</li>
-        <li>These weighted relationships hold the LLM’s <strong>understanding</strong> of text.</li>
-      </ul>
-    </div>
-  </div>
-  <footer class="slide-footer">
-    <span>Demystifying LLMs</span>
-    <span>10</span>
   </footer>
 </section>
 
@@ -260,7 +238,7 @@
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>11</span>
+    <span>10</span>
   </footer>
 </section>
 
@@ -289,7 +267,7 @@
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>12</span>
+    <span>11</span>
   </footer>
 </section>
 
@@ -319,7 +297,7 @@ def is_zero(number: int):
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>13</span>
+    <span>12</span>
   </footer>
 </section>
 
@@ -362,7 +340,7 @@ What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>15</span>
+    <span>14</span>
   </footer>
 </section>
 
@@ -389,7 +367,7 @@ What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>16</span>
+    <span>15</span>
   </footer>
 </section>
 
@@ -418,7 +396,7 @@ What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>17</span>
+    <span>16</span>
   </footer>
 </section>
 
@@ -439,7 +417,7 @@ What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>18</span>
+    <span>17</span>
   </footer>
 </section>
 
@@ -463,7 +441,7 @@ What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>19</span>
+    <span>18</span>
   </footer>
 </section>
 
@@ -482,7 +460,7 @@ What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>20</span>
+    <span>19</span>
   </footer>
 </section>
 
@@ -502,7 +480,7 @@ What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>21</span>
+    <span>20</span>
   </footer>
 </section>
 
@@ -533,7 +511,7 @@ What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>22</span>
+    <span>21</span>
   </footer>
 </section>
 
@@ -556,7 +534,7 @@ What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>23</span>
+    <span>22</span>
   </footer>
 </section>
 
@@ -587,7 +565,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>24</span>
+    <span>23</span>
   </footer>
 </section>
 
@@ -617,7 +595,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>25</span>
+    <span>24</span>
   </footer>
 </section>
 
@@ -638,7 +616,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>26</span>
+    <span>25</span>
   </footer>
 </section>
 
@@ -658,7 +636,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>27</span>
+    <span>26</span>
   </footer>
 </section>
 
@@ -678,7 +656,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>28</span>
+    <span>27</span>
   </footer>
 </section>
 
@@ -698,7 +676,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>29</span>
+    <span>28</span>
   </footer>
 </section>
 
@@ -720,7 +698,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>30</span>
+    <span>29</span>
   </footer>
 </section>
 
@@ -746,7 +724,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>32</span>
+    <span>31</span>
   </footer>
 </section>
 
@@ -766,7 +744,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>33</span>
+    <span>32</span>
   </footer>
 </section>
 
@@ -794,7 +772,7 @@ I am his father, so he is my son.
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>34</span>
+    <span>33</span>
   </footer>
 </section>
 
@@ -818,7 +796,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>35</span>
+    <span>34</span>
   </footer>
 </section>
 
@@ -839,7 +817,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>36</span>
+    <span>35</span>
   </footer>
 </section>
 
@@ -881,7 +859,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>37</span>
+    <span>36</span>
   </footer>
 </section>
 
@@ -908,7 +886,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>38</span>
+    <span>37</span>
   </footer>
 </section>
 
@@ -935,7 +913,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>39</span>
+    <span>38</span>
   </footer>
 </section>
 
@@ -966,7 +944,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>40</span>
+    <span>39</span>
   </footer>
 </section>
 
@@ -1000,7 +978,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>41</span>
+    <span>40</span>
   </footer>
 </section>
 
@@ -1029,7 +1007,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>42</span>
+    <span>41</span>
   </footer>
 </section>
 
@@ -1058,7 +1036,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>43</span>
+    <span>42</span>
   </footer>
 </section>
 
@@ -1087,7 +1065,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>44</span>
+    <span>43</span>
   </footer>
 </section>
 
@@ -1109,7 +1087,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>45</span>
+    <span>44</span>
   </footer>
 </section>
 
@@ -1143,7 +1121,7 @@ llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>47</span>
+    <span>46</span>
   </footer>
 </section>
 
@@ -1170,7 +1148,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>48</span>
+    <span>47</span>
   </footer>
 </section>
 
@@ -1207,7 +1185,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>49</span>
+    <span>48</span>
   </footer>
 </section>
 
@@ -1229,7 +1207,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>50</span>
+    <span>49</span>
   </footer>
 </section>
 
@@ -1253,7 +1231,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>51</span>
+    <span>50</span>
   </footer>
 </section>
 
@@ -1275,7 +1253,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>52</span>
+    <span>51</span>
   </footer>
 </section>
 
@@ -1305,7 +1283,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>53</span>
+    <span>52</span>
   </footer>
 </section>
 
@@ -1350,7 +1328,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>55</span>
+    <span>54</span>
   </footer>
 </section>
 
@@ -1365,7 +1343,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>56</span>
+    <span>55</span>
   </footer>
 </section>
 
@@ -1401,7 +1379,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>57</span>
+    <span>56</span>
   </footer>
 </section>
 
@@ -1416,7 +1394,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>58</span>
+    <span>57</span>
   </footer>
 </section>
 
@@ -1461,7 +1439,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>60</span>
+    <span>59</span>
   </footer>
 </section>
 
@@ -1481,7 +1459,7 @@ $ run tests
   </div>
   <footer class="slide-footer">
     <span>Demystifying LLMs</span>
-    <span>61</span>
+    <span>60</span>
   </footer>
 </section>
 
