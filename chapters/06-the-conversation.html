@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The conversation</title>
+<!--
+  Chapter 6 of the Demystifying AI learning pack: The conversation.
+  Structure: AGENTS.md §5 (chapter structure); topics and order: chapters.md.
+-->
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/themes/kujaku.css">
+</head>
+<body>
+
+<!-- ── COVER ── -->
+<section class="slide layout-cover inverse">
+  <div class="slide-content">
+    <p class="kicker">Demystifying AI · Chapter 6</p>
+    <h1>The conversation</h1>
+  </div>
+</section>
+
+<!-- ── AGENDA: the chapter's questions ── -->
+<section class="slide layout-agenda">
+  <div class="slide-content">
+    <p class="kicker">Agenda</p>
+    <h2>The conversation</h2>
+    <ol class="agenda-list">
+      <li class="agenda-item">
+        <span class="agenda-num">00</span>
+        <span class="agenda-title">What this chapter builds on</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">01</span>
+        <span class="agenda-title">One growing document</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">02</span>
+        <span class="agenda-title">Fixed parameters</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">03</span>
+        <span class="agenda-title">Context window · compaction</span>
+      </li>
+    </ol>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>2</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 00 · What this chapter builds on (prerequisite slides, repeated in full) ══════ -->
+
+<!-- NEW (draft 2026-11-06) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The conversation</p>
+    <h2>The LLM: a statistical function</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/llm-parameters.svg" alt="llm(input) = output, where llm is a block of numbers, its parameters"></figure>
+      <ul class="points">
+        <li>An LLM is one <strong>statistical function</strong> that understands a text and predicts what follows.</li>
+        <li>The input text is <strong>everything it knows</strong> about the task at hand.</li>
+        <li>Billions of <strong>parameters</strong> hold everything it learned from human text.</li>
+        <li>Chatbots, thinking models and agents are all <strong>built on this one function</strong>.</li>
+        <li>This chapter shows what “it predicts the next word” <strong>means exactly</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>3</span>
+  </footer>
+</section>
+
+<!-- new: text is mapped to a fixed vocabulary of tokens, independently of the LLM (no LLM on this slide) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The conversation</p>
+    <h2>Tokenization: encode text for statistics</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/vocab-list.svg" alt="A blob of human text in many languages and code, written with tokens; the token cat turns up in several places. Next to it, an excerpt of the fixed list of tokens (care, carpet, cat, catch, cats) with the same cat entry highlighted"></figure>
+      <ul class="points">
+        <li>All human text is encoded with one fixed vocabulary of about <strong>256,000 tokens</strong>.</li>
+        <li>Tokens are <strong>frequent small slices</strong> of text rather than words.</li>
+        <li>A <strong>rare word</strong> is split into several frequent tokens.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>4</span>
+  </footer>
+</section>
+
+<!-- part1 slide 7 -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The conversation</p>
+    <h2>Inference: a whole document, one token at a time</h2>
+    <div class="stage">
+      <div class="split split-wide-left">
+        <figure class="figure figure-contain"><img src="../assets/autoregressive.svg" alt="llm(The cat) gives sat, which drops into the next call: llm(The cat sat) gives on, then the, then mat"></figure>
+        <div class="code code-wrap"><span class="dim">The cat</span><span class="hl"> sat on the mat while the rain fell. It watched the drops race down the window, then curled up and fell asleep. When the storm passed, it woke, stretched and walked to the door, waiting for someone to let it out…</span></div>
+      </div>
+      <ul class="points">
+        <li>One call reads <strong>the whole text so far</strong> and predicts the next token.</li>
+        <li>The new token is added to the end of the text before the <strong>next call</strong>.</li>
+        <li>A whole document takes <strong>one call per token</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>5</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 01 · One growing document ══════ -->
+
+<!-- part1 slide 19 · TODO (outline): the chatbot is the software that keeps the history and sends it back each turn; add the KV cache (only the new message is processed); system prompt already a bullet here -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The conversation</p>
+    <h2>Chatting: one turn at a time</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/chat-turns.svg" alt="llm(user: What is the capital of France?) gives assistant: Paris.; that turn and the new user turn And of Italy? go back in and give Rome.; then And of Spain? is added and gives Madrid."></figure>
+      <ul class="points">
+        <li>Each time you send a message, the chatbot sends <strong>the whole conversation</strong> to the LLM.</li>
+        <li>The LLM writes the assistant’s turn token by token, until the end token.</li>
+        <li>The LLM <strong>remembers nothing</strong> between turns. The conversation it receives is its only memory.</li>
+        <li>A hidden first turn, the <strong>system prompt</strong>, gives the assistant its instructions.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>6</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 02 · Fixed parameters ══════ -->
+
+<!-- NEW (draft 2026-11-06) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The conversation</p>
+    <h2>No learning in use: the parameters stay fixed</h2>
+    <div class="stage">
+      <div class="panels-2">
+        <div class="code code-wrap"><span class="dim">Monday, first conversation</span>
+<span class="dim">&lt;user&gt;</span> My name is Léa, and I am planning a trip to Paris.<span class="dim">&lt;end&gt;</span>
+<span class="dim">&lt;assistant&gt;</span><span class="hl"> Nice to meet you, Léa. When do you leave?</span><span class="dim">&lt;end&gt;</span></div>
+        <div class="code code-wrap"><span class="dim">Tuesday, new conversation</span>
+<span class="dim">&lt;user&gt;</span> What is my name?<span class="dim">&lt;end&gt;</span>
+<span class="dim">&lt;assistant&gt;</span><span class="hl"> I don’t know your name. You haven’t told me yet.</span><span class="dim">&lt;end&gt;</span></div>
+      </div>
+      <ul class="points">
+        <li>Chatting changes <strong>no parameter</strong>. The LLM is the same after a conversation as before.</li>
+        <li>A new conversation starts <strong>from nothing</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>7</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 03 · Context window · compaction ══════ -->
+
+<!-- part1 slide 24 · TODO (outline): add compaction: near the limit, the chatbot summarizes the conversation and continues from the summary; outline lore: strawberry R’s; TODO (from the removed tokens-implications slide): one million tokens ≈ ten novels, usage limits and API prices counted per million tokens -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The conversation</p>
+    <h2>The context window: a hard limit on the conversation</h2>
+    <div class="stage">
+            <div class="split">
+        <figure class="figure figure-contain"><img src="../assets/context-window.svg" alt="Context window: a frame holding a short conversation about Paris and the Louvre, then room left"></figure>
+        <ul class="points">
+          <li>The window is the most tokens the LLM can read at once.</li>
+          <li>Text outside the context window <strong>does not exist</strong> for the LLM.</li>
+          <li>Windows grew from a few thousand tokens in 2022 to <strong>a million</strong> today.</li>
+          <li>Older LLMs <strong>lost details</strong> as the window filled up. This was called <strong>context rot</strong>.</li>
+          <li>Recent LLMs <strong>use the whole window</strong> far better.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>8</span>
+  </footer>
+</section>
+
+<!-- NEW (draft 2026-11-06) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The conversation</p>
+    <h2>Compaction: a summary replaces the conversation</h2>
+    <div class="stage">
+      <div class="panels-2">
+        <div class="code code-wrap"><span class="dim">&lt;user&gt;</span> What is the capital of France?<span class="dim">&lt;end&gt;</span>
+<span class="dim">&lt;assistant&gt;</span> The capital of France is Paris, on the Seine.<span class="dim">&lt;end&gt;</span>
+<span class="dim">… 300 more turns about hotels, trains and restaurants …</span></div>
+        <div class="code code-wrap"><span class="dim">&lt;user&gt;</span><span class="hl"> Summary so far: a trip to Paris in May, Louvre first, hotel booked near the Seine, train from Lyon on the 12th.</span><span class="dim">&lt;end&gt;</span>
+<span class="dim">&lt;user&gt;</span> Which restaurant did we pick for Saturday?<span class="dim">&lt;end&gt;</span></div>
+      </div>
+      <ul class="points">
+        <li>Near the limit, the chatbot asks the LLM to <strong>summarize</strong> the conversation.</li>
+        <li>The summary replaces the old turns, and the conversation <strong>continues</strong> from it.</li>
+        <li>A detail left out of the summary <strong>no longer exists</strong> for the LLM.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>9</span>
+  </footer>
+</section>
+
+</body>
+</html>

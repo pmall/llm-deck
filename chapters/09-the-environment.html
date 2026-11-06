@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The environment</title>
+<!--
+  Chapter 9 of the Demystifying AI learning pack: The environment.
+  Structure: AGENTS.md §5 (chapter structure); topics and order: chapters.md.
+-->
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/themes/kujaku.css">
+</head>
+<body>
+
+<!-- ── COVER ── -->
+<section class="slide layout-cover inverse">
+  <div class="slide-content">
+    <p class="kicker">Demystifying AI · Chapter 9</p>
+    <h1>The environment</h1>
+  </div>
+</section>
+
+<!-- ── AGENDA: the chapter's questions ── -->
+<section class="slide layout-agenda">
+  <div class="slide-content">
+    <p class="kicker">Agenda</p>
+    <h2>The environment</h2>
+    <ol class="agenda-list">
+      <li class="agenda-item">
+        <span class="agenda-num">00</span>
+        <span class="agenda-title">What this chapter builds on</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">01</span>
+        <span class="agenda-title">Tools, files, a machine</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">02</span>
+        <span class="agenda-title">Computer use</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">03</span>
+        <span class="agenda-title">Images in the loop</span>
+      </li>
+    </ol>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>2</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 00 · What this chapter builds on (prerequisite slides, repeated in full) ══════ -->
+
+<!-- NEW (draft 2026-11-06) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The environment</p>
+    <h2>The LLM: a statistical function</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/llm-parameters.svg" alt="llm(input) = output, where llm is a block of numbers, its parameters"></figure>
+      <ul class="points">
+        <li>An LLM is one <strong>statistical function</strong> that understands a text and predicts what follows.</li>
+        <li>The input text is <strong>everything it knows</strong> about the task at hand.</li>
+        <li>Billions of <strong>parameters</strong> hold everything it learned from human text.</li>
+        <li>Chatbots, thinking models and agents are all <strong>built on this one function</strong>.</li>
+        <li>This chapter shows what “it predicts the next word” <strong>means exactly</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>3</span>
+  </footer>
+</section>
+
+<!-- new: text is mapped to a fixed vocabulary of tokens, independently of the LLM (no LLM on this slide) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The environment</p>
+    <h2>Tokenization: encode text for statistics</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/vocab-list.svg" alt="A blob of human text in many languages and code, written with tokens; the token cat turns up in several places. Next to it, an excerpt of the fixed list of tokens (care, carpet, cat, catch, cats) with the same cat entry highlighted"></figure>
+      <ul class="points">
+        <li>All human text is encoded with one fixed vocabulary of about <strong>256,000 tokens</strong>.</li>
+        <li>Tokens are <strong>frequent small slices</strong> of text rather than words.</li>
+        <li>A <strong>rare word</strong> is split into several frequent tokens.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>4</span>
+  </footer>
+</section>
+
+<!-- part1 slide 7 -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The environment</p>
+    <h2>Inference: a whole document, one token at a time</h2>
+    <div class="stage">
+      <div class="split split-wide-left">
+        <figure class="figure figure-contain"><img src="../assets/autoregressive.svg" alt="llm(The cat) gives sat, which drops into the next call: llm(The cat sat) gives on, then the, then mat"></figure>
+        <div class="code code-wrap"><span class="dim">The cat</span><span class="hl"> sat on the mat while the rain fell. It watched the drops race down the window, then curled up and fell asleep. When the storm passed, it woke, stretched and walked to the door, waiting for someone to let it out…</span></div>
+      </div>
+      <ul class="points">
+        <li>One call reads <strong>the whole text so far</strong> and predicts the next token.</li>
+        <li>The new token is added to the end of the text before the <strong>next call</strong>.</li>
+        <li>A whole document takes <strong>one call per token</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>5</span>
+  </footer>
+</section>
+
+<!-- part1 slide 19 · TODO (outline): the chatbot is the software that keeps the history and sends it back each turn; add the KV cache (only the new message is processed); system prompt already a bullet here -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The environment</p>
+    <h2>Chatting: one turn at a time</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/chat-turns.svg" alt="llm(user: What is the capital of France?) gives assistant: Paris.; that turn and the new user turn And of Italy? go back in and give Rome.; then And of Spain? is added and gives Madrid."></figure>
+      <ul class="points">
+        <li>Each time you send a message, the chatbot sends <strong>the whole conversation</strong> to the LLM.</li>
+        <li>The LLM writes the assistant’s turn token by token, until the end token.</li>
+        <li>The LLM <strong>remembers nothing</strong> between turns. The conversation it receives is its only memory.</li>
+        <li>A hidden first turn, the <strong>system prompt</strong>, gives the assistant its instructions.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>6</span>
+  </footer>
+</section>
+
+<!-- part2 slide 4 · TODO (outline): still a conversation, with one more participant; the environment is not intelligent: it executes and reports -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The environment</p>
+    <h2>Tool calling: the answer can be an instruction</h2>
+    <div class="stage">
+      <div class="split">
+        <div class="chat">
+          <div class="msg"><span class="role">User</span>Will it rain in Paris on Saturday?</div>
+          <div class="msg msg-assistant"><span class="role">Assistant</span><code>weather(city="Paris", day="Sat")</code></div>
+          <div class="msg msg-tool"><span class="role">Chatbot system · runs it, posts the result</span>{"forecast": "rain", "temp_c": 11}</div>
+          <div class="msg msg-assistant"><span class="role">Assistant</span>Yes, rain, 11 °C. Plan indoors.</div>
+        </div>
+        <ul class="points">
+          <li>The assistant only writes messages.</li>
+          <li>So a message can be <strong>an instruction</strong>: “call this tool, with these arguments”.</li>
+          <li>The chatbot system runs it and posts the result back <strong>as a new message</strong>: the LLM executes nothing.</li>
+          <li>The forecast is <strong>fetched</strong>, not predicted: live context, not training data.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>7</span>
+  </footer>
+</section>
+
+<!-- part2 slide 5 · TODO (outline): the loop is the conversation you’re not part of; it stops when the next message is addressed to you -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The environment</p>
+    <h2>The ReAct loop: the Part 1 chatbot, with one rule changed</h2>
+    <div class="stage">
+      <div class="split">
+        <figure class="figure figure-contain"><img src="../assets/react-loop.svg" alt="The ReAct loop: think, act, observe, repeat"></figure>
+        <div class="stack" style="gap: var(--space-4)">
+          <div class="code">llm(… user)               = <span class="hl">tool_call₁</span>
+llm(… tool_call₁ result₁) = <span class="hl">tool_call₂</span>
+llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
+          <div class="panel panel-muted"><span class="panel-label">Part 1 · chatbot</span><p>After every answer, it stops: <strong>your turn</strong>.</p></div>
+          <div class="panel panel-featured"><span class="panel-label">Agent</span><p>A tool call? Run it, append the result, call the LLM again. It stops only when the LLM <em>answers</em>.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>8</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 01 · Tools, files, a machine ══════ -->
+
+<!-- part2 slide 10 · TODO (outline): same model, different environment (the LLM box already says “unchanged”) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The environment</p>
+    <h2>The agent gets its own environment: tools, files, a machine</h2>
+    <div class="stage">
+      <div class="box box-env">
+        <span class="box-tag">Environment · your laptop, a VM, a cloud sandbox</span>
+        <div class="env-grid">
+          <div class="box box-chat">
+            <span class="box-tag">Chatbot system · now runs tool calls</span>
+            <div class="box-model box">
+              <span class="box-tag">The LLM · unchanged</span>
+              <span class="formula">llm(x) = y</span>
+            </div>
+            <div class="box-row">
+              <div class="box-mini"><strong>History</strong>every message so far</div>
+              <div class="box-mini"><strong>Append</strong>message after message</div>
+            </div>
+          </div>
+          <div class="wires">
+            <span>tool call →</span>
+            <span>← result</span>
+          </div>
+          <div class="box box-work">
+            <span class="box-tag">Available tools</span>
+            <div class="chips chips-xs"><span class="chip">read_file</span><span class="chip">write_file</span><span class="chip">run_code</span><span class="chip">web_search</span></div>
+            <span class="box-tag">Filesystem</span>
+            <div class="tree">project/
+├─ data/     <span class="dim">3 reports</span>
+└─ outputs/  <span class="dim">memo.md</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>9</span>
+  </footer>
+</section>
+
+<!-- TODO (“Your five steps” refers to a manual memo example that no slide shows) -->
+<!-- part2 slide 11 -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The environment</p>
+    <h2>The memo again: now you take zero steps</h2>
+    <div class="stage">
+      <div class="code"><span class="dim">user ›</span> Turn the three Q3 reports in data/ into a one-page memo, with exact figures.
+<span class="hl">list_files("data/")</span>              <span class="dim">→ q3-sales.pdf, q3-ops.pdf, q3-hr.pdf</span>
+<span class="hl">read_file("data/q3-sales.pdf")</span>   <span class="dim">→ “Revenue up 12%, margin flat…”</span>
+<span class="hl">read_file("data/q3-ops.pdf")</span>     <span class="dim">→ “Two sites delayed to Q4…”</span>
+<span class="hl">read_file("data/q3-hr.pdf")</span>      <span class="dim">→ “Hiring freeze lifted…”</span>
+<span class="hl">run_code("check_totals.py")</span>      <span class="dim">→ 2 figures off: fixed</span>
+<span class="hl">write_file("outputs/memo.md")</span>    <span class="dim">→ ok</span>
+<span class="dim">agent ›</span> Done: outputs/memo.md, one page, each point sourced.</div>
+      <ul class="points">
+        <li>Your five steps are now six tool calls, <strong>no human in between</strong>.</li>
+        <li>List, read, write, run: the basic tools of any agent, checking included.</li>
+        <li>The deliverable is <strong>a file in the workspace</strong>, not a message in the chat.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>10</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 02 · Computer use ══════ -->
+
+<!-- part2 slide 17 · TODO (outline): the environment answers with screenshots instead of text -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The environment</p>
+    <h2>Computer use: when there is no API</h2>
+    <div class="stage">
+      <div class="panels-2">
+        <div class="panel panel-muted">
+          <span class="panel-label">No API · the agent uses the screen</span>
+          <div class="flow">
+            <div class="node">Screenshot</div><span class="arrow">→</span>
+            <div class="node">Point</div><span class="arrow">→</span>
+            <div class="node">Click</div><span class="arrow">→</span>
+            <div class="node">Type</div>
+          </div>
+          <p class="note-sm">…then look again: the interface moved.</p>
+        </div>
+        <div class="panel panel-featured">
+          <span class="panel-label">API · one step</span>
+          <h3><code>create_invoice(…)</code></h3>
+          <p>Fast, cheap, stable.</p>
+        </div>
+      </div>
+      <ul class="points">
+        <li><strong>No API?</strong> The agent uses software like a person: read, point, click, type.</li>
+        <li>Unlocks the long tail: legacy apps, web interfaces, anything never integrated.</li>
+        <li>Slower, more fragile, costlier: interfaces change, the agent must re-orient.</li>
+        <li>Not a superpower: a fallback for what was never machine-readable.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>11</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 03 · Images in the loop ══════ -->
+
+<!-- part2 slide 16 -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The environment</p>
+    <h2>Seeing: images enter the loop</h2>
+    <div class="stage">
+      <div class="flow">
+        <div class="node"><strong>Make</strong><span>code, edit, render</span></div>
+        <span class="arrow">→</span>
+        <div class="node node-accent"><strong>Look</strong><span>the image enters the context</span></div>
+        <span class="arrow">→</span>
+        <div class="node"><strong>Critique</strong><span>what is wrong or off?</span></div>
+        <span class="arrow">→</span>
+        <div class="node"><strong>Fix</strong><span>then make and look again</span></div>
+      </div>
+      <ul class="points">
+        <li>LLMs already interpret images: screenshots, charts, renders, video frames.</li>
+        <li>On its own, an LLM describes. <strong>In an agent loop</strong>, it iterates and self-corrects on what it sees.</li>
+        <li>Enables visual content made by iteration: layouts, diagrams, 3D, even short films frame by frame.</li>
+        <li>Seeing a screen is also what makes computer use possible.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>12</span>
+  </footer>
+</section>
+
+</body>
+</html>

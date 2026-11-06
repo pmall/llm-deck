@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generation</title>
+<!--
+  Chapter 3 of the Demystifying AI learning pack: Generation.
+  Structure: AGENTS.md §5 (chapter structure); topics and order: chapters.md.
+-->
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/themes/kujaku.css">
+</head>
+<body>
+
+<!-- ── COVER ── -->
+<section class="slide layout-cover inverse">
+  <div class="slide-content">
+    <p class="kicker">Demystifying AI · Chapter 3</p>
+    <h1>Generation</h1>
+  </div>
+</section>
+
+<!-- ── AGENDA: the chapter's questions ── -->
+<section class="slide layout-agenda">
+  <div class="slide-content">
+    <p class="kicker">Agenda</p>
+    <h2>Generation</h2>
+    <ol class="agenda-list">
+      <li class="agenda-item">
+        <span class="agenda-num">00</span>
+        <span class="agenda-title">What this chapter builds on</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">01</span>
+        <span class="agenda-title">One token at a time</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">02</span>
+        <span class="agenda-title">Probabilities · sampling</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">03</span>
+        <span class="agenda-title">The base model</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">04</span>
+        <span class="agenda-title">Hallucination</span>
+      </li>
+    </ol>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>2</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 00 · What this chapter builds on (prerequisite slides, repeated in full) ══════ -->
+
+<!-- NEW (draft 2026-11-06) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Generation</p>
+    <h2>The LLM: a statistical function</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/llm-parameters.svg" alt="llm(input) = output, where llm is a block of numbers, its parameters"></figure>
+      <ul class="points">
+        <li>An LLM is one <strong>statistical function</strong> that understands a text and predicts what follows.</li>
+        <li>The input text is <strong>everything it knows</strong> about the task at hand.</li>
+        <li>Billions of <strong>parameters</strong> hold everything it learned from human text.</li>
+        <li>Chatbots, thinking models and agents are all <strong>built on this one function</strong>.</li>
+        <li>This chapter shows what “it predicts the next word” <strong>means exactly</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>3</span>
+  </footer>
+</section>
+
+<!-- new: text is mapped to a fixed vocabulary of tokens, independently of the LLM (no LLM on this slide) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Generation</p>
+    <h2>Tokenization: encode text for statistics</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/vocab-list.svg" alt="A blob of human text in many languages and code, written with tokens; the token cat turns up in several places. Next to it, an excerpt of the fixed list of tokens (care, carpet, cat, catch, cats) with the same cat entry highlighted"></figure>
+      <ul class="points">
+        <li>All human text is encoded with one fixed vocabulary of about <strong>256,000 tokens</strong>.</li>
+        <li>Tokens are <strong>frequent small slices</strong> of text rather than words.</li>
+        <li>A <strong>rare word</strong> is split into several frequent tokens.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>4</span>
+  </footer>
+</section>
+
+<!-- part1 slide 5: pre-training sets the base meanings and what counts (attention, slide 6) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Generation</p>
+    <h2>Pre-training: learn by predicting the next token</h2>
+    <div class="stage">
+      <div class="split split-wide-left">
+        <div class="chips chips-xs chips-flat"><span class="chip">…</span><span class="chip"> sch</span><span class="chip">lä</span><span class="chip">ft</span><span class="chip"> auf</span><span class="chip"> dem</span><span class="chip"> Sofa</span><span class="chip">.</span><span class="chip"> Le</span><span class="chip"> chat</span><span class="chip"> dort</span><span class="chip"> sur</span><span class="chip"> le</span><span class="chip"> can</span><span class="chip">ap</span><span class="chip">é</span><span class="chip">.</span><span class="chip"> It</span><span class="chip"> was</span><span class="chip"> late</span><span class="chip"> on</span><span class="chip"> the</span><span class="chip"> edge</span><span class="chip"> of</span><span class="chip"> town</span><span class="chip">.</span><span class="chip pull"> The</span><span class="chip pull"> cat</span><span class="chip pull"> sat</span><span class="chip pull"> on</span><span class="chip pull"> the</span><span class="chip pull"> mat</span><span class="chip"> while</span><span class="chip"> the</span><span class="chip"> rain</span><span class="chip"> fell</span><span class="chip">.</span><span class="chip"> </span><span class="chip">你</span><span class="chip">好</span><span class="chip">，</span><span class="chip">我</span><span class="chip">是</span><span class="chip">学</span><span class="chip">生</span><span class="chip">。</span><span class="chip"> Пр</span><span class="chip">ив</span><span class="chip">ет</span><span class="chip">,</span><span class="chip"> м</span><span class="chip">ир</span><span class="chip">!</span><span class="chip"> 🙂</span><span class="chip">↵</span><span class="chip">def</span><span class="chip"> count</span><span class="chip">_words</span><span class="chip">(text</span><span class="chip">):↵</span><span class="chip">   </span><span class="chip"> return</span><span class="chip"> len</span><span class="chip">…</span></div>
+        <div class="stack">
+          <div class="chips chips-xs chips-flat chips-grid"><span class="chip"> The</span><span class="chip target"> cat</span><span class="chip mask"></span><span class="chip mask"></span><span class="chip mask"></span><span class="chip mask"></span></div>
+          <div class="chips chips-xs chips-flat chips-grid"><span class="chip"> The</span><span class="chip"> cat</span><span class="chip target"> sat</span><span class="chip mask"></span><span class="chip mask"></span><span class="chip mask"></span></div>
+          <div class="chips chips-xs chips-flat chips-grid"><span class="chip"> The</span><span class="chip"> cat</span><span class="chip"> sat</span><span class="chip target"> on</span><span class="chip mask"></span><span class="chip mask"></span></div>
+          <div class="chips chips-xs chips-flat chips-grid"><span class="chip"> The</span><span class="chip"> cat</span><span class="chip"> sat</span><span class="chip"> on</span><span class="chip target"> the</span><span class="chip mask"></span></div>
+          <div class="chips chips-xs chips-flat chips-grid"><span class="chip"> The</span><span class="chip"> cat</span><span class="chip"> sat</span><span class="chip"> on</span><span class="chip"> the</span><span class="chip target"> mat</span></div>
+        </div>
+      </div>
+      <ul class="points">
+        <li>The LLM <strong>predicts each token</strong> of the training text from the tokens before it.</li>
+        <li>The real next token is already in the text, so <strong>no labels</strong> are needed.</li>
+        <li>The LLM is far too small to store all text, so predicting well forces it to learn <strong>meaning</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>5</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 01 · One token at a time ══════ -->
+
+<!-- part1 slide 7 -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Generation</p>
+    <h2>Inference: a whole document, one token at a time</h2>
+    <div class="stage">
+      <div class="split split-wide-left">
+        <figure class="figure figure-contain"><img src="../assets/autoregressive.svg" alt="llm(The cat) gives sat, which drops into the next call: llm(The cat sat) gives on, then the, then mat"></figure>
+        <div class="code code-wrap"><span class="dim">The cat</span><span class="hl"> sat on the mat while the rain fell. It watched the drops race down the window, then curled up and fell asleep. When the storm passed, it woke, stretched and walked to the door, waiting for someone to let it out…</span></div>
+      </div>
+      <ul class="points">
+        <li>One call reads <strong>the whole text so far</strong> and predicts the next token.</li>
+        <li>The new token is added to the end of the text before the <strong>next call</strong>.</li>
+        <li>A whole document takes <strong>one call per token</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>6</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 02 · Probabilities · sampling ══════ -->
+
+<!-- part1 slide 8 -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Generation</p>
+    <h2>Zoom on one step: the LLM outputs probabilities</h2>
+    <div class="stage">
+      <div class="stack">
+        <div class="gen-row"><span class="fn">llm(</span><div class="chips chips-sm chips-flat"><span class="chip">The</span><span class="chip">cat</span><span class="chip">sat</span><span class="chip">on</span><span class="chip">the</span></div><span class="fn">)</span><span class="fn-arrow">=</span></div>
+        <div class="bars bars-wide">
+          <div class="bar"><span>mat</span><span class="track"><span class="fill" style="--w:45%"></span></span><span class="val">45%</span></div>
+          <div class="bar"><span>floor</span><span class="track"><span class="fill" style="--w:18%"></span></span><span class="val">18%</span></div>
+          <div class="bar"><span>sofa</span><span class="track"><span class="fill" style="--w:12%"></span></span><span class="val">12%</span></div>
+          <div class="bar"><span>bed</span><span class="track"><span class="fill" style="--w:8%"></span></span><span class="val">8%</span></div>
+        </div>
+        <p class="bars-rest">+ 255,996 other tokens, sharing the remaining 17%</p>
+      </div>
+      <ul class="points">
+        <li>One call gives a probability to each of the <strong>256,000 tokens</strong> of the vocabulary.</li>
+        <li>The next token is <strong>drawn at random</strong> from these probabilities.</li>
+        <li>This random draw lets two runs on the same text write <strong>different documents</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>7</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 03 · The base model ══════ -->
+
+<!-- part1 slide 9 · TODO (outline): the base model is an autocomplete: continues a document, no instructions, no conversation -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Generation</p>
+    <h2>The base model: an autocomplete that dreams documents</h2>
+    <div class="stage">
+      <div class="panels-3">
+        <div class="code code-wrap"><span class="dim">Zebra - Wikipedia
+The zebra is</span><span class="hl"> an African equine with black-and-white stripes. Three species live today: the plains, Grévy’s and mountain zebras. They…</span></div>
+        <div class="code"><span class="dim">def is_even(number: int):</span>
+<span class="hl">    return number % 2 == 0
+def is_odd(number: int):
+    return number % 2 == 1
+def is_zero(number: int):
+    return number == 0</span></div>
+        <div class="code code-wrap"><span class="dim">What is the capital of France?</span><span class="hl"> What is the capital of Italy? What is the capital of Spain? What is the capital of Japan? What is the capital of Egypt?</span></div>
+      </div>
+      <ul class="points">
+        <li>The LLM <strong>dreams the rest</strong> of any document in the same style and language.</li>
+        <li>Question lists in human text make the LLM <strong>continue</strong> a question rather than answer it.</li>
+        <li>Pre-training costs months of computing, so many models reuse <strong>the same base model</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>8</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 04 · Hallucination ══════ -->
+
+<!-- TODO (show the hallucination with a base-model document (e.g. a dreamed citation), not a chat: chatbots come in chapter 4) -->
+<!-- part1 slide 25 · TODO (outline): hallucination is the price of generation (a poem, a hypothesis, a fake citation: same mechanism); assistant dialogues teach the confident tone; a cost to manage, not a defect -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Generation</p>
+    <h2>Hallucination: fluent text, no fact behind it</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/chat-hallucination.svg" alt="A chat where an invented airline court case is cited, then confirmed as real"></figure>
+      <ul class="points">
+        <li>The LLM writes the most plausible text. <strong>Nothing in it checks facts.</strong></li>
+        <li>Names, dates, figures and citations are <strong>the most at risk</strong>.</li>
+        <li>A wrong answer sounds <strong>as confident</strong> as a right one.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>9</span>
+  </footer>
+</section>
+
+<!-- part1 slide 10 · TODO (outline): side point: diffusion language models already generate whole passages at once, the rest of the talk would still hold -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Generation</p>
+    <h2>Judge the document, not the mechanism</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/judge-document.svg" alt="A parrot writing token by token leads to the document, judged on one question: is it good?"></figure>
+      <ul class="points">
+        <li>“It only predicts the next token” says <strong>nothing about the quality</strong> of the document it writes.</li>
+        <li>The rest of this workshop holds <strong>whatever the mechanism</strong> behind the document.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>10</span>
+  </footer>
+</section>
+
+</body>
+</html>

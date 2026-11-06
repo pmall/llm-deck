@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tools</title>
+<!--
+  Chapter 7 of the Demystifying AI learning pack: Tools.
+  Structure: AGENTS.md §5 (chapter structure); topics and order: chapters.md.
+-->
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/themes/kujaku.css">
+</head>
+<body>
+
+<!-- ── COVER ── -->
+<section class="slide layout-cover inverse">
+  <div class="slide-content">
+    <p class="kicker">Demystifying AI · Chapter 7</p>
+    <h1>Tools</h1>
+  </div>
+</section>
+
+<!-- ── AGENDA: the chapter's questions ── -->
+<section class="slide layout-agenda">
+  <div class="slide-content">
+    <p class="kicker">Agenda</p>
+    <h2>Tools</h2>
+    <ol class="agenda-list">
+      <li class="agenda-item">
+        <span class="agenda-num">00</span>
+        <span class="agenda-title">What this chapter builds on</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">01</span>
+        <span class="agenda-title">Tool calling</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">02</span>
+        <span class="agenda-title">Live data · grounding</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">03</span>
+        <span class="agenda-title">Code execution</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">04</span>
+        <span class="agenda-title">APIs</span>
+      </li>
+    </ol>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>2</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 00 · What this chapter builds on (prerequisite slides, repeated in full) ══════ -->
+
+<!-- NEW (draft 2026-11-06) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Tools</p>
+    <h2>The LLM: a statistical function</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/llm-parameters.svg" alt="llm(input) = output, where llm is a block of numbers, its parameters"></figure>
+      <ul class="points">
+        <li>An LLM is one <strong>statistical function</strong> that understands a text and predicts what follows.</li>
+        <li>The input text is <strong>everything it knows</strong> about the task at hand.</li>
+        <li>Billions of <strong>parameters</strong> hold everything it learned from human text.</li>
+        <li>Chatbots, thinking models and agents are all <strong>built on this one function</strong>.</li>
+        <li>This chapter shows what “it predicts the next word” <strong>means exactly</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>3</span>
+  </footer>
+</section>
+
+<!-- new: text is mapped to a fixed vocabulary of tokens, independently of the LLM (no LLM on this slide) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Tools</p>
+    <h2>Tokenization: encode text for statistics</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/vocab-list.svg" alt="A blob of human text in many languages and code, written with tokens; the token cat turns up in several places. Next to it, an excerpt of the fixed list of tokens (care, carpet, cat, catch, cats) with the same cat entry highlighted"></figure>
+      <ul class="points">
+        <li>All human text is encoded with one fixed vocabulary of about <strong>256,000 tokens</strong>.</li>
+        <li>Tokens are <strong>frequent small slices</strong> of text rather than words.</li>
+        <li>A <strong>rare word</strong> is split into several frequent tokens.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>4</span>
+  </footer>
+</section>
+
+<!-- part1 slide 7 -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Tools</p>
+    <h2>Inference: a whole document, one token at a time</h2>
+    <div class="stage">
+      <div class="split split-wide-left">
+        <figure class="figure figure-contain"><img src="../assets/autoregressive.svg" alt="llm(The cat) gives sat, which drops into the next call: llm(The cat sat) gives on, then the, then mat"></figure>
+        <div class="code code-wrap"><span class="dim">The cat</span><span class="hl"> sat on the mat while the rain fell. It watched the drops race down the window, then curled up and fell asleep. When the storm passed, it woke, stretched and walked to the door, waiting for someone to let it out…</span></div>
+      </div>
+      <ul class="points">
+        <li>One call reads <strong>the whole text so far</strong> and predicts the next token.</li>
+        <li>The new token is added to the end of the text before the <strong>next call</strong>.</li>
+        <li>A whole document takes <strong>one call per token</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>5</span>
+  </footer>
+</section>
+
+<!-- part1 slide 19 · TODO (outline): the chatbot is the software that keeps the history and sends it back each turn; add the KV cache (only the new message is processed); system prompt already a bullet here -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Tools</p>
+    <h2>Chatting: one turn at a time</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/chat-turns.svg" alt="llm(user: What is the capital of France?) gives assistant: Paris.; that turn and the new user turn And of Italy? go back in and give Rome.; then And of Spain? is added and gives Madrid."></figure>
+      <ul class="points">
+        <li>Each time you send a message, the chatbot sends <strong>the whole conversation</strong> to the LLM.</li>
+        <li>The LLM writes the assistant’s turn token by token, until the end token.</li>
+        <li>The LLM <strong>remembers nothing</strong> between turns. The conversation it receives is its only memory.</li>
+        <li>A hidden first turn, the <strong>system prompt</strong>, gives the assistant its instructions.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>6</span>
+  </footer>
+</section>
+
+<!-- part1 slide 24 · TODO (outline): add compaction: near the limit, the chatbot summarizes the conversation and continues from the summary; outline lore: strawberry R’s; TODO (from the removed tokens-implications slide): one million tokens ≈ ten novels, usage limits and API prices counted per million tokens -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Tools</p>
+    <h2>The context window: a hard limit on the conversation</h2>
+    <div class="stage">
+            <div class="split">
+        <figure class="figure figure-contain"><img src="../assets/context-window.svg" alt="Context window: a frame holding a short conversation about Paris and the Louvre, then room left"></figure>
+        <ul class="points">
+          <li>The window is the most tokens the LLM can read at once.</li>
+          <li>Text outside the context window <strong>does not exist</strong> for the LLM.</li>
+          <li>Windows grew from a few thousand tokens in 2022 to <strong>a million</strong> today.</li>
+          <li>Older LLMs <strong>lost details</strong> as the window filled up. This was called <strong>context rot</strong>.</li>
+          <li>Recent LLMs <strong>use the whole window</strong> far better.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>7</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 01 · Tool calling ══════ -->
+
+<!-- part1 slide 29 -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Tools</p>
+    <h2>A chatbot cannot leave the conversation</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/chat-closed.svg" alt="A chat in a closed frame; cut links to the weather service and your mailbox on the left, and to sending an email and saving a file on the right"></figure>
+      <ul class="points">
+        <li>A chatbot reads the conversation and writes into it. <strong>Nothing else.</strong></li>
+        <li>It cannot <strong>fetch</strong> a web page, a record or a live value.</li>
+        <li>It cannot <strong>act</strong> either. No email sent, no file saved.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>8</span>
+  </footer>
+</section>
+
+<!-- part2 slide 4 · TODO (outline): still a conversation, with one more participant; the environment is not intelligent: it executes and reports -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Tools</p>
+    <h2>Tool calling: the answer can be an instruction</h2>
+    <div class="stage">
+      <div class="split">
+        <div class="chat">
+          <div class="msg"><span class="role">User</span>Will it rain in Paris on Saturday?</div>
+          <div class="msg msg-assistant"><span class="role">Assistant</span><code>weather(city="Paris", day="Sat")</code></div>
+          <div class="msg msg-tool"><span class="role">Chatbot system · runs it, posts the result</span>{"forecast": "rain", "temp_c": 11}</div>
+          <div class="msg msg-assistant"><span class="role">Assistant</span>Yes, rain, 11 °C. Plan indoors.</div>
+        </div>
+        <ul class="points">
+          <li>The assistant only writes messages.</li>
+          <li>So a message can be <strong>an instruction</strong>: “call this tool, with these arguments”.</li>
+          <li>The chatbot system runs it and posts the result back <strong>as a new message</strong>: the LLM executes nothing.</li>
+          <li>The forecast is <strong>fetched</strong>, not predicted: live context, not training data.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>9</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 02 · Live data · grounding ══════ -->
+
+<!-- part1 slide 28 -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Tools</p>
+    <h2>Live data: the answer changes by the minute</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/chat-train.svg" alt="A chat where the LLM says the 18:04 train to Lyon is on time; the live departures board shows it delayed 25 minutes"></figure>
+      <ul class="points">
+        <li>Train times, weather and share prices <strong>change by the minute</strong>.</li>
+        <li>Even a model trained this morning <strong>would be wrong</strong> by tonight.</li>
+        <li>The fix is to <strong>query a live service</strong> that holds the current value.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>10</span>
+  </footer>
+</section>
+
+<!-- TODO (the grounding, code execution and APIs slides were written for the agent (read_file, sandbox, folder): rewrite them around one tool call) -->
+<!-- part2 slide 13 -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Tools</p>
+    <h2>Reading a file is grounding; searching first is retrieval</h2>
+    <div class="stage">
+      <div class="panels-2">
+        <div class="panel panel-muted">
+          <span class="panel-label">From memory</span>
+          <h3>Writing from what was absorbed in training</h3>
+          <p>The average of everything it has read.</p>
+        </div>
+        <div class="panel panel-featured">
+          <span class="panel-label">From sources</span>
+          <h3>Writing from files it has just read</h3>
+          <p>A position, anchored in your sources.</p>
+        </div>
+      </div>
+      <ul class="points">
+        <li><code>read_file</code> puts the source into the context: <strong>grounding</strong>, for free.</li>
+        <li>Too many files? Search first, read only what matters: <strong>retrieval</strong> (RAG).</li>
+        <li>The window is limited and context rot is real: selection matters.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>11</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 03 · Code execution ══════ -->
+
+<!-- part2 slide 14 -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Tools</p>
+    <h2>Code execution: where the LLM is weak, code is exact</h2>
+    <div class="stage">
+      <div class="split split-top">
+        <div class="stack">
+          <div class="panel panel-muted">
+            <span class="panel-label">The LLM estimates</span>
+            <p>“The total is about 48,000 €”: plausible, unverifiable.</p>
+          </div>
+          <div class="panel panel-featured">
+            <span class="panel-label">The script computes</span>
+            <p><code>sum(rows) = 48,317.40 €</code>: exact, auditable.</p>
+          </div>
+          <p class="note-sm">The agent writes code, runs it in a sandbox, and uses the result.</p>
+        </div>
+        <div class="panels-grid-2">
+          <div class="panel"><h3>Volume</h3><p>5,000 rows fit in context, but row 4,000 won’t get row 12’s care</p></div>
+          <div class="panel"><h3>Arithmetic</h3><p>Exact totals and rates, not plausible-looking numbers</p></div>
+          <div class="panel"><h3>Repeatability</h3><p>Same script, next month’s file, auditable line by line</p></div>
+          <div class="panel"><h3>Orchestration</h3><p>Looping, chaining and recovering tool calls</p></div>
+        </div>
+      </div>
+      <p class="takeaway">Plus structured data parsing and precise tool execution.</p>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>12</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 04 · APIs ══════ -->
+
+<!-- part2 slide 15 · TODO (outline): guardrails: the environment sets what the agent may do (e.g. email read-only) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Tools</p>
+    <h2>APIs: acting beyond the folder</h2>
+    <div class="stage">
+      <div class="split split-wide-right">
+        <div class="panels-grid-2">
+          <div class="tile">Email<span class="tag">irreversible once sent</span></div>
+          <div class="tile">Calendar<span class="tag">reversible</span></div>
+          <div class="tile">CRM<span class="tag">reversible</span></div>
+          <div class="tile">Tickets<span class="tag">reversible</span></div>
+          <div class="tile">Publishing<span class="tag">irreversible</span></div>
+          <div class="tile">3D &amp; CAD<span class="tag">reversible</span></div>
+        </div>
+        <ul class="points">
+          <li>Anything with an API: email, calendar, CRM, tickets, publishing, even 3D and CAD.</li>
+          <li>Same tool-calling mechanism, but now the request <em>changes something</em>.</li>
+          <li>What matters: <strong>reversible vs. irreversible</strong>, and what you leave unsupervised.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>13</span>
+  </footer>
+</section>
+
+</body>
+</html>

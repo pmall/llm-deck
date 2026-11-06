@@ -1,0 +1,147 @@
+<svg viewBox="0 0 1477 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="llm(input) on a dark block of numbers, the parameters; = output outside it, in a purple tile">
+  <!-- THEME COPY — kujaku (styles/themes/kujaku.css). Swap to re-theme. -->
+  <style>
+    .bg-base          { fill: #F5F7F7; }
+    .bg-surface       { fill: #FFFFFF; }
+    .bg-muted         { fill: #E3EBEB; }
+    .text-primary     { fill: #17323A; }
+    .text-secondary   { fill: #51707A; }
+    .text-on-accent   { fill: #FFFFFF; }
+    .accent-primary   { fill: #0E7C7B; }
+    .accent-secondary { fill: #7A5195; }
+    .accent-tertiary  { fill: #C2A14D; }
+    .stroke-primary   { stroke: #0E7C7B; }
+    .stroke-secondary { stroke: #7A5195; }
+    .stroke-tertiary  { stroke: #C2A14D; }
+    .stroke-strong    { stroke: #17323A; }
+    .stroke-subtle    { stroke: #D3DFDF; }
+  </style>
+
+  <defs>
+    <clipPath id="params"><rect x="58" y="10" width="790" height="200" rx="16"/></clipPath>
+  </defs>
+
+  <!-- the whole computation, llm(input), sits on the parameters -->
+  <rect class="text-primary" x="58" y="10" width="790" height="200" rx="16"/>
+  <g clip-path="url(#params)" opacity="0.3">
+    <text x="113" y="25" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.35</text>
+    <text x="181" y="25" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.70</text>
+    <text x="249" y="25" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.30</text>
+    <text x="317" y="25" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.86</text>
+    <text x="385" y="25" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.07</text>
+    <text x="453" y="25" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.27</text>
+    <text x="521" y="25" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.88</text>
+    <text x="589" y="25" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.01</text>
+    <text x="657" y="25" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.93</text>
+    <text x="725" y="25" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.13</text>
+    <text x="793" y="25" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.86</text>
+    <text x="113" y="44" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.82</text>
+    <text x="181" y="44" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.15</text>
+    <text x="249" y="44" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.65</text>
+    <text x="317" y="44" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.75</text>
+    <text x="385" y="44" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.55</text>
+    <text x="453" y="44" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.25</text>
+    <text x="521" y="44" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.90</text>
+    <text x="589" y="44" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.15</text>
+    <text x="657" y="44" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.21</text>
+    <text x="725" y="44" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.95</text>
+    <text x="793" y="44" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.91</text>
+    <text x="113" y="63" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.72</text>
+    <text x="181" y="63" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.42</text>
+    <text x="249" y="63" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.71</text>
+    <text x="317" y="63" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.76</text>
+    <text x="385" y="63" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.38</text>
+    <text x="453" y="63" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.63</text>
+    <text x="521" y="63" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.64</text>
+    <text x="589" y="63" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.16</text>
+    <text x="657" y="63" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.28</text>
+    <text x="725" y="63" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.26</text>
+    <text x="793" y="63" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.10</text>
+    <text x="113" y="82" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.87</text>
+    <text x="181" y="82" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.88</text>
+    <text x="249" y="82" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.59</text>
+    <text x="317" y="82" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.36</text>
+    <text x="385" y="82" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.14</text>
+    <text x="453" y="82" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.37</text>
+    <text x="521" y="82" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.17</text>
+    <text x="589" y="82" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.09</text>
+    <text x="657" y="82" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.40</text>
+    <text x="725" y="82" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.59</text>
+    <text x="793" y="82" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.40</text>
+    <text x="113" y="101" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.51</text>
+    <text x="181" y="101" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.15</text>
+    <text x="249" y="101" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.05</text>
+    <text x="317" y="101" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.75</text>
+    <text x="385" y="101" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.46</text>
+    <text x="453" y="101" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.42</text>
+    <text x="521" y="101" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.96</text>
+    <text x="589" y="101" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.76</text>
+    <text x="657" y="101" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.16</text>
+    <text x="725" y="101" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.51</text>
+    <text x="793" y="101" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.70</text>
+    <text x="113" y="120" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.02</text>
+    <text x="181" y="120" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.92</text>
+    <text x="249" y="120" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.34</text>
+    <text x="317" y="120" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.53</text>
+    <text x="385" y="120" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.15</text>
+    <text x="453" y="120" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.75</text>
+    <text x="521" y="120" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.37</text>
+    <text x="589" y="120" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.39</text>
+    <text x="657" y="120" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.19</text>
+    <text x="725" y="120" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.16</text>
+    <text x="793" y="120" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.09</text>
+    <text x="113" y="139" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.68</text>
+    <text x="181" y="139" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.89</text>
+    <text x="249" y="139" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.05</text>
+    <text x="317" y="139" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.33</text>
+    <text x="385" y="139" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.88</text>
+    <text x="453" y="139" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.40</text>
+    <text x="521" y="139" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.29</text>
+    <text x="589" y="139" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.99</text>
+    <text x="657" y="139" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.64</text>
+    <text x="725" y="139" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.43</text>
+    <text x="793" y="139" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.23</text>
+    <text x="113" y="158" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.34</text>
+    <text x="181" y="158" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.95</text>
+    <text x="249" y="158" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.08</text>
+    <text x="317" y="158" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.66</text>
+    <text x="385" y="158" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.77</text>
+    <text x="453" y="158" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.88</text>
+    <text x="521" y="158" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.54</text>
+    <text x="589" y="158" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.74</text>
+    <text x="657" y="158" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.50</text>
+    <text x="725" y="158" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.22</text>
+    <text x="793" y="158" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.74</text>
+    <text x="113" y="177" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.84</text>
+    <text x="181" y="177" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.10</text>
+    <text x="249" y="177" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.10</text>
+    <text x="317" y="177" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.77</text>
+    <text x="385" y="177" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.64</text>
+    <text x="453" y="177" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.73</text>
+    <text x="521" y="177" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.44</text>
+    <text x="589" y="177" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.17</text>
+    <text x="657" y="177" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.28</text>
+    <text x="725" y="177" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.77</text>
+    <text x="793" y="177" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.92</text>
+    <text x="113" y="196" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.70</text>
+    <text x="181" y="196" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.65</text>
+    <text x="249" y="196" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.54</text>
+    <text x="317" y="196" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.53</text>
+    <text x="385" y="196" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.03</text>
+    <text x="453" y="196" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.18</text>
+    <text x="521" y="196" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.47</text>
+    <text x="589" y="196" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.99</text>
+    <text x="657" y="196" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.16</text>
+    <text x="725" y="196" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">-0.26</text>
+    <text x="793" y="196" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="16" class="text-on-accent">+0.13</text>
+  </g>
+  <text x="358" y="110" text-anchor="end" dominant-baseline="central" font-family="monospace" font-weight="700" font-size="96" class="text-on-accent">llm(</text>
+  <rect class="accent-primary" x="370" y="56" width="360" height="108" rx="16"/>
+  <text x="550" y="110" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-weight="700" font-size="80" class="text-on-accent">input</text>
+  <text x="742" y="110" dominant-baseline="central" font-family="monospace" font-weight="700" font-size="96" class="text-on-accent">)</text>
+
+  <!-- the output, outside -->
+  <text x="938" y="110" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-weight="700" font-size="96" class="accent-secondary">=</text>
+  <rect class="accent-secondary" x="1018" y="56" width="400" height="108" rx="16"/>
+  <text x="1218" y="110" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-weight="700" font-size="80" class="text-on-accent">output</text>
+</svg>

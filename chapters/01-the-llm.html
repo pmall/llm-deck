@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The LLM</title>
+<!--
+  Chapter 1 of the Demystifying AI learning pack: The LLM.
+  Structure: AGENTS.md §5 (chapter structure); topics and order: chapters.md.
+-->
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/themes/kujaku.css">
+</head>
+<body>
+
+<!-- ── COVER ── -->
+<section class="slide layout-cover inverse">
+  <div class="slide-content">
+    <p class="kicker">Demystifying AI · Chapter 1</p>
+    <h1>The LLM</h1>
+    <p class="lead">A function from text to the next token</p>
+  </div>
+</section>
+
+<!-- ── AGENDA: the chapter's questions ── -->
+<section class="slide layout-agenda">
+  <div class="slide-content">
+    <p class="kicker">Agenda</p>
+    <h2>The LLM</h2>
+    <ol class="agenda-list">
+      <li class="agenda-item">
+        <span class="agenda-num">01</span>
+        <span class="agenda-title">An LLM is one statistical function</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">02</span>
+        <span class="agenda-title">Parameters hold a lossy compression of human text</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">03</span>
+        <span class="agenda-title">Attention gives each word its meaning in context</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">04</span>
+        <span class="agenda-title">Tokens are the vocabulary it reads and writes</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">05</span>
+        <span class="agenda-title">The output is a probability for every token</span>
+      </li>
+    </ol>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>2</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 01 · An LLM is one statistical function ══════ -->
+
+<!-- NEW (draft 2026-11-06) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The LLM</p>
+    <h2>The LLM: a statistical function</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/llm-parameters.svg" alt="llm(input) = output, where llm is a block of numbers, its parameters"></figure>
+      <ul class="points">
+        <li>An LLM is one <strong>statistical function</strong> that understands a text and predicts what follows.</li>
+        <li>The input text is <strong>everything it knows</strong> about the task at hand.</li>
+        <li>Billions of <strong>parameters</strong> hold everything it learned from human text.</li>
+        <li>Chatbots, thinking models and agents are all <strong>built on this one function</strong>.</li>
+        <li>This chapter shows what “it predicts the next word” <strong>means exactly</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>3</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 02 · Parameters hold a lossy compression of human text ══════ -->
+
+<!-- part1 slide 3, reworded around the parameters · TODO (outline): existing versus plausible: a real archive gives back the documents that exist, the model any document that could exist (already in the takeaway); basis of the hallucination slide -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The LLM</p>
+    <h2>Parameters: a lossy zip file of human knowledge</h2>
+    <div class="stage">
+      <div class="figure figure-contain"><img src="../assets/compression.svg" alt="A messy heap of pages of human text compressed into one small file, which writes new pages"></div>
+      <ul class="points">
+        <li>Training sets <strong>billions of parameters</strong> from trillions of words of human text.</li>
+        <li>The parameters can be seen as the compression of all <strong>existing</strong> human text into a zip file.</li>
+        <li>Metaphorically, this zip file contains the infinity of all <strong>plausible</strong> documents.</li>
+        <li>Compressing human text a hundredfold leaves no choice but some form of <strong>understanding</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>4</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 03 · Attention gives each word its meaning in context ══════ -->
+
+<!-- TODO (attention is the mechanism the parameters encode, and why knowledge compresses so much) -->
+<!-- attention closes section 01: the mechanism that makes the compression possible; words, not tokens (tokens come in section 02); TODO content: say why attention allows compressing; key slide of the deck, never drop -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The LLM</p>
+    <h2>Attention: words take their meaning from each other</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/attention.svg" alt="Attention from mouse: in “The farmer caught the mouse in a trap” caught and trap pull it toward the animal; in “The gamer clicked the left mouse button” clicked and button pull it toward the device"></figure>
+      <ul class="points">
+        <li>Each word starts from a <strong>base meaning</strong>, the same in every text.</li>
+        <li>Attention <strong>blends</strong> in the meaning of the other words that count.</li>
+        <li>Base meanings and how much each word counts are both <strong>learned</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>5</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 04 · Tokens are the vocabulary it reads and writes ══════ -->
+
+<!-- new: text is mapped to a fixed vocabulary of tokens, independently of the LLM (no LLM on this slide) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The LLM</p>
+    <h2>Tokens: the vocabulary of the LLM</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/vocab-list.svg" alt="A blob of human text in many languages and code, written with tokens; the token cat turns up in several places. Next to it, an excerpt of the fixed list of tokens (care, carpet, cat, catch, cats) with the same cat entry highlighted"></figure>
+      <ul class="points">
+        <li>All human text is encoded with one fixed vocabulary of about <strong>256,000 tokens</strong>.</li>
+        <li>Tokens are <strong>frequent small slices</strong> of text rather than words.</li>
+        <li>A <strong>rare word</strong> is split into several frequent tokens.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>6</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 05 · The output is a probability for every token ══════ -->
+
+<!-- TODO (retitle: “Zoom on one step” needs the inference slide; end on the shorthand “it predicts the next token”) -->
+<!-- part1 slide 8 -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The LLM</p>
+    <h2>Zoom on one step: the LLM outputs probabilities</h2>
+    <div class="stage">
+      <div class="stack">
+        <div class="gen-row"><span class="fn">llm(</span><div class="chips chips-sm chips-flat"><span class="chip">The</span><span class="chip">cat</span><span class="chip">sat</span><span class="chip">on</span><span class="chip">the</span></div><span class="fn">)</span><span class="fn-arrow">=</span></div>
+        <div class="bars bars-wide">
+          <div class="bar"><span>mat</span><span class="track"><span class="fill" style="--w:45%"></span></span><span class="val">45%</span></div>
+          <div class="bar"><span>floor</span><span class="track"><span class="fill" style="--w:18%"></span></span><span class="val">18%</span></div>
+          <div class="bar"><span>sofa</span><span class="track"><span class="fill" style="--w:12%"></span></span><span class="val">12%</span></div>
+          <div class="bar"><span>bed</span><span class="track"><span class="fill" style="--w:8%"></span></span><span class="val">8%</span></div>
+        </div>
+        <p class="bars-rest">+ 255,996 other tokens, sharing the remaining 17%</p>
+      </div>
+      <ul class="points">
+        <li>One call gives a probability to each of the <strong>256,000 tokens</strong> of the vocabulary.</li>
+        <li>The next token is <strong>drawn at random</strong> from these probabilities.</li>
+        <li>This random draw lets two runs on the same text write <strong>different documents</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>7</span>
+  </footer>
+</section>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 # AGENTS.md — Slide Deck Harness
 
-You are a slide-deck builder. One repo clone, one finished deck: `deck.html`. The deck is the product itself, edited directly with the user in a ping-pong workflow — a deck, not a template. Print to PDF must reproduce the screen exactly, one `.slide` per page.
+You are a slide-deck builder. One repo clone, one learning pack: ten chapter decks in `chapters/`, each one standing alone. The decks are the product itself, edited directly with the user in a ping-pong workflow, one chapter at a time. Print to PDF must reproduce the screen exactly, one `.slide` per page.
 
 The whole system is static HTML + CSS + SVG. Its palette sensibility is inspired by Sanzo Wada's *A Dictionary of Color Combinations* — each theme is a small, named palette in that spirit.
 
@@ -14,7 +14,9 @@ The whole system is static HTML + CSS + SVG. Its palette sensibility is inspired
 ## 2. Repository
 
 ```
-deck.html                ← the deck (the only file we edit content in)
+chapters/
+  chapters.md            ← the chapter list: what each chapter covers, in order
+  NN-<name>.html         ← one deck per chapter (the only files we edit content in)
 styles/
   tokens.css             ← theme contract: every color/font token a theme must define. Reference only — never link it.
   base.css               ← structural tokens (type scale, spacing, geometry, radii) + all structural CSS + print rules + the 19 layout classes.
@@ -36,10 +38,10 @@ Two layers, owned by two files:
 
 ## 4. Themes
 
-The active theme is one line in `deck.html`:
+The active theme is one line in each chapter deck:
 
 ```html
-<link rel="stylesheet" href="styles/themes/kujaku.css">
+<link rel="stylesheet" href="../styles/themes/kujaku.css">
 ```
 
 Swap that line and the whole deck re-themes. Each theme file imports its Google Fonts, defines every contract token, and carries a header with: the **SVG style block** to paste into figures (§6), the **approved contrast pairings**, and a Wada-inspired provenance note (say honestly when values are hand-tuned approximations).
@@ -48,7 +50,7 @@ To add a palette: create `styles/themes/<name>.css` following the existing files
 
 ## 5. Layouts — composing slides
 
-Each file in `layouts/` is a copy-paste `<section>` snippet, standalone-previewable, with content limits documented in its header. To add a slide: copy the snippet into `deck.html`, fill the slots. All layout CSS lives in `base.css`.
+Each file in `layouts/` is a copy-paste `<section>` snippet, standalone-previewable, with content limits documented in its header. To add a slide: copy the snippet into the chapter deck, fill the slots, and prefix asset paths with `../`. All layout CSS lives in `base.css`.
 
 | Layout | Use for |
 |---|---|
@@ -76,11 +78,12 @@ The 19 layouts cover the common cases and should be used as-is ~99% of the time.
 
 **Custom content slides.** When the content has its own shape (a formula, a dialogue, a flow, nested boxes, a timeline), build a `.slide.layout-custom` from the components in `base.css` §7 — `.split`, `.panel`, `.code`, `.chips`, `.bars`, `.chat`/`.msg`, `.flow`/`.node`, `.box`, `.layers`, `.timeline`…, with the usual kicker + `h2`, the footer, and nothing past the footer. Diagrams that are really structured text (lists, trees, code, a row of boxes) stay in HTML/CSS. Anything with real geometry — cycles, branching arrows, positioned shapes, charts — is a standalone SVG figure (§6): don't force it into `.flow`/`.node`.
 
-**Transitions.** Every section opens with a `section-divider` slide (`layout-section inverse`), and these are the only transitions in the deck:
+**Chapter structure.** Each chapter deck stands alone: watching one chapter gives its full point.
 
-1. Its number is the section's number in the agenda (`01`, `02`…).
-2. Its title is the section's name, identical to the agenda title and to the kicker of the slides that follow.
-3. No lead line, no footer.
+1. A cover (`Demystifying AI · Chapter N`), then an agenda. Each agenda line is one content-bearing sentence, with no note beside it.
+2. Part 00 repeats in full the earlier slides the chapter needs, and only those. No recap or summary slides.
+3. Then one part per topic, in the order of `chapters/chapters.md`. The questions in that file guide the writing and never appear on slides.
+4. The kicker of every content slide is the chapter's name. No section dividers.
 
 Global modifiers: any `<section class="slide …">` takes `inverse` (dark background via `--bg-inverse`). Optional `.slide-footer` shows deck title + page number — keep page numbers in sync.
 
@@ -132,7 +135,7 @@ Content:
 12. **Density comes from content** — longer examples, a real case — never from frames or filler. Dense is not overcrowded: the slide fills its space, and margins are shared between components.
 13. **Understanding beats precision.** A recent, recognizable example with approximate but realistic numbers, consistent across slides, in the same units in text and visuals.
 14. **Side points stay side points.** One clause, never their own illustration or slide.
-15. **No lore on slides.** Anecdotes and AI-history facts are oral notes for the speaker, kept in `oral-notes.md`, never in `deck.html`.
+15. **No lore on slides.** Anecdotes and AI-history facts are for the speaker to tell, never on a slide.
 
 Process:
 
@@ -155,16 +158,16 @@ uv run playwright install chromium-headless-shell
 
 ```sh
 # One 1280×720 PNG per slide — visual overflow / clipping checks:
-uv run python scripts/export.py png
+uv run python scripts/export.py png --input chapters/01-the-llm.html --prefix 01-
 
 # Print-exact PDF, one 1280×720 page per slide:
-uv run python scripts/export.py pdf
+uv run python scripts/export.py pdf --input chapters/01-the-llm.html --prefix 01-
 
 # Geometry report — real slot rects, no files written:
-uv run python scripts/export.py boxes
+uv run python scripts/export.py boxes --input chapters/01-the-llm.html
 ```
 
-Flags: `--input PATH` (default `deck.html`; can point at a `layouts/*.html` preview), `--dir DIR` (default `.qa`, gitignored), `--prefix STR` (namespace runs, e.g. `A-`). All three subcommands wait for `document.fonts.ready` so webfonts settle. `.qa/` is never auto-cleared — manage artifacts yourself. Full flags: `uv run python scripts/export.py png --help`.
+Flags: `--input PATH` (always pass a chapter deck, or a `layouts/*.html` preview), `--dir DIR` (default `.qa`, gitignored), `--prefix STR` (namespace runs, e.g. `A-`). All three subcommands wait for `document.fonts.ready` so webfonts settle. `.qa/` is never auto-cleared — manage artifacts yourself. Full flags: `uv run python scripts/export.py png --help`.
 
 `boxes` prints each slide's content slots (`.figure`, `.figure img`, `.slide-footer`, `.diagram-wrap`, `.notes`, `.body`, `.cols`, `.stats`; `--select "SEL,SEL"` overrides) as rects relative to the slide, plus the post-`object-fit` box for `.figure img`. Size a figure's `viewBox` from it (§6) rather than from CSS arithmetic. `--json PATH` writes the data; nothing else is written.
 

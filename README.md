@@ -2,14 +2,14 @@
 
 A print-exact slide deck, built by your coding agent.
 
-This repo is a template for making presentations. It ships the deck (a single HTML file, `deck.html`) plus the instructions (`AGENTS.md`) so any coding agent — opencode, Claude Code, Codex, whatever — can build and iterate it for you. No JavaScript. One slide = one PDF page, identical to screen. You never edit the files yourself.
+This repo is a template for making presentations. It ships the decks (one HTML file per chapter, in `chapters/`) plus the instructions (`AGENTS.md`) so any coding agent — opencode, Claude Code, Codex, whatever — can build and iterate it for you. No JavaScript. One slide = one PDF page, identical to screen. You never edit the files yourself.
 
 ## How to use
 
 1. Open this repo with the coding agent of your choice.
 2. Tell it your **topic, audience, talk length / slide count, tone** — it proposes an outline for your approval first.
 3. Approve, then iterate slide by slide with the agent.
-4. Preview: open `deck.html` in any browser.
+4. Preview: open a chapter in `chapters/` in any browser.
 5. Export: **print the page to PDF from your browser.** Nothing else needed.
 
 ## Themes

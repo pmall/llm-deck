@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fine-tuning</title>
+<!--
+  Chapter 4 of the Demystifying AI learning pack: Fine-tuning.
+  Structure: AGENTS.md §5 (chapter structure); topics and order: chapters.md.
+-->
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/themes/kujaku.css">
+</head>
+<body>
+
+<!-- ── COVER ── -->
+<section class="slide layout-cover inverse">
+  <div class="slide-content">
+    <p class="kicker">Demystifying AI · Chapter 4</p>
+    <h1>Fine-tuning</h1>
+  </div>
+</section>
+
+<!-- ── AGENDA: the chapter's questions ── -->
+<section class="slide layout-agenda">
+  <div class="slide-content">
+    <p class="kicker">Agenda</p>
+    <h2>Fine-tuning</h2>
+    <ol class="agenda-list">
+      <li class="agenda-item">
+        <span class="agenda-num">00</span>
+        <span class="agenda-title">What this chapter builds on</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">01</span>
+        <span class="agenda-title">Patterns · few-shot prompting</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">02</span>
+        <span class="agenda-title">Fine-tuning</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">03</span>
+        <span class="agenda-title">Instruction tuning</span>
+      </li>
+    </ol>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>2</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 00 · What this chapter builds on (prerequisite slides, repeated in full) ══════ -->
+
+<!-- NEW (draft 2026-11-06) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Fine-tuning</p>
+    <h2>The LLM: a statistical function</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/llm-parameters.svg" alt="llm(input) = output, where llm is a block of numbers, its parameters"></figure>
+      <ul class="points">
+        <li>An LLM is one <strong>statistical function</strong> that understands a text and predicts what follows.</li>
+        <li>The input text is <strong>everything it knows</strong> about the task at hand.</li>
+        <li>Billions of <strong>parameters</strong> hold everything it learned from human text.</li>
+        <li>Chatbots, thinking models and agents are all <strong>built on this one function</strong>.</li>
+        <li>This chapter shows what “it predicts the next word” <strong>means exactly</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>3</span>
+  </footer>
+</section>
+
+<!-- new: text is mapped to a fixed vocabulary of tokens, independently of the LLM (no LLM on this slide) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Fine-tuning</p>
+    <h2>Tokenization: encode text for statistics</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/vocab-list.svg" alt="A blob of human text in many languages and code, written with tokens; the token cat turns up in several places. Next to it, an excerpt of the fixed list of tokens (care, carpet, cat, catch, cats) with the same cat entry highlighted"></figure>
+      <ul class="points">
+        <li>All human text is encoded with one fixed vocabulary of about <strong>256,000 tokens</strong>.</li>
+        <li>Tokens are <strong>frequent small slices</strong> of text rather than words.</li>
+        <li>A <strong>rare word</strong> is split into several frequent tokens.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>4</span>
+  </footer>
+</section>
+
+<!-- part1 slide 5: pre-training sets the base meanings and what counts (attention, slide 6) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Fine-tuning</p>
+    <h2>Pre-training: learn by predicting the next token</h2>
+    <div class="stage">
+      <div class="split split-wide-left">
+        <div class="chips chips-xs chips-flat"><span class="chip">…</span><span class="chip"> sch</span><span class="chip">lä</span><span class="chip">ft</span><span class="chip"> auf</span><span class="chip"> dem</span><span class="chip"> Sofa</span><span class="chip">.</span><span class="chip"> Le</span><span class="chip"> chat</span><span class="chip"> dort</span><span class="chip"> sur</span><span class="chip"> le</span><span class="chip"> can</span><span class="chip">ap</span><span class="chip">é</span><span class="chip">.</span><span class="chip"> It</span><span class="chip"> was</span><span class="chip"> late</span><span class="chip"> on</span><span class="chip"> the</span><span class="chip"> edge</span><span class="chip"> of</span><span class="chip"> town</span><span class="chip">.</span><span class="chip pull"> The</span><span class="chip pull"> cat</span><span class="chip pull"> sat</span><span class="chip pull"> on</span><span class="chip pull"> the</span><span class="chip pull"> mat</span><span class="chip"> while</span><span class="chip"> the</span><span class="chip"> rain</span><span class="chip"> fell</span><span class="chip">.</span><span class="chip"> </span><span class="chip">你</span><span class="chip">好</span><span class="chip">，</span><span class="chip">我</span><span class="chip">是</span><span class="chip">学</span><span class="chip">生</span><span class="chip">。</span><span class="chip"> Пр</span><span class="chip">ив</span><span class="chip">ет</span><span class="chip">,</span><span class="chip"> м</span><span class="chip">ир</span><span class="chip">!</span><span class="chip"> 🙂</span><span class="chip">↵</span><span class="chip">def</span><span class="chip"> count</span><span class="chip">_words</span><span class="chip">(text</span><span class="chip">):↵</span><span class="chip">   </span><span class="chip"> return</span><span class="chip"> len</span><span class="chip">…</span></div>
+        <div class="stack">
+          <div class="chips chips-xs chips-flat chips-grid"><span class="chip"> The</span><span class="chip target"> cat</span><span class="chip mask"></span><span class="chip mask"></span><span class="chip mask"></span><span class="chip mask"></span></div>
+          <div class="chips chips-xs chips-flat chips-grid"><span class="chip"> The</span><span class="chip"> cat</span><span class="chip target"> sat</span><span class="chip mask"></span><span class="chip mask"></span><span class="chip mask"></span></div>
+          <div class="chips chips-xs chips-flat chips-grid"><span class="chip"> The</span><span class="chip"> cat</span><span class="chip"> sat</span><span class="chip target"> on</span><span class="chip mask"></span><span class="chip mask"></span></div>
+          <div class="chips chips-xs chips-flat chips-grid"><span class="chip"> The</span><span class="chip"> cat</span><span class="chip"> sat</span><span class="chip"> on</span><span class="chip target"> the</span><span class="chip mask"></span></div>
+          <div class="chips chips-xs chips-flat chips-grid"><span class="chip"> The</span><span class="chip"> cat</span><span class="chip"> sat</span><span class="chip"> on</span><span class="chip"> the</span><span class="chip target"> mat</span></div>
+        </div>
+      </div>
+      <ul class="points">
+        <li>The LLM <strong>predicts each token</strong> of the training text from the tokens before it.</li>
+        <li>The real next token is already in the text, so <strong>no labels</strong> are needed.</li>
+        <li>The LLM is far too small to store all text, so predicting well forces it to learn <strong>meaning</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>5</span>
+  </footer>
+</section>
+
+<!-- part1 slide 7 -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Fine-tuning</p>
+    <h2>Inference: a whole document, one token at a time</h2>
+    <div class="stage">
+      <div class="split split-wide-left">
+        <figure class="figure figure-contain"><img src="../assets/autoregressive.svg" alt="llm(The cat) gives sat, which drops into the next call: llm(The cat sat) gives on, then the, then mat"></figure>
+        <div class="code code-wrap"><span class="dim">The cat</span><span class="hl"> sat on the mat while the rain fell. It watched the drops race down the window, then curled up and fell asleep. When the storm passed, it woke, stretched and walked to the door, waiting for someone to let it out…</span></div>
+      </div>
+      <ul class="points">
+        <li>One call reads <strong>the whole text so far</strong> and predicts the next token.</li>
+        <li>The new token is added to the end of the text before the <strong>next call</strong>.</li>
+        <li>A whole document takes <strong>one call per token</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>6</span>
+  </footer>
+</section>
+
+<!-- part1 slide 9 · TODO (outline): the base model is an autocomplete: continues a document, no instructions, no conversation -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Fine-tuning</p>
+    <h2>The base model: an autocomplete that dreams documents</h2>
+    <div class="stage">
+      <div class="panels-3">
+        <div class="code code-wrap"><span class="dim">Zebra - Wikipedia
+The zebra is</span><span class="hl"> an African equine with black-and-white stripes. Three species live today: the plains, Grévy’s and mountain zebras. They…</span></div>
+        <div class="code"><span class="dim">def is_even(number: int):</span>
+<span class="hl">    return number % 2 == 0
+def is_odd(number: int):
+    return number % 2 == 1
+def is_zero(number: int):
+    return number == 0</span></div>
+        <div class="code code-wrap"><span class="dim">What is the capital of France?</span><span class="hl"> What is the capital of Italy? What is the capital of Spain? What is the capital of Japan? What is the capital of Egypt?</span></div>
+      </div>
+      <ul class="points">
+        <li>The LLM <strong>dreams the rest</strong> of any document in the same style and language.</li>
+        <li>Question lists in human text make the LLM <strong>continue</strong> a question rather than answer it.</li>
+        <li>Pre-training costs months of computing, so many models reuse <strong>the same base model</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>7</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 01 · Patterns · few-shot prompting ══════ -->
+
+<!-- part1 slide 13 -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Fine-tuning</p>
+    <h2>Emergent property: the LLM picks up patterns</h2>
+    <div class="stage">
+      <div class="panels-2">
+        <div class="code"><span class="dim">What is the capital of Italy? Rome.
+What is the capital of Spain? Madrid.
+What is the capital of Japan? Tokyo.
+What is the capital of Turkey? Ankara.
+What is the capital of Egypt? Cairo.
+What is the capital of France?</span><span class="hl"> Paris.</span></div>
+        <div class="code"><span class="dim">What is a dish from Italy? 🍕 Pizza.
+What is a dish from Spain? 🥘 Paella.
+What is a dish from Japan? 🍣 Sushi.
+What is a dish from Turkey? 🥙 Kebab.
+What is a dish from Egypt? 🧆 Falafel.
+What is a dish from France?</span><span class="hl"> 🥐 Croissant.</span></div>
+      </div>
+      <ul class="points">
+        <li>The LLM <strong>spots patterns</strong> in the prompt and continues them.</li>
+        <li>This ability <strong>emerged</strong> on its own as LLMs grew larger.</li>
+        <li>Steering the LLM with a few examples is called <strong>few-shot prompting</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>8</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 02 · Fine-tuning ══════ -->
+
+<!-- part1 slide 14 · TODO (outline): reframe as: seen a pattern ≠ learned a pattern; pre-training holds every pattern, each seen a little; what if the model is trained on thousands of examples of one single pattern? -->
+<section class="slide layout-two-images">
+  <div class="slide-content">
+    <p class="kicker">Fine-tuning</p>
+    <h2>Fine-tuning: one concept takes the lead</h2>
+    <div class="stage">
+      <div class="cols">
+        <div class="col">
+          <figure class="figure figure-contain"><img src="../assets/document-heap.svg" alt="A bunch of mixed pages, every size and angle, piled together."></figure>
+        </div>
+        <div class="col">
+          <figure class="figure figure-contain"><img src="../assets/document-sets.svg" alt="Ten neat sets of identical pages, one per concept; the medicine set is teal."></figure>
+        </div>
+      </div>
+      <ul class="points">
+        <li>Pre-training absorbs <strong>everything</strong> people wrote, as much as possible.</li>
+        <li>Fine-tuning picks <strong>one coherent set</strong> of documents and continues the training on it.</li>
+        <li>The LLM keeps its knowledge, but that set now <strong>steers how it writes</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>9</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 03 · Instruction tuning ══════ -->
+
+<!-- TODO (outline: assistant dialogues also teach the confident tone, which makes hallucinations sound sure) -->
+<!-- part1 slide 15 · TODO (outline): assistant dialogues are almost absent from the internet, so people write them; side point: the same mechanism with theater-like dialogues gives the assistant its personality -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">Fine-tuning</p>
+    <h2>Instruction tuning: from autocomplete to assistant</h2>
+    <div class="stage">
+      <div class="panels-2">
+        <div class="code code-wrap"><span class="dim">&lt;user&gt;</span> What is the capital of France?<span class="dim">&lt;end&gt;</span>
+<span class="dim">&lt;assistant&gt;</span><span class="hl"> The capital of France is Paris, on the Seine.</span><span class="dim">&lt;end&gt;</span>
+<span class="dim">&lt;user&gt;</span> What should I visit there first?<span class="dim">&lt;end&gt;</span>
+<span class="dim">&lt;assistant&gt;</span><span class="hl"> The Louvre. Book ahead to see the Mona Lisa.</span><span class="dim">&lt;end&gt;</span></div>
+        <div class="code code-wrap"><span class="dim">&lt;user&gt;</span> Can you translate “good morning” into Italian?<span class="dim">&lt;end&gt;</span>
+<span class="dim">&lt;assistant&gt;</span><span class="hl"> Of course: “Buongiorno”.</span><span class="dim">&lt;end&gt;</span>
+<span class="dim">&lt;user&gt;</span> Thanks! And in Japanese?<span class="dim">&lt;end&gt;</span>
+<span class="dim">&lt;assistant&gt;</span><span class="hl"> “Ohayō gozaimasu”, or simply “Ohayō” with friends.</span><span class="dim">&lt;end&gt;</span></div>
+      </div>
+      <ul class="points">
+        <li>Researchers manufactured <strong>millions of user–assistant conversations</strong> to train on.</li>
+        <li>Special tokens name <strong>who speaks</strong> and close <strong>each turn</strong>, like in a theatre script.</li>
+        <li>The LLM picks up the pattern and turns from an autocomplete into <strong>an assistant</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>10</span>
+  </footer>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The agent loop</title>
+<!--
+  Chapter 8 of the Demystifying AI learning pack: The agent loop.
+  Structure: AGENTS.md §5 (chapter structure); topics and order: chapters.md.
+-->
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/themes/kujaku.css">
+</head>
+<body>
+
+<!-- ── COVER ── -->
+<section class="slide layout-cover inverse">
+  <div class="slide-content">
+    <p class="kicker">Demystifying AI · Chapter 8</p>
+    <h1>The agent loop</h1>
+  </div>
+</section>
+
+<!-- ── AGENDA: the chapter's questions ── -->
+<section class="slide layout-agenda">
+  <div class="slide-content">
+    <p class="kicker">Agenda</p>
+    <h2>The agent loop</h2>
+    <ol class="agenda-list">
+      <li class="agenda-item">
+        <span class="agenda-num">00</span>
+        <span class="agenda-title">What this chapter builds on</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">01</span>
+        <span class="agenda-title">Three parties · the loop</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">02</span>
+        <span class="agenda-title">Self-verification</span>
+      </li>
+      <li class="agenda-item">
+        <span class="agenda-num">03</span>
+        <span class="agenda-title">Tests as checks</span>
+      </li>
+    </ol>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>2</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 00 · What this chapter builds on (prerequisite slides, repeated in full) ══════ -->
+
+<!-- NEW (draft 2026-11-06) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The agent loop</p>
+    <h2>The LLM: a statistical function</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/llm-parameters.svg" alt="llm(input) = output, where llm is a block of numbers, its parameters"></figure>
+      <ul class="points">
+        <li>An LLM is one <strong>statistical function</strong> that understands a text and predicts what follows.</li>
+        <li>The input text is <strong>everything it knows</strong> about the task at hand.</li>
+        <li>Billions of <strong>parameters</strong> hold everything it learned from human text.</li>
+        <li>Chatbots, thinking models and agents are all <strong>built on this one function</strong>.</li>
+        <li>This chapter shows what “it predicts the next word” <strong>means exactly</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>3</span>
+  </footer>
+</section>
+
+<!-- new: text is mapped to a fixed vocabulary of tokens, independently of the LLM (no LLM on this slide) -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The agent loop</p>
+    <h2>Tokenization: encode text for statistics</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/vocab-list.svg" alt="A blob of human text in many languages and code, written with tokens; the token cat turns up in several places. Next to it, an excerpt of the fixed list of tokens (care, carpet, cat, catch, cats) with the same cat entry highlighted"></figure>
+      <ul class="points">
+        <li>All human text is encoded with one fixed vocabulary of about <strong>256,000 tokens</strong>.</li>
+        <li>Tokens are <strong>frequent small slices</strong> of text rather than words.</li>
+        <li>A <strong>rare word</strong> is split into several frequent tokens.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>4</span>
+  </footer>
+</section>
+
+<!-- part1 slide 7 -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The agent loop</p>
+    <h2>Inference: a whole document, one token at a time</h2>
+    <div class="stage">
+      <div class="split split-wide-left">
+        <figure class="figure figure-contain"><img src="../assets/autoregressive.svg" alt="llm(The cat) gives sat, which drops into the next call: llm(The cat sat) gives on, then the, then mat"></figure>
+        <div class="code code-wrap"><span class="dim">The cat</span><span class="hl"> sat on the mat while the rain fell. It watched the drops race down the window, then curled up and fell asleep. When the storm passed, it woke, stretched and walked to the door, waiting for someone to let it out…</span></div>
+      </div>
+      <ul class="points">
+        <li>One call reads <strong>the whole text so far</strong> and predicts the next token.</li>
+        <li>The new token is added to the end of the text before the <strong>next call</strong>.</li>
+        <li>A whole document takes <strong>one call per token</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>5</span>
+  </footer>
+</section>
+
+<!-- part1 slide 19 · TODO (outline): the chatbot is the software that keeps the history and sends it back each turn; add the KV cache (only the new message is processed); system prompt already a bullet here -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The agent loop</p>
+    <h2>Chatting: one turn at a time</h2>
+    <div class="stage">
+      <figure class="figure figure-contain"><img src="../assets/chat-turns.svg" alt="llm(user: What is the capital of France?) gives assistant: Paris.; that turn and the new user turn And of Italy? go back in and give Rome.; then And of Spain? is added and gives Madrid."></figure>
+      <ul class="points">
+        <li>Each time you send a message, the chatbot sends <strong>the whole conversation</strong> to the LLM.</li>
+        <li>The LLM writes the assistant’s turn token by token, until the end token.</li>
+        <li>The LLM <strong>remembers nothing</strong> between turns. The conversation it receives is its only memory.</li>
+        <li>A hidden first turn, the <strong>system prompt</strong>, gives the assistant its instructions.</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>6</span>
+  </footer>
+</section>
+
+<!-- part2 slide 4 · TODO (outline): still a conversation, with one more participant; the environment is not intelligent: it executes and reports -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The agent loop</p>
+    <h2>Tool calling: the answer can be an instruction</h2>
+    <div class="stage">
+      <div class="split">
+        <div class="chat">
+          <div class="msg"><span class="role">User</span>Will it rain in Paris on Saturday?</div>
+          <div class="msg msg-assistant"><span class="role">Assistant</span><code>weather(city="Paris", day="Sat")</code></div>
+          <div class="msg msg-tool"><span class="role">Chatbot system · runs it, posts the result</span>{"forecast": "rain", "temp_c": 11}</div>
+          <div class="msg msg-assistant"><span class="role">Assistant</span>Yes, rain, 11 °C. Plan indoors.</div>
+        </div>
+        <ul class="points">
+          <li>The assistant only writes messages.</li>
+          <li>So a message can be <strong>an instruction</strong>: “call this tool, with these arguments”.</li>
+          <li>The chatbot system runs it and posts the result back <strong>as a new message</strong>: the LLM executes nothing.</li>
+          <li>The forecast is <strong>fetched</strong>, not predicted: live context, not training data.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>7</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 01 · Three parties · the loop ══════ -->
+
+<!-- NEW (draft 2026-11-06) · replaces the “Working title: the three-party conversation” placeholder -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The agent loop</p>
+    <h2>An agent is a conversation with three parties</h2>
+    <div class="stage">
+      <div class="split">
+        <div class="chat">
+          <div class="msg"><span class="role">You</span>Turn the three Q3 reports in data/ into a one-page memo.</div>
+          <div class="msg msg-assistant"><span class="role">Assistant · to the environment</span><code>list_files("data/")</code></div>
+          <div class="msg msg-tool"><span class="role">Environment</span>q3-sales.pdf, q3-ops.pdf, q3-hr.pdf</div>
+          <div class="msg msg-assistant"><span class="role">Assistant · to the environment</span><code>read_file("data/q3-sales.pdf")</code></div>
+          <div class="msg msg-tool"><span class="role">Environment</span>“Revenue up 12%, margin flat…”</div>
+          <div class="msg msg-assistant"><span class="role">Assistant · to you</span>Done: outputs/memo.md, one page.</div>
+        </div>
+        <ul class="points">
+          <li>You talk to the chatbot. The chatbot talks to <strong>the environment</strong>: files, tools, the internet.</li>
+          <li>The environment runs each instruction and reports back. It is <strong>not intelligent</strong>.</li>
+          <li>The conversation stops when the next message is <strong>addressed to you</strong>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>8</span>
+  </footer>
+</section>
+
+<!-- part2 slide 3 · TODO (outline): an agent is the chatbot and the environment together, which is why “agent” is so hard to define -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The agent loop</p>
+    <h2>What is an “agent”? Nobody quite agrees</h2>
+    <div class="stage">
+      <div class="stack">
+        <div class="spectrum">“agent”: somewhere in here</div>
+        <div class="spectrum-labels"><span>chatbot</span><span>assistant with tools</span><span>autonomous agent</span><span>multi-agent</span></div>
+      </div>
+      <p class="lead">No settled definition: the <strong>LLM</strong>? The <strong>software around it</strong>? <strong>Both</strong>? Vendors mean all three.</p>
+      <p class="takeaway">Let’s build one, step by step, <em>from the Part 1 chatbot</em>.</p>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>9</span>
+  </footer>
+</section>
+
+<!-- part2 slide 5 · TODO (outline): the loop is the conversation you’re not part of; it stops when the next message is addressed to you -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The agent loop</p>
+    <h2>The ReAct loop: the Part 1 chatbot, with one rule changed</h2>
+    <div class="stage">
+      <div class="split">
+        <figure class="figure figure-contain"><img src="../assets/react-loop.svg" alt="The ReAct loop: think, act, observe, repeat"></figure>
+        <div class="stack" style="gap: var(--space-4)">
+          <div class="code">llm(… user)               = <span class="hl">tool_call₁</span>
+llm(… tool_call₁ result₁) = <span class="hl">tool_call₂</span>
+llm(… tool_call₂ result₂) = <span class="hl">answer</span></div>
+          <div class="panel panel-muted"><span class="panel-label">Part 1 · chatbot</span><p>After every answer, it stops: <strong>your turn</strong>.</p></div>
+          <div class="panel panel-featured"><span class="panel-label">Agent</span><p>A tool call? Run it, append the result, call the LLM again. It stops only when the LLM <em>answers</em>.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>10</span>
+  </footer>
+</section>
+
+<!-- part2 slide 8 -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The agent loop</p>
+    <h2>An agent: tools in a loop, until the goal is met</h2>
+    <div class="stage">
+      <dl class="defs" style="--def-w: 16ch">
+        <div class="def"><dt>Chatbot</dt><dd>The LLM writes; you fetch, carry and check</dd></div>
+        <div class="def"><dt>With tools</dt><dd>One tool call, then back to you</dd></div>
+        <div class="def"><dt>Agent</dt><dd>Tools in a loop: it fetches, acts and checks by itself, until the goal is met</dd></div>
+        <div class="def"><dt>Multi-agent</dt><dd>Agents handing work to agents (later today)</dd></div>
+      </dl>
+      <p class="takeaway">Agency is a degree: <em>how much it does between two of your messages</em>.</p>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>11</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 02 · Self-verification ══════ -->
+
+<!-- part2 slide 6 -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The agent loop</p>
+    <h2>Self-verification: check the result against the goal</h2>
+    <div class="stage">
+      <div class="split">
+        <figure class="figure figure-contain"><img src="../assets/react-verify.svg" alt="The ReAct loop with a check against the criteria before answering"></figure>
+        <ul class="points">
+          <li>Observing is not checking: a tool call can succeed and the result still be wrong.</li>
+          <li>One more step in the loop: compare the result to <strong>explicit criteria</strong> (tests, specs, a checklist).</li>
+          <li>Reasoning alone: plausible plans. Tools alone: unchecked actions. With checks: <strong>tested results</strong>.</li>
+          <li>It stops when the criteria are met, not after a fixed number of steps.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>12</span>
+  </footer>
+</section>
+
+<!-- ══════ PART 03 · Tests as checks ══════ -->
+
+<!-- part2 slide 7 · TODO (outline): RL on tool calling: tests give the reward, which is why coding agents matured first -->
+<section class="slide layout-custom">
+  <div class="slide-content">
+    <p class="kicker">The agent loop</p>
+    <h2>Software engineering: the ideal sandbox</h2>
+    <div class="stage">
+      <div class="split">
+        <div class="code">$ run tests
+<span class="dim">FAIL  3 failed, 41 passed</span>
+<span class="dim">… agent reads the failures, edits the code …</span>
+$ run tests
+<span class="hl">PASS  44 passed</span></div>
+        <ul class="points">
+          <li>Code gives <strong>deterministic feedback</strong>: compilers, unit tests, linters.</li>
+          <li>Verification is free, instant, unambiguous: the test passes or fails.</li>
+          <li>Why coding agents matured first, and fuzzier tasks lag behind.</li>
+          <li>Lesson: give the agent a way to check itself.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Demystifying LLMs</span>
+    <span>13</span>
+  </footer>
+</section>
+
+</body>
+</html>
